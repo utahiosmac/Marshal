@@ -47,7 +47,7 @@ extension Dictionary where Key: KeyType {
     public func valueForKey<A: ValueType>(key: Key) throws -> A {
         let any = try anyForKey(key)
         do {
-            guard let result = try A.Value(any) as? A else {
+            guard let result = try A.value(any) as? A else {
                 throw Error.TypeMismatchWithKey(key: key.stringValue, expected: A.self, actual: any.dynamicType)
             }
             return result
@@ -60,7 +60,7 @@ extension Dictionary where Key: KeyType {
     public func valueForKey<A: ValueType>(key: Key) throws -> [A] {
         let any = try anyForKey(key)
         do {
-            return try Array<A>.Value(any)
+            return try Array<A>.value(any)
         }
         catch let Error.TypeMismatch(expected: expected, actual: actual) {
             throw Error.TypeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
