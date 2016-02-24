@@ -38,7 +38,7 @@ struct User: ObjectConvertible {
     var name: String
     var email: String
     
-    init(object: JSONObject) throws {
+    init(object: Object) throws {
         id = try object.valueForKey("id")
         name = try object.valueForKey("name")
         email = try object.valueForKey("email")
@@ -54,19 +54,19 @@ let users: [User] = json.valueForKey("users")
 
 ## Add Your Own Values
 
-Out of the box, `Marshall` supports extracting native Swift types like `String`, `Int`, etc., as well as anything conforming to `ObjectConvertible`, and arrays of the aforementioned types.
+Out of the box, `Marshal` supports extracting native Swift types like `String`, `Int`, etc., as well as anything conforming to `ObjectConvertible`, and arrays of the aforementioned types.
 
 However, addding your own extractable type is as easy as extending your type with `Marshal.ValueType`.
 
 ```swift
-extension NSDate : JSONValueType {
-    public static func JSONValue(object: Any) throws -> NSDate {
+extension NSDate : ValueType {
+    public static func value(object: Any) throws -> NSDate {
         guard let dateString = object as? String else {
-            throw JSONError.TypeMismatch(expected: String.self, actual: object.dynamicType)
+            throw Error.TypeMismatch(expected: String.self, actual: object.dynamicType)
         }
         // assuming you have a NSDate.fromISO8601String implemented...
         guard let date = NSDate.fromISO8601String(dateString) else {
-            throw JSONError.TypeMismatch(expected: "ISO8601 date string", actual: dateString)
+            throw Error.TypeMismatch(expected: "ISO8601 date string", actual: dateString)
         }
         return date
     }
