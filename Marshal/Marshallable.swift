@@ -13,12 +13,12 @@
 import Foundation
 
 
-public protocol ObjectConvertible : ValueType {
+public protocol Marshallable : ValueType {
     typealias ConvertibleType = Self
     init(object: Object) throws
 }
 
-extension ObjectConvertible {
+extension Marshallable {
     
     public static func value(object: Any) throws -> ConvertibleType {
         guard let convertedObject = object as? Object else {
