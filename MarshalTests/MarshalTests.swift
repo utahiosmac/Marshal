@@ -242,7 +242,7 @@ class MarshalTests: XCTestCase {
     }
 }
 
-struct Address: ObjectConvertible {
+struct Address: Unmarshaling {
     let street:String
     let city:String
     init(object json: JSONObject) throws {
@@ -251,7 +251,7 @@ struct Address: ObjectConvertible {
     }
 }
 
-struct Person: ObjectConvertible {
+struct Person: Unmarshaling {
     let firstName:String
     let lastName:String
     let score:Int
