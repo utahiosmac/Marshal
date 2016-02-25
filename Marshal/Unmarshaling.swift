@@ -13,12 +13,12 @@
 
 import Foundation
 
-public protocol Unmarshalable : ValueType {
+public protocol Unmarshaling : ValueType {
     typealias ConvertibleType = Self
     init(object: Object) throws
 }
 
-extension Unmarshalable {
+extension Unmarshaling {
     
     public static func unmarshal(object: Any) throws -> ConvertibleType {
         guard let convertedObject = object as? Object else {
