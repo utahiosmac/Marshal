@@ -12,6 +12,6 @@
 
 import Foundation
 
-public protocol Marshallable {
-    func marshall() -> Object
+public protocol Marshaling {
+    func marshal() -> Object
 }

@@ -14,6 +14,6 @@
 import Foundation
 
 
-public protocol Remarshallable {
-    func remarshall(object: Object)
+public protocol UnmarshalUpdating {
+    func update(object: Object)
 }
