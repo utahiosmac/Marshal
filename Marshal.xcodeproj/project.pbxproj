@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7112BA961C7ECCCC00B657F9 /* Marshal+NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7112BA951C7ECCCC00B657F9 /* Marshal+NSDate.swift */; };
 		7112BA9B1C7ECD5600B657F9 /* People.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA971C7ECD5600B657F9 /* People.json */; };
 		7112BA9C1C7ECD5600B657F9 /* TestDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA981C7ECD5600B657F9 /* TestDictionary.json */; };
 		7112BA9D1C7ECD5600B657F9 /* TestObjectArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA991C7ECD5600B657F9 /* TestObjectArray.json */; };
@@ -35,7 +34,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7112BA951C7ECCCC00B657F9 /* Marshal+NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Marshal+NSDate.swift"; sourceTree = "<group>"; };
 		7112BA971C7ECD5600B657F9 /* People.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = People.json; sourceTree = "<group>"; };
 		7112BA981C7ECD5600B657F9 /* TestDictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestDictionary.json; sourceTree = "<group>"; };
 		7112BA991C7ECD5600B657F9 /* TestObjectArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestObjectArray.json; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 				7112BA981C7ECD5600B657F9 /* TestDictionary.json */,
 				7112BA991C7ECD5600B657F9 /* TestObjectArray.json */,
 				7112BA9A1C7ECD5600B657F9 /* TestSimpleArray.json */,
-				7112BA951C7ECCCC00B657F9 /* Marshal+NSDate.swift */,
 				AFBED25E1C7E1AAB00622331 /* MarshalTests.swift */,
 				AFBED2601C7E1AAB00622331 /* Info.plist */,
 			);
@@ -249,7 +246,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFBED25F1C7E1AAB00622331 /* MarshalTests.swift in Sources */,
-				7112BA961C7ECCCC00B657F9 /* Marshal+NSDate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

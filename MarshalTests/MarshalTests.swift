@@ -15,7 +15,7 @@ import XCTest
 
 class MarshalTests: XCTestCase {
     
-    let object: Object = ["bigNumber": NSNumber(longLong: 10_000_000_000_000), "foo" : (2 as NSNumber), "str": "Hello, World!", "array" : [1,2,3,4,7], "object": ["foo" : (3 as NSNumber), "str": "Hello, World!"], "url":"http://apple.com", "date":"2015-10-07T15:04:46Z", "junk":"garbage", "urls":["http://apple.com", "http://github.com"]]
+    let object: Object = ["bigNumber": NSNumber(longLong: 10_000_000_000_000), "foo" : (2 as NSNumber), "str": "Hello, World!", "array" : [1,2,3,4,7], "object": ["foo" : (3 as NSNumber), "str": "Hello, World!"], "url":"http://apple.com",  "junk":"garbage", "urls":["http://apple.com", "http://github.com"]]
     
     override func setUp() {
         super.setUp()
@@ -51,13 +51,10 @@ class MarshalTests: XCTestCase {
             XCTAssertEqual(innerfoo2, 3)
             let url:NSURL = try! self.object.valueForKey("url")
             XCTAssertEqual(url.host, "apple.com")
-            let _:NSDate = try! self.object.valueForKey("date")
-            let date:NSDate? = try! self.object.valueForKey("date")
-            XCTAssert(date != .None)
             
             let expectation = self.expectationWithDescription("error")
             do {
-                let _:NSDate? = try self.object.valueForKey("junk")
+                let _:Int? = try self.object.valueForKey("junk")
             }
             catch {
                 let jsonError = error as! Error
@@ -73,8 +70,6 @@ class MarshalTests: XCTestCase {
             
             self.waitForExpectationsWithTimeout(1, handler: nil)
         }
-        
-        
     }
     
     func testOptionals() {
