@@ -13,6 +13,7 @@
 
 import Foundation
 
+
 public protocol Unmarshaling : ValueType {
     typealias ConvertibleType = Self
     init(object: Object) throws
