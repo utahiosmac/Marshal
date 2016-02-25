@@ -20,7 +20,7 @@ public protocol Unmarshaling : ValueType {
 
 extension Unmarshaling {
     
-    public static func unmarshal(object: Any) throws -> ConvertibleType {
+    public static func value(object: Any) throws -> ConvertibleType {
         guard let convertedObject = object as? Object else {
             throw Error.TypeMismatch(expected: Object.self, actual: object.dynamicType)
         }
