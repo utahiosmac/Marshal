@@ -1,12 +1,16 @@
 //
-//  Marshal.h
-//  Marshal
+//  M A R S H A L
 //
-//  Created by Jason Larsen on 2/24/16.
-//  Copyright © 2016 Utah iOS & Mac. All rights reserved.
+//       ()
+//       /\
+//  ()--'  '--()
+//    `.    .'
+//     / .. \
+//    ()'  '()
+//
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Marshal.
 FOUNDATION_EXPORT double MarshalVersionNumber;

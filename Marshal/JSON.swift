@@ -25,15 +25,15 @@ public struct JSONParser {
     
     private init() { }
     
-    public static func JSONObjectWithData(data: NSData) throws -> Object {
+    public static func JSONObjectWithData(data: NSData) throws -> JSONObject {
         let obj: Any = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-        return try Object.value(obj)
+        return try JSONObject.value(obj)
     }
     
-    public static func JSONArrayWithData(data: NSData) throws -> [Object] {
+    public static func JSONArrayWithData(data: NSData) throws -> [JSONObject] {
         let object: AnyObject = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-        guard let array = object as? [Object] else {
-            throw Error.TypeMismatch(expected: [Object].self, actual: object.dynamicType)
+        guard let array = object as? [JSONObject] else {
+            throw Error.TypeMismatch(expected: [JSONObject].self, actual: object.dynamicType)
         }
         return array
     }
