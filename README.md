@@ -1,5 +1,6 @@
 ![](Logo/Logo.png)
 
+[![License](https://img.shields.io/dub/l/vibe-d.svg)]
 # Marshal
 
 In Swift, we all deal with JSON, plists, and various forms of `[String: AnyObject]`. `Marshal` believes you don't need a Ph.D. in Monads or large, complex frameworks to deal with these in an expressive and type safe way. `Marshal` is a simple, lightweight framework for safely extracting values from `[String: AnyObject]`.
@@ -37,7 +38,7 @@ struct User: ObjectConvertible {
     var id: String
     var name: String
     var email: String
-    
+
     init(object: Object) throws {
         id = try object.valueForKey("id")
         name = try object.valueForKey("name")
