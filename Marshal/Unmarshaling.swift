@@ -10,15 +10,16 @@
 //
 //
 
+
 import Foundation
 
 
-public protocol ObjectConvertible : ValueType {
+public protocol Unmarshaling : ValueType {
     typealias ConvertibleType = Self
     init(object: Object) throws
 }
 
-extension ObjectConvertible {
+extension Unmarshaling {
     
     public static func value(object: Any) throws -> ConvertibleType {
         guard let convertedObject = object as? Object else {
