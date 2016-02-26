@@ -24,7 +24,7 @@ let name: String = try json <| "name"
 `Marshal` even handles pulling values out of nested objects.
 
 ```swift
-let name: String = try json.valueForKey("user.name")
+let url: NSURL = try json.valueForKey("user.website")
 ```
 
 ## Error Handling
@@ -57,7 +57,7 @@ let users: [User] = json.valueForKey("users")
 
 ## Add Your Own Values
 
-Out of the box, `Marshal` supports extracting native Swift types like `String`, `Int`, etc., as well as anything conforming to `Unmarshaling`, and arrays of the aforementioned types.
+Out of the box, `Marshal` supports extracting native Swift types like `String`, `Int`, etc., as well as `NSURL`, anything conforming to `Unmarshaling`, and arrays of the aforementioned types.
 
 However, addding your own extractable type is as easy as extending your type with `Marshal.ValueType`.
 
