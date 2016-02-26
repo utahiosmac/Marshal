@@ -43,9 +43,20 @@ extension Bool: ValueType {}
 
 extension Int64: ValueType {
     public static func value(object: Any) throws -> Int64 {
-        guard let value = object as? Int else { throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType) }
+        let is64Bit = sizeof(Int) == sizeof(Int64)
         
-        return Int64( value )
+        if is64Bit {
+            guard let value = object as? Int else {
+                throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+            }
+            return Int64(value)
+        }
+        else {
+            guard let value = object as? NSNumber else {
+                throw Error.TypeMismatch(expected: NSNumber.self, actual: object.dynamicType)
+            }
+            return value.longLongValue
+        }
     }
 }
 

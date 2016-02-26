@@ -15,7 +15,7 @@ import XCTest
 
 class MarshalTests: XCTestCase {
     
-    let object: Object = ["bigNumber": 10_000_000_000_000, "foo" : (2 as NSNumber), "str": "Hello, World!", "array" : [1,2,3,4,7], "object": ["foo" : (3 as NSNumber), "str": "Hello, World!"], "url":"http://apple.com",  "junk":"garbage", "urls":["http://apple.com", "http://github.com"]]
+    let object: Object = ["bigNumber": NSNumber(longLong:10_000_000_000_000), "foo" : (2 as NSNumber), "str": "Hello, World!", "array" : [1,2,3,4,7], "object": ["foo" : (3 as NSNumber), "str": "Hello, World!"], "url":"http://apple.com",  "junk":"garbage", "urls":["http://apple.com", "http://github.com"]]
     
     override func setUp() {
         super.setUp()
