@@ -25,7 +25,7 @@ public typealias ObjectArray = [Object]
 
 extension Dictionary where Key: KeyType {
     
-    private func anyForKey(key: Key) throws -> Any {
+    public func anyForKey(key: Key) throws -> Any {
         let pathComponents = key.stringValue.characters.split(".").map(String.init)
         var accumulator: Any = self
         
