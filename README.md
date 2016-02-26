@@ -65,11 +65,11 @@ However, addding your own extractable type is as easy as extending your type wit
 extension NSDate : ValueType {
     public static func value(object: Any) throws -> NSDate {
         guard let dateString = object as? String else {
-            throw Error.TypeMismatch(expected: String.self, actual: object.dynamicType)
+            throw Marshal.Error.TypeMismatch(expected: String.self, actual: object.dynamicType)
         }
         // assuming you have a NSDate.fromISO8601String implemented...
         guard let date = NSDate.fromISO8601String(dateString) else {
-            throw Error.TypeMismatch(expected: "ISO8601 date string", actual: dateString)
+            throw Marshal.Error.TypeMismatch(expected: "ISO8601 date string", actual: dateString)
         }
         return date
     }
