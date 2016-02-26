@@ -14,5 +14,5 @@
 import Foundation
 
 public protocol Marshaling {
-    func marshal() -> Object
+    func marshal() -> MarshaledObject
 }

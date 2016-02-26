@@ -9,7 +9,7 @@ In Swift, we all deal with JSON, plists, and various forms of `[String: AnyObjec
 
 ## Usage
 
-Extracting values from `[String: AnyObject]` (a.k.a. `Marshal.Object`) is as easy as:
+Extracting values from `[String: AnyObject]` (a.k.a. `MarshaledObject`) is as easy as:
 
 ```swift
 let name: String = try json.valueForKey("name")
@@ -33,15 +33,15 @@ Don't care about errors? Use `try?` to give yourself an optional value. Otherwis
 
 ## Converting to Models
 
-Often we want to take some `Marshal.Object` and turn it into one of our models (like intializing a model from a JSON object). For this, `Marshal` offers the `ObjectConvertible` protocol.
+Often we want to take some `MarshaledObject` and turn it into one of our models (like intializing a model from a JSON object). For this, `Marshal` offers the `Unmarshaling` protocol.
 
 ```swift
-struct User: ObjectConvertible {
+struct User: Unmarshaling {
     var id: String
     var name: String
     var email: String
 
-    init(object: Object) throws {
+    init(object: MarshaledObject) throws {
         id = try object.valueForKey("id")
         name = try object.valueForKey("name")
         email = try object.valueForKey("email")
@@ -57,7 +57,7 @@ let users: [User] = json.valueForKey("users")
 
 ## Add Your Own Values
 
-Out of the box, `Marshal` supports extracting native Swift types like `String`, `Int`, etc., as well as anything conforming to `ObjectConvertible`, and arrays of the aforementioned types.
+Out of the box, `Marshal` supports extracting native Swift types like `String`, `Int`, etc., as well as anything conforming to `Unmarshaling`, and arrays of the aforementioned types.
 
 However, addding your own extractable type is as easy as extending your type with `Marshal.ValueType`.
 
@@ -65,11 +65,11 @@ However, addding your own extractable type is as easy as extending your type wit
 extension NSDate : ValueType {
     public static func value(object: Any) throws -> NSDate {
         guard let dateString = object as? String else {
-            throw Error.TypeMismatch(expected: String.self, actual: object.dynamicType)
+            throw Marshal.Error.TypeMismatch(expected: String.self, actual: object.dynamicType)
         }
         // assuming you have a NSDate.fromISO8601String implemented...
         guard let date = NSDate.fromISO8601String(dateString) else {
-            throw Error.TypeMismatch(expected: "ISO8601 date string", actual: dateString)
+            throw Marshal.Error.TypeMismatch(expected: "ISO8601 date string", actual: dateString)
         }
         return date
     }
@@ -84,7 +84,7 @@ let birthDate: NSDate = json.valueForKey("user.dob")
 
 ## JSON
 
-One of the most common occurences of `[String: AnyObject]` are JSON objects. To this end, `Marshal` supplies a `JSONObject` typelias for `Marshal.Object`, and several helper functions.
+One of the most common occurences of `[String: AnyObject]` are JSON objects. To this end, `Marshal` supplies a `JSONObject` typelias for `MarshaledObject`, and several helper functions.
 
 ## Contributors
 

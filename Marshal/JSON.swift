@@ -16,8 +16,7 @@ import Foundation
 
 // MARK: - Types
 
-public typealias JSONObject = Object
-public typealias JSONArray = ObjectArray
+public typealias JSONObject = MarshaledObject
 
 
 // MARK: - Parser

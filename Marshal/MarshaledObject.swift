@@ -16,9 +16,7 @@ import Foundation
 
 // MARK: - Types
 
-public typealias Object = [String: AnyObject]
-
-public typealias ObjectArray = [Object]
+public typealias MarshaledObject = [String: AnyObject]
 
 
 // MARK: - Dictionary Extensions
