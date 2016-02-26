@@ -240,6 +240,20 @@ class MarshalTests: XCTestCase {
         XCTAssertEqual(iOne, MyIntEnum.One)
         
     }
+    
+    func testSet() {
+        let path = NSBundle(forClass: self.dynamicType).pathForResource("TestSimpleSet", ofType: "json")!
+        let data = NSData(contentsOfFile: path)!
+        let json = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as! JSONObject
+        
+        let first:Set<Int> = try! json.valueForKey("first")
+        XCTAssertEqual(first.count, 5)
+        let second:Set<Int> = try! json.valueForKey("second")
+        XCTAssertEqual(second.count, 5)
+        
+        let nope:Set<Int>? = try! json.valueForKey("junk")
+        XCTAssertEqual(nope, .None)
+    }
 }
 
 struct Address: Unmarshaling {

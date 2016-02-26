@@ -91,6 +91,28 @@ extension Dictionary where Key: KeyType {
             return nil
         }
     }
+    
+    public func valueForKey<A: ValueType>(key: Key) throws -> Set<A> {
+        let any = try anyForKey(key)
+        do {
+            return try Set<A>.value(any)
+        }
+        catch let Error.TypeMismatch(expected: expected, actual: actual) {
+            throw Error.TypeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
+        }
+    }
+    
+    public func valueForKey<A: ValueType>(key: Key) throws -> Set<A>? {
+        do {
+            return try self.valueForKey(key) as Set<A>
+        }
+        catch Error.KeyNotFound {
+            return nil
+        }
+        catch Error.NullValue {
+            return nil
+        }
+    }
 }
 
 extension Dictionary where Key: KeyType {
@@ -128,6 +150,29 @@ extension Dictionary where Key: KeyType {
     public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: Key) throws -> [A]? {
         do {
             return try self.valueForKey(key) as [A]
+        }
+        catch Error.KeyNotFound {
+            return nil
+        }
+        catch Error.NullValue {
+            return nil
+        }
+    }
+    
+    public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: Key) throws -> Set<A> {
+        let rawArray = try self.valueForKey(key) as [A.RawValue]
+        let enumArray: [A] = try rawArray.map({ raw in
+            guard let value = A(rawValue: raw) else {
+                throw Error.TypeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
+            }
+            return value
+        })
+        return Set<A>(enumArray)
+    }
+    
+    public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: Key) throws -> Set<A>? {
+        do {
+            return try self.valueForKey(key) as Set<A>
         }
         catch Error.KeyNotFound {
             return nil

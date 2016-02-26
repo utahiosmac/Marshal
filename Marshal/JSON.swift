@@ -59,3 +59,5 @@ extension JSONCollectionType {
 extension Dictionary : JSONCollectionType {}
 
 extension Array : JSONCollectionType {}
+
+extension Set : JSONCollectionType {}
