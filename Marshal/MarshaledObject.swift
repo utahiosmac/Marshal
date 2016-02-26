@@ -18,8 +18,6 @@ import Foundation
 
 public typealias MarshaledObject = [String: AnyObject]
 
-public typealias MarshaledArray = [MarshaledObject]
-
 
 // MARK: - Dictionary Extensions
 
