@@ -15,5 +15,5 @@ import Foundation
 
 
 public protocol UnmarshalUpdating {
-    func marshalUpdate(object: Object)
+    func marshal(object object: Object)
 }
