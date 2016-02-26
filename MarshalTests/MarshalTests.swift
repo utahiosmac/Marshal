@@ -240,6 +240,31 @@ class MarshalTests: XCTestCase {
         XCTAssertEqual(iOne, MyIntEnum.One)
         
     }
+    
+    func testSwiftBasicTypes() {
+        let object: Object = ["int8": NSNumber(integer: 100), "int16": NSNumber(integer: 32_000), "int32": NSNumber(integer: 2_100_000_000), "int64": NSNumber(longLong: 9_000_000_000_000_000_000), "uint8": NSNumber(unsignedInteger: 200), "uint16": NSNumber(unsignedInteger: 65_000), "uint32": NSNumber(unsignedInteger: 4_200_000_000), "uint64": NSNumber(unsignedLongLong: 18_000_000_000_000_000_000), "char": "S"]
+        
+        let int8: Int8 = try! object.valueForKey("int8")
+        XCTAssertEqual(int8, 100)
+        let int16: Int16 = try! object.valueForKey("int16")
+        XCTAssertEqual(int16, 32_000)
+        let int32: Int32 = try! object.valueForKey("int32")
+        XCTAssertEqual(int32, 2_100_000_000)
+        let int64: Int64 = try! object.valueForKey("int64")
+        XCTAssertEqual(int64, 9_000_000_000_000_000_000)
+        
+        let uint8: UInt8 = try! object.valueForKey("uint8")
+        XCTAssertEqual(uint8, 200)
+        let uint16: UInt16 = try! object.valueForKey("uint16")
+        XCTAssertEqual(uint16, 65_000)
+        let uint32: UInt32 = try! object.valueForKey("uint32")
+        XCTAssertEqual(uint32, 4_200_000_000)
+        let uint64: UInt64 = try! object.valueForKey("uint64")
+        XCTAssertEqual(uint64, 18_000_000_000_000_000_000)
+        
+        let char: Character = try! object.valueForKey("char")
+        XCTAssertEqual(char, "S")
+    }
 }
 
 struct Address: Unmarshaling {
