@@ -16,8 +16,7 @@ import Foundation
 
 // MARK: - Types
 
-public typealias JSONObject = Object
-public typealias JSONArray = ObjectArray
+public typealias JSONObject = MarshaledObject
 
 
 // MARK: - Parser
@@ -59,3 +58,5 @@ extension JSONCollectionType {
 extension Dictionary : JSONCollectionType {}
 
 extension Array : JSONCollectionType {}
+
+extension Set : JSONCollectionType {}
