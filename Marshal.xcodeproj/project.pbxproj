@@ -11,6 +11,17 @@
 		7112BA9C1C7ECD5600B657F9 /* TestDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA981C7ECD5600B657F9 /* TestDictionary.json */; };
 		7112BA9D1C7ECD5600B657F9 /* TestObjectArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA991C7ECD5600B657F9 /* TestObjectArray.json */; };
 		7112BA9E1C7ECD5600B657F9 /* TestSimpleArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA9A1C7ECD5600B657F9 /* TestSimpleArray.json */; };
+		AE0243471C81476500E78609 /* MarshaledObject+Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0243461C81476500E78609 /* MarshaledObject+Merge.swift */; };
+		AE0243491C8147FA00E78609 /* JSONParser+parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0243481C8147FA00E78609 /* JSONParser+parse.swift */; };
+		AE02434B1C81490200E78609 /* JSONCollectionType+PrettyPrinted.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE02434A1C81490200E78609 /* JSONCollectionType+PrettyPrinted.swift */; };
+		AE02434D1C8149EC00E78609 /* CoreGraphics+ValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE02434C1C8149EC00E78609 /* CoreGraphics+ValueType.swift */; };
+		AE02434F1C814CD200E78609 /* CoreGraphics+Marshaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE02434E1C814CD200E78609 /* CoreGraphics+Marshaling.swift */; };
+		AE0243511C814CE400E78609 /* CoreGraphics+Unmarshaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0243501C814CE400E78609 /* CoreGraphics+Unmarshaling.swift */; };
+		AE0243531C814E9800E78609 /* NSDate+ValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0243521C814E9800E78609 /* NSDate+ValueType.swift */; };
+		AE0243551C814F7700E78609 /* simd+ValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0243541C814F7700E78609 /* simd+ValueType.swift */; };
+		AE0243571C814FC000E78609 /* simd+Marshaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0243561C814FC000E78609 /* simd+Marshaling.swift */; };
+		AE0243591C814FF900E78609 /* simd+Unmarshaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0243581C814FF900E78609 /* simd+Unmarshaling.swift */; };
+		AE02435B1C81514E00E78609 /* NSColor+Marshal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE02435A1C81514E00E78609 /* NSColor+Marshal.swift */; };
 		AE5720E71C7FE97E00D45DE3 /* TestSimpleSet.json in Resources */ = {isa = PBXBuildFile; fileRef = AE5720E61C7FE97E00D45DE3 /* TestSimpleSet.json */; };
 		AFBED2531C7E1AAB00622331 /* Marshal.h in Headers */ = {isa = PBXBuildFile; fileRef = AFBED2521C7E1AAB00622331 /* Marshal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFBED25A1C7E1AAB00622331 /* Marshal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFBED24F1C7E1AAB00622331 /* Marshal.framework */; };
@@ -41,6 +52,17 @@
 		7112BA981C7ECD5600B657F9 /* TestDictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestDictionary.json; sourceTree = "<group>"; };
 		7112BA991C7ECD5600B657F9 /* TestObjectArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestObjectArray.json; sourceTree = "<group>"; };
 		7112BA9A1C7ECD5600B657F9 /* TestSimpleArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestSimpleArray.json; sourceTree = "<group>"; };
+		AE0243461C81476500E78609 /* MarshaledObject+Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarshaledObject+Merge.swift"; sourceTree = "<group>"; };
+		AE0243481C8147FA00E78609 /* JSONParser+parse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSONParser+parse.swift"; sourceTree = "<group>"; };
+		AE02434A1C81490200E78609 /* JSONCollectionType+PrettyPrinted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSONCollectionType+PrettyPrinted.swift"; sourceTree = "<group>"; };
+		AE02434C1C8149EC00E78609 /* CoreGraphics+ValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+ValueType.swift"; sourceTree = "<group>"; };
+		AE02434E1C814CD200E78609 /* CoreGraphics+Marshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Marshaling.swift"; sourceTree = "<group>"; };
+		AE0243501C814CE400E78609 /* CoreGraphics+Unmarshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Unmarshaling.swift"; sourceTree = "<group>"; };
+		AE0243521C814E9800E78609 /* NSDate+ValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+ValueType.swift"; sourceTree = "<group>"; };
+		AE0243541C814F7700E78609 /* simd+ValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd+ValueType.swift"; sourceTree = "<group>"; };
+		AE0243561C814FC000E78609 /* simd+Marshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd+Marshaling.swift"; sourceTree = "<group>"; };
+		AE0243581C814FF900E78609 /* simd+Unmarshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd+Unmarshaling.swift"; sourceTree = "<group>"; };
+		AE02435A1C81514E00E78609 /* NSColor+Marshal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Marshal.swift"; sourceTree = "<group>"; };
 		AE5720E61C7FE97E00D45DE3 /* TestSimpleSet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestSimpleSet.json; sourceTree = "<group>"; };
 		AFBED24F1C7E1AAB00622331 /* Marshal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Marshal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBED2521C7E1AAB00622331 /* Marshal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Marshal.h; sourceTree = "<group>"; };
@@ -78,6 +100,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE0243401C81474300E78609 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AE0243411C81474300E78609 /* AppKit */,
+				AE0243421C81474300E78609 /* CoreGraphics */,
+				AE0243431C81474300E78609 /* Foundation */,
+				AE0243441C81474300E78609 /* JSON */,
+				AE0243451C81474300E78609 /* simd */,
+				AE0243461C81476500E78609 /* MarshaledObject+Merge.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AE0243411C81474300E78609 /* AppKit */ = {
+			isa = PBXGroup;
+			children = (
+				AE02435A1C81514E00E78609 /* NSColor+Marshal.swift */,
+			);
+			path = AppKit;
+			sourceTree = "<group>";
+		};
+		AE0243421C81474300E78609 /* CoreGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				AE02434C1C8149EC00E78609 /* CoreGraphics+ValueType.swift */,
+				AE02434E1C814CD200E78609 /* CoreGraphics+Marshaling.swift */,
+				AE0243501C814CE400E78609 /* CoreGraphics+Unmarshaling.swift */,
+			);
+			path = CoreGraphics;
+			sourceTree = "<group>";
+		};
+		AE0243431C81474300E78609 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				AE0243521C814E9800E78609 /* NSDate+ValueType.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		AE0243441C81474300E78609 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				AE0243481C8147FA00E78609 /* JSONParser+parse.swift */,
+				AE02434A1C81490200E78609 /* JSONCollectionType+PrettyPrinted.swift */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		AE0243451C81474300E78609 /* simd */ = {
+			isa = PBXGroup;
+			children = (
+				AE0243541C814F7700E78609 /* simd+ValueType.swift */,
+				AE0243561C814FC000E78609 /* simd+Marshaling.swift */,
+				AE0243581C814FF900E78609 /* simd+Unmarshaling.swift */,
+			);
+			path = simd;
+			sourceTree = "<group>";
+		};
 		AFBED2451C7E1AAB00622331 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +190,7 @@
 				AFBED2731C7E1E0800622331 /* Operators.swift */,
 				AFBED2751C7E1E5100622331 /* JSON.swift */,
 				AFBED26F1C7E1CF100622331 /* Error.swift */,
+				AE0243401C81474300E78609 /* Extensions */,
 			);
 			path = Marshal;
 			sourceTree = "<group>";
@@ -243,13 +324,24 @@
 			files = (
 				AFBED27E1C7F699600622331 /* UnmarshalUpdating.swift in Sources */,
 				AFBED2721C7E1DA800622331 /* Marshaling.swift in Sources */,
+				AE0243491C8147FA00E78609 /* JSONParser+parse.swift in Sources */,
+				AE02434D1C8149EC00E78609 /* CoreGraphics+ValueType.swift in Sources */,
 				AFBED2701C7E1CF100622331 /* Error.swift in Sources */,
+				AE0243471C81476500E78609 /* MarshaledObject+Merge.swift in Sources */,
 				AFBED27C1C7F65BB00622331 /* Unmarshaling.swift in Sources */,
 				AFBED2761C7E1E5100622331 /* JSON.swift in Sources */,
 				AFBED26E1C7E1CA900622331 /* ValueType.swift in Sources */,
+				AE0243591C814FF900E78609 /* simd+Unmarshaling.swift in Sources */,
 				AFBED26A1C7E1B0500622331 /* MarshaledObject.swift in Sources */,
+				AE0243531C814E9800E78609 /* NSDate+ValueType.swift in Sources */,
 				AFBED26C1C7E1B3500622331 /* KeyType.swift in Sources */,
+				AE0243511C814CE400E78609 /* CoreGraphics+Unmarshaling.swift in Sources */,
+				AE02434B1C81490200E78609 /* JSONCollectionType+PrettyPrinted.swift in Sources */,
+				AE0243571C814FC000E78609 /* simd+Marshaling.swift in Sources */,
 				AFBED2741C7E1E0800622331 /* Operators.swift in Sources */,
+				AE0243551C814F7700E78609 /* simd+ValueType.swift in Sources */,
+				AE02434F1C814CD200E78609 /* CoreGraphics+Marshaling.swift in Sources */,
+				AE02435B1C81514E00E78609 /* NSColor+Marshal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
