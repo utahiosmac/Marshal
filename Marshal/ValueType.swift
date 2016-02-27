@@ -72,6 +72,13 @@ extension Dictionary: ValueType {
     }
 }
 
+extension Set where Element: ValueType {
+    public static func value(object: Any) throws -> Set<Element> {
+        let elementArray = try [Element].value(object)
+        return Set<Element>(elementArray)
+    }
+}
+
 extension NSURL: ValueType {
     public static func value(object: Any) throws -> NSURL {
         guard let urlString = object as? String, objectValue = NSURL(string: urlString) else {
