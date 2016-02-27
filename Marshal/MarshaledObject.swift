@@ -16,16 +16,14 @@ import Foundation
 
 // MARK: - Types
 
-public typealias Object = [String: AnyObject]
-
-public typealias ObjectArray = [Object]
+public typealias MarshaledObject = [String: AnyObject]
 
 
 // MARK: - Dictionary Extensions
 
 extension Dictionary where Key: KeyType {
     
-    private func anyForKey(key: Key) throws -> Any {
+    public func anyForKey(key: Key) throws -> Any {
         let pathComponents = key.stringValue.characters.split(".").map(String.init)
         var accumulator: Any = self
         
