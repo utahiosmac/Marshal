@@ -74,7 +74,7 @@ extension Dictionary: ValueType {
 
 extension Set where Element: ValueType {
     public static func value(object: Any) throws -> Set<Element> {
-        let elementArray = try Array<Element>.value(object)
+        let elementArray = try [Element].value(object)
         return Set<Element>(elementArray)
     }
 }
