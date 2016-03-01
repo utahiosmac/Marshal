@@ -17,15 +17,15 @@ import Foundation
 // MARK: - ValueType
 
 public protocol ValueType {
-    typealias _Value = Self
+    typealias Value = Self
     
-    static func value(object: Any) throws -> _Value
+    static func value(object: Any) throws -> Value
 }
 
 extension ValueType {
-    public static func value(object: Any) throws -> _Value {
-        guard let objectValue = object as? _Value else {
-            throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+    public static func value(object: Any) throws -> Value {
+        guard let objectValue = object as? Value else {
+            throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
         }
         return objectValue
     }
@@ -91,7 +91,7 @@ extension NSURL: ValueType {
 extension Int8: ValueType {
     public static func value(object: Any) throws -> Int8 {
         guard let value = object as? Int else {
-            throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+            throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
         }
         return Int8(value)
     }
@@ -99,7 +99,7 @@ extension Int8: ValueType {
 extension Int16: ValueType {
     public static func value(object: Any) throws -> Int16 {
         guard let value = object as? Int else {
-            throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+            throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
         }
         return Int16(value)
     }
@@ -107,7 +107,7 @@ extension Int16: ValueType {
 extension Int32: ValueType {
     public static func value(object: Any) throws -> Int32 {
         guard let value = object as? Int else {
-            throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+            throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
         }
         return Int32(value)
     }
@@ -116,7 +116,7 @@ extension Int32: ValueType {
 extension UInt8: ValueType {
     public static func value(object: Any) throws -> UInt8 {
         guard let value = object as? UInt else {
-            throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+            throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
         }
         return UInt8(value)
     }
@@ -124,7 +124,7 @@ extension UInt8: ValueType {
 extension UInt16: ValueType {
     public static func value(object: Any) throws -> UInt16 {
         guard let value = object as? UInt else {
-            throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+            throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
         }
         return UInt16(value)
     }
@@ -132,7 +132,7 @@ extension UInt16: ValueType {
 extension UInt32: ValueType {
     public static func value(object: Any) throws -> UInt32 {
         guard let value = object as? UInt else {
-            throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+            throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
         }
         return UInt32(value)
     }
@@ -143,7 +143,7 @@ extension UInt64: ValueType {
         
         if is64Bit {
             guard let value = object as? UInt else {
-                throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+                throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
             }
             return UInt64(value)
         }
@@ -159,7 +159,7 @@ extension UInt64: ValueType {
 extension Character: ValueType {
     public static func value(object: Any) throws -> Character {
         guard let value = object as? String else {
-            throw Error.TypeMismatch(expected: _Value.self, actual: object.dynamicType)
+            throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
         }
         return Character(value)
     }
