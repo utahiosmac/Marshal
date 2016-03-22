@@ -17,7 +17,7 @@ import Foundation
 // MARK: - ValueType
 
 public protocol ValueType {
-    typealias Value = Self
+    associatedtype Value = Self
     
     static func value(object: Any) throws -> Value
 }
