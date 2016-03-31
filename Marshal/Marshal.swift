@@ -23,6 +23,12 @@ public protocol Marshal {
     func valueForKey<A: ValueType>(key: KeyType) throws -> [A]?
     func valueForKey<A: ValueType>(key: KeyType) throws -> Set<A>
     func valueForKey<A: ValueType>(key: KeyType) throws -> Set<A>?
+    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> A
+    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> A?
+    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> [A]
+    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> [A]?
+    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> Set<A>
+    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> Set<A>?
 }
 
 public extension Marshal {
