@@ -139,20 +139,10 @@ extension UInt32: ValueType {
 }
 extension UInt64: ValueType {
     public static func value(object: Any) throws -> UInt64 {
-        let is64Bit = sizeof(UInt) == sizeof(UInt64)
-        
-        if is64Bit {
-            guard let value = object as? UInt else {
-                throw Error.TypeMismatch(expected: Value.self, actual: object.dynamicType)
-            }
-            return UInt64(value)
+        guard let value = object as? NSNumber else {
+            throw Error.TypeMismatch(expected: NSNumber.self, actual: object.dynamicType)
         }
-        else {
-            guard let value = object as? NSNumber else {
-                throw Error.TypeMismatch(expected: NSNumber.self, actual: object.dynamicType)
-            }
-            return value.unsignedLongLongValue
-        }
+        return value.unsignedLongLongValue
     }
 }
 
