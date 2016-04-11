@@ -30,7 +30,6 @@ script:
   - set -o pipefail
   - xcodebuild -version
   - xcodebuild -project "$PROJECT_NAME$PROJECT_SUFFFIX" -scheme "$SCHEME" -sdk "$SDK" GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
-  - xcodebuild -project "$PROJECT_NAME$PROJECT_SUFFFIX" -scheme "$SCHEME" -sdk "$SDK" GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO test | xcpretty -c
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -J "$PROJECT_NAME"
