@@ -9,13 +9,13 @@ env:
     - PROJECT_SUFFFIX=".xcodeproj"
     - FRAMEWORK_SCHEME="Marshal"
     - IOS_SDK=iphonesimulator9.3
-    - TVOS_SDK=appletvos9.2
+    - TVOS_SDK=appletvsimulator9.2
     - OSX_SDK=macosx10.11
   matrix:
     - DESTINATION="OS=8.1,name=iPhone 4S"       SCHEME="$FRAMEWORK_SCHEME" SDK="$IOS_SDK"
     - DESTINATION="OS=8.2,name=iPhone 5"        SCHEME="$FRAMEWORK_SCHEME" SDK="$IOS_SDK"
     - DESTINATION="OS=8.3,name=iPhone 5S"       SCHEME="$FRAMEWORK_SCHEME" SDK="$IOS_SDK"
-    - DESTINATION="OS=8.4,name=iPad Air 2"      SCHEME="$FRAMEWORK_SCHEME" SDK="$IOS_SDK"
+    - DESTINATION="OS=8.4,name=iPad Air"        SCHEME="$FRAMEWORK_SCHEME" SDK="$IOS_SDK"
     - DESTINATION="OS=9.0,name=iPhone 6S Plus"  SCHEME="$FRAMEWORK_SCHEME" SDK="$IOS_SDK"
     - DESTINATION="OS=9.1,name=iPhone 6S"       SCHEME="$FRAMEWORK_SCHEME" SDK="$IOS_SDK"
     - DESTINATION="OS=9.3,name=iPad Pro"        SCHEME="$FRAMEWORK_SCHEME" SDK="$IOS_SDK"
