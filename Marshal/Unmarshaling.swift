@@ -15,7 +15,7 @@ import Foundation
 
 
 public protocol Unmarshaling : ValueType {
-    typealias ConvertibleType = Self
+    associatedtype ConvertibleType = Self
     init(object: MarshaledObject) throws
 }
 
