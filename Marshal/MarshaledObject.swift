@@ -14,7 +14,7 @@
 import Foundation
 
 
-public protocol Marshal {
+public protocol MarshaledObject {
     subscript(key: KeyType) -> Any? { get }
     func anyForKey(key: KeyType) throws -> Any
     func valueForKey<A: ValueType>(key: KeyType) throws -> A
@@ -31,7 +31,7 @@ public protocol Marshal {
     func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> Set<A>?
 }
 
-public extension Marshal {
+public extension MarshaledObject {
     public func anyForKey(key: KeyType) throws -> Any {
         let pathComponents = key.stringValue.characters.split(".").map(String.init)
         var accumulator: Any = self

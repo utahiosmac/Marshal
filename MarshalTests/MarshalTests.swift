@@ -285,7 +285,7 @@ class MarshalTests: XCTestCase {
 struct Address: Unmarshaling {
     let street:String
     let city:String
-    init(object json: Marshal) throws {
+    init(object json: MarshaledObject) throws {
         street = try json.valueForKey("street")
         city = try json.valueForKey("city")
     }
@@ -296,7 +296,7 @@ struct Person: Unmarshaling {
     let lastName:String
     let score:Int
     let address:Address?
-    init(object json: Marshal) throws {
+    init(object json: MarshaledObject) throws {
         firstName = try json.valueForKey("first")
         lastName = try json.valueForKey("last")
         score = try json.valueForKey("score")
