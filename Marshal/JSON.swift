@@ -60,3 +60,10 @@ extension Dictionary : JSONCollectionType {}
 extension Array : JSONCollectionType {}
 
 extension Set : JSONCollectionType {}
+
+
+// MARK: - Marshaling
+
+public protocol JSONMarshaling {
+    func jsonObject() -> JSONObject
+}
