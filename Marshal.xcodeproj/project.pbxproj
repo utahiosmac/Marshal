@@ -16,7 +16,7 @@
 		AFBED2531C7E1AAB00622331 /* Marshal.h in Headers */ = {isa = PBXBuildFile; fileRef = AFBED2521C7E1AAB00622331 /* Marshal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFBED25A1C7E1AAB00622331 /* Marshal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFBED24F1C7E1AAB00622331 /* Marshal.framework */; };
 		AFBED25F1C7E1AAB00622331 /* MarshalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED25E1C7E1AAB00622331 /* MarshalTests.swift */; };
-		AFBED26A1C7E1B0500622331 /* MarshaledObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED2691C7E1B0500622331 /* MarshaledObject.swift */; };
+		AFBED26A1C7E1B0500622331 /* MarshalDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED2691C7E1B0500622331 /* MarshalDictionary.swift */; };
 		AFBED26C1C7E1B3500622331 /* KeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED26B1C7E1B3500622331 /* KeyType.swift */; };
 		AFBED26E1C7E1CA900622331 /* ValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED26D1C7E1CA900622331 /* ValueType.swift */; };
 		AFBED2701C7E1CF100622331 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED26F1C7E1CF100622331 /* Error.swift */; };
@@ -50,7 +50,7 @@
 		AFBED2591C7E1AAB00622331 /* MarshalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarshalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBED25E1C7E1AAB00622331 /* MarshalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshalTests.swift; sourceTree = "<group>"; };
 		AFBED2601C7E1AAB00622331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AFBED2691C7E1B0500622331 /* MarshaledObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshaledObject.swift; sourceTree = "<group>"; };
+		AFBED2691C7E1B0500622331 /* MarshalDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalDictionary.swift; sourceTree = "<group>"; };
 		AFBED26B1C7E1B3500622331 /* KeyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyType.swift; sourceTree = "<group>"; };
 		AFBED26D1C7E1CA900622331 /* ValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueType.swift; sourceTree = "<group>"; };
 		AFBED26F1C7E1CF100622331 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 				AFBED2521C7E1AAB00622331 /* Marshal.h */,
 				AFBED2541C7E1AAB00622331 /* Info.plist */,
 				AE3867C71CAC9A66005205EA /* Marshal.swift */,
-				AFBED2691C7E1B0500622331 /* MarshaledObject.swift */,
+				AFBED2691C7E1B0500622331 /* MarshalDictionary.swift */,
 				AFBED2711C7E1DA800622331 /* Marshaling.swift */,
 				AFBED27B1C7F65BB00622331 /* Unmarshaling.swift */,
 				AFBED27D1C7F699600622331 /* UnmarshalUpdating.swift */,
@@ -251,7 +251,7 @@
 				AFBED27C1C7F65BB00622331 /* Unmarshaling.swift in Sources */,
 				AFBED2761C7E1E5100622331 /* JSON.swift in Sources */,
 				AFBED26E1C7E1CA900622331 /* ValueType.swift in Sources */,
-				AFBED26A1C7E1B0500622331 /* MarshaledObject.swift in Sources */,
+				AFBED26A1C7E1B0500622331 /* MarshalDictionary.swift in Sources */,
 				AFBED26C1C7E1B3500622331 /* KeyType.swift in Sources */,
 				AFBED2741C7E1E0800622331 /* Operators.swift in Sources */,
 			);

@@ -16,7 +16,7 @@ import Foundation
 
 // MARK: - Types
 
-public typealias JSONObject = MarshaledObject
+public typealias JSONObject = MarshalDictionary
 
 
 // MARK: - Parser
