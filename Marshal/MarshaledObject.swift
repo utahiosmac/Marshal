@@ -17,18 +17,6 @@ import Foundation
 public protocol MarshaledObject {
     subscript(key: KeyType) -> Any? { get }
     func anyForKey(key: KeyType) throws -> Any
-    func valueForKey<A: ValueType>(key: KeyType) throws -> A
-    func valueForKey<A: ValueType>(key: KeyType) throws -> A?
-    func valueForKey<A: ValueType>(key: KeyType) throws -> [A]
-    func valueForKey<A: ValueType>(key: KeyType) throws -> [A]?
-    func valueForKey<A: ValueType>(key: KeyType) throws -> Set<A>
-    func valueForKey<A: ValueType>(key: KeyType) throws -> Set<A>?
-    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> A
-    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> A?
-    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> [A]
-    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> [A]?
-    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> Set<A>
-    func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(key: KeyType) throws -> Set<A>?
 }
 
 public extension MarshaledObject {
@@ -52,7 +40,7 @@ public extension MarshaledObject {
     }
     
     public func valueForKey<A: ValueType>(key: KeyType) throws -> A {
-        let any = try anyForKey(key)
+        let any = try self.anyForKey(key)
         do {
             guard let result = try A.value(any) as? A else {
                 throw Error.TypeMismatchWithKey(key: key.stringValue, expected: A.self, actual: any.dynamicType)
@@ -77,7 +65,7 @@ public extension MarshaledObject {
     }
     
     public func valueForKey<A: ValueType>(key: KeyType) throws -> [A] {
-        let any = try anyForKey(key)
+        let any = try self.anyForKey(key)
         do {
             return try Array<A>.value(any)
         }
@@ -99,7 +87,7 @@ public extension MarshaledObject {
     }
     
     public func valueForKey<A: ValueType>(key: KeyType) throws -> Set<A> {
-        let any = try anyForKey(key)
+        let any = try self.anyForKey(key)
         do {
             return try Set<A>.value(any)
         }
