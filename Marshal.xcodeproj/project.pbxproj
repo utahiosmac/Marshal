@@ -48,15 +48,15 @@
 		AFBED2591C7E1AAB00622331 /* MarshalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarshalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFBED25E1C7E1AAB00622331 /* MarshalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshalTests.swift; sourceTree = "<group>"; };
 		AFBED2601C7E1AAB00622331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AFBED2691C7E1B0500622331 /* MarshaledObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshaledObject.swift; sourceTree = "<group>"; };
-		AFBED26B1C7E1B3500622331 /* KeyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyType.swift; sourceTree = "<group>"; };
-		AFBED26D1C7E1CA900622331 /* ValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueType.swift; sourceTree = "<group>"; };
-		AFBED26F1C7E1CF100622331 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		AFBED2711C7E1DA800622331 /* Marshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marshaling.swift; sourceTree = "<group>"; };
-		AFBED2731C7E1E0800622331 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		AFBED2751C7E1E5100622331 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
-		AFBED27B1C7F65BB00622331 /* Unmarshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unmarshaling.swift; sourceTree = "<group>"; };
-		AFBED27D1C7F699600622331 /* UnmarshalUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnmarshalUpdating.swift; sourceTree = "<group>"; };
+		AFBED2691C7E1B0500622331 /* MarshaledObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarshaledObject.swift; path = ../Sources/MarshaledObject.swift; sourceTree = "<group>"; };
+		AFBED26B1C7E1B3500622331 /* KeyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyType.swift; path = ../Sources/KeyType.swift; sourceTree = "<group>"; };
+		AFBED26D1C7E1CA900622331 /* ValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueType.swift; path = ../Sources/ValueType.swift; sourceTree = "<group>"; };
+		AFBED26F1C7E1CF100622331 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = ../Sources/Error.swift; sourceTree = "<group>"; };
+		AFBED2711C7E1DA800622331 /* Marshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Marshaling.swift; path = ../Sources/Marshaling.swift; sourceTree = "<group>"; };
+		AFBED2731C7E1E0800622331 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = ../Sources/Operators.swift; sourceTree = "<group>"; };
+		AFBED2751C7E1E5100622331 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = ../Sources/JSON.swift; sourceTree = "<group>"; };
+		AFBED27B1C7F65BB00622331 /* Unmarshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Unmarshaling.swift; path = ../Sources/Unmarshaling.swift; sourceTree = "<group>"; };
+		AFBED27D1C7F699600622331 /* UnmarshalUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnmarshalUpdating.swift; path = ../Sources/UnmarshalUpdating.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
