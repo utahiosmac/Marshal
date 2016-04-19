@@ -17,6 +17,8 @@ class MarshalTests: XCTestCase {
     
     let object: MarshaledObject = ["bigNumber": NSNumber(longLong: 10_000_000_000_000), "foo" : (2 as NSNumber), "str": "Hello, World!", "array" : [1,2,3,4,7], "object": ["foo" : (3 as NSNumber), "str": "Hello, World!"], "url":"http://apple.com",  "junk":"garbage", "urls":["http://apple.com", "http://github.com"]]
     
+    let array: MarshaledArray = [NSNumber(longLong: 10_000_000_000_000), (2 as NSNumber), "Hello, World!", [1,2,3,4,7], ["foo" : (3 as NSNumber), "str": "Hello, World!"], "http://apple.com",  "garbage", ["http://apple.com", "http://github.com"]]
+    
     override func setUp() {
         super.setUp()
         
@@ -66,6 +68,49 @@ class MarshalTests: XCTestCase {
             }
             
             let urls:[NSURL] = try! self.object.valueForKey("urls")
+            XCTAssertEqual(urls.first!.host, "apple.com")
+            
+            self.waitForExpectationsWithTimeout(1, handler: nil)
+        }
+    }
+    
+    func testArrayBasics() {
+        
+        self.measureBlock {
+            let str: String = try! self.array.valueForIndex(2)
+            XCTAssertEqual(str, "Hello, World!")
+            //    var foo1: String = try array.valueForIndex(99)
+            let foo2: Int = try! self.array.valueForIndex(1)
+            XCTAssertEqual(foo2, 2)
+            let bigNumber: Int64 = try! self.array.valueForIndex(0)
+            XCTAssertEqual(bigNumber, 10_000_000_000_000)
+            let foo3: Int? = try! self.array.valueForIndex(1)
+            XCTAssertEqual(foo3, 2)
+            let foo4: Int? = try! self.array.valueForIndex(99)
+            XCTAssertEqual(foo4, .None)
+            let arr: [Int] = try! self.array.valueForIndex(3)
+            XCTAssert(arr.count == 5)
+            let obj: JSONObject = try! self.array.valueForIndex(4)
+            XCTAssert(obj.count == 2)
+            let innerfoo: Int = try! obj.valueForKey("foo")
+            XCTAssertEqual(innerfoo, 3)
+            let url:NSURL = try! self.array.valueForIndex(5)
+            XCTAssertEqual(url.host, "apple.com")
+            
+            let expectation = self.expectationWithDescription("error")
+            do {
+                let _:Int? = try self.array.valueForIndex(6)
+            }
+            catch {
+                let jsonError = error as! Error
+                expectation.fulfill()
+                guard case Error.TypeMismatch = jsonError else {
+                    XCTFail("shouldn't get here")
+                    return
+                }
+            }
+            
+            let urls:[NSURL] = try! self.array.valueForIndex(7)
             XCTAssertEqual(urls.first!.host, "apple.com")
             
             self.waitForExpectationsWithTimeout(1, handler: nil)

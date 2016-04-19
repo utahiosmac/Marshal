@@ -16,6 +16,7 @@ import Foundation
 
 public enum Error: ErrorType, CustomStringConvertible {
     
+    case IndexNotFound(index: Int)
     case KeyNotFound(key: KeyType)
     case NullValue(key: KeyType)
     case TypeMismatch(expected: Any, actual: Any)
@@ -23,6 +24,8 @@ public enum Error: ErrorType, CustomStringConvertible {
     
     public var description: String {
         switch self {
+        case let .IndexNotFound(index):
+            return "Index not found: \(index)"
         case let .KeyNotFound(key):
             return "Key not found: \(key.stringValue)"
         case let .NullValue(key):
