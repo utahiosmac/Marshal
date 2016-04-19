@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target	= "2.0"
   s.source						= { :git => "https://github.com/utahiosmac/Marshal.git", 
 									:tag => s.version.to_s }
-  s.source_files				= "Sources/**/*.swift"
+  s.source_files				= "Marshal/**/*.swift", "Sources/**/*.swift"
   s.requires_arc				= true
   s.module_name					= "Marshal"
 end
