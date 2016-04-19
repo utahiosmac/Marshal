@@ -14,7 +14,7 @@
 import Foundation
 
 
-public protocol KeyType: Hashable {
+public protocol KeyType {
     var stringValue: String { get }
 }
 

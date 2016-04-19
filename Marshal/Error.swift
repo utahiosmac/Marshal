@@ -16,10 +16,10 @@ import Foundation
 
 public enum Error: ErrorType, CustomStringConvertible {
     
-    case KeyNotFound(key: String)
-    case NullValue(key: String)
+    case KeyNotFound(key: KeyType)
+    case NullValue(key: KeyType)
     case TypeMismatch(expected: Any, actual: Any)
-    case TypeMismatchWithKey(key: String, expected: Any, actual: Any)
+    case TypeMismatchWithKey(key: KeyType, expected: Any, actual: Any)
     
     public var description: String {
         switch self {
@@ -30,7 +30,7 @@ public enum Error: ErrorType, CustomStringConvertible {
         case let .TypeMismatch(expected, actual):
             return "Type mismatch. Expected type \(expected). Got '\(actual)'"
         case let .TypeMismatchWithKey(key, expected, actual):
-            return "Type mismatch. Expected type \(expected) for key: \(key). Got '\(actual)'"
+            return "Type mismatch. Expected type \(expected) for key: \(key.stringValue). Got '\(actual)'"
         }
     }
 }
