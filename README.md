@@ -4,6 +4,7 @@
 ![Carthage](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/Platform-iOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20OS%20X-lightgrey.svg)
 [![Build Status](https://travis-ci.org/utahiosmac/Marshal.svg?branch=master)](https://travis-ci.org/utahiosmac/Marshal)
+[![codebeat badge](https://codebeat.co/badges/8a60765a-0a0f-47b4-8bca-d75adc462836)](https://codebeat.co/projects/github-com-utahiosmac-marshal)
 # Marshal
 
 In Swift, we all deal with JSON, plists, and various forms of `[String: AnyObject]`. `Marshal` believes you don't need a Ph.D. in Monads or large, complex frameworks to deal with these in an expressive and type safe way. `Marshal` is a simple, lightweight framework for safely extracting values from `[String: AnyObject]`.
