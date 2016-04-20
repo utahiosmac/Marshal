@@ -16,12 +16,11 @@ import Foundation
 
 public protocol MarshaledObject {
     subscript(key: KeyType) -> Any? { get }
-    func anyForKey(key: KeyType) throws -> Any
 }
 
 public extension MarshaledObject {
     public func anyForKey(key: KeyType) throws -> Any {
-        let pathComponents = key.stringValue.characters.split(".").map(String.init)
+        let pathComponents = key.split()
         var accumulator: Any = self
         
         for component in pathComponents {
