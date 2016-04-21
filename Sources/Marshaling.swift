@@ -14,5 +14,7 @@
 import Foundation
 
 public protocol Marshaling {
-    func marshal() -> MarshaledObject
+    associatedtype MarshalType: MarshaledObject
+    
+    func marshal() -> Self.MarshalType
 }

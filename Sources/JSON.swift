@@ -16,7 +16,7 @@ import Foundation
 
 // MARK: - Types
 
-public typealias JSONObject = MarshaledObject
+public typealias JSONObject = MarshalDictionary
 
 
 // MARK: - Parser
@@ -60,3 +60,10 @@ extension Dictionary : JSONCollectionType {}
 extension Array : JSONCollectionType {}
 
 extension Set : JSONCollectionType {}
+
+
+// MARK: - Marshaling
+
+public protocol JSONMarshaling {
+    func jsonObject() -> JSONObject
+}

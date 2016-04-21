@@ -11,7 +11,7 @@ In Swift, we all deal with JSON, plists, and various forms of `[String: AnyObjec
 
 ## Usage
 
-Extracting values from `[String: AnyObject]` (a.k.a. `MarshaledObject`) is as easy as:
+Extracting values from `[String: AnyObject]` (a.k.a. `MarshalDictionary`) is as easy as:
 
 ```swift
 let name: String = try json.valueForKey("name")
