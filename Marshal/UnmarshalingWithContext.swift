@@ -13,17 +13,17 @@ public protocol UnmarshalingWithContext {
     associatedtype ContextType
     associatedtype ConvertibleType = Self
     
-    static func valueFromObject(object: MarshaledObject, context:ContextType) throws -> ConvertibleType
+    static func valueFromObject(object: MarshaledObject, context: ContextType) throws -> ConvertibleType
 }
 
 public protocol UnmarshalUpdatingWithContext {
     associatedtype ContextType
     
-    mutating func update(object object: MarshaledObject, context:ContextType) throws
+    mutating func update(object object: MarshaledObject, context: ContextType) throws
 }
 
 extension MarshaledObject {
-    public func valueForKey<A: UnmarshalingWithContext>(key: KeyType, context:A.ContextType) throws -> A {
+    public func valueForKey<A: UnmarshalingWithContext>(key: KeyType, context: A.ContextType) throws -> A {
         let any = try self.anyForKey(key)
         guard let object = any as? MarshaledObject else {
             throw Error.TypeMismatch(expected: MarshaledObject.self, actual: any.dynamicType)
@@ -34,9 +34,9 @@ extension MarshaledObject {
         return value
     }
     
-    public func valueForKey<A: UnmarshalingWithContext>(key: KeyType, context:A.ContextType) throws -> A? {
+    public func valueForKey<A: UnmarshalingWithContext>(key: KeyType, context: A.ContextType) throws -> A? {
         do {
-            return try self.valueForKey(key, context:context) as A
+            return try self.valueForKey(key, context: context) as A
         }
         catch Error.KeyNotFound {
             return nil
@@ -46,7 +46,7 @@ extension MarshaledObject {
         }
     }
     
-    public func valueForKey<A: UnmarshalingWithContext>(key: KeyType, context:A.ContextType) throws -> [A] {
+    public func valueForKey<A: UnmarshalingWithContext>(key: KeyType, context: A.ContextType) throws -> [A] {
         let any = try self.anyForKey(key)
         guard let objectArray = any as? [AnyObject] else {
             throw Error.TypeMismatch(expected: Array<MarshaledObject>.self, actual: any.dynamicType)
@@ -62,9 +62,9 @@ extension MarshaledObject {
         }
     }
     
-    public func valueForKey<A: UnmarshalingWithContext>(key: KeyType, context:A.ContextType) throws -> [A]? {
+    public func valueForKey<A: UnmarshalingWithContext>(key: KeyType, context: A.ContextType) throws -> [A]? {
         do {
-            return try self.valueForKey(key, context:context) as [A]
+            return try self.valueForKey(key, context: context) as [A]
         }
         catch Error.KeyNotFound {
             return nil
