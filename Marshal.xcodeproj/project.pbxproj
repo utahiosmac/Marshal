@@ -28,6 +28,8 @@
 		AFBED2761C7E1E5100622331 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED2751C7E1E5100622331 /* JSON.swift */; };
 		AFBED27C1C7F65BB00622331 /* Unmarshaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED27B1C7F65BB00622331 /* Unmarshaling.swift */; };
 		AFBED27E1C7F699600622331 /* UnmarshalUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED27D1C7F699600622331 /* UnmarshalUpdating.swift */; };
+		CCB6D6C21CF90E7F00422F4C /* UnmarshalingWithContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6D6C01CF8F2F500422F4C /* UnmarshalingWithContextTests.swift */; };
+		CCB6D6C31CF90E8300422F4C /* UnmarshalingWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6D6BE1CF8EBC400422F4C /* UnmarshalingWithContext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		AFBED2751C7E1E5100622331 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = ../Sources/JSON.swift; sourceTree = "<group>"; };
 		AFBED27B1C7F65BB00622331 /* Unmarshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Unmarshaling.swift; path = ../Sources/Unmarshaling.swift; sourceTree = "<group>"; };
 		AFBED27D1C7F699600622331 /* UnmarshalUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnmarshalUpdating.swift; path = ../Sources/UnmarshalUpdating.swift; sourceTree = "<group>"; };
+		CCB6D6BE1CF8EBC400422F4C /* UnmarshalingWithContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnmarshalingWithContext.swift; sourceTree = "<group>"; };
+		CCB6D6C01CF8F2F500422F4C /* UnmarshalingWithContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnmarshalingWithContextTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,7 @@
 				AFBED2731C7E1E0800622331 /* Operators.swift */,
 				AFBED2751C7E1E5100622331 /* JSON.swift */,
 				AFBED26F1C7E1CF100622331 /* Error.swift */,
+				CCB6D6BE1CF8EBC400422F4C /* UnmarshalingWithContext.swift */,
 			);
 			path = Marshal;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 				AFBED2601C7E1AAB00622331 /* Info.plist */,
 				71EFC3A71CCB4EAF00394E57 /* PerformanceTestObjects.swift */,
 				71EFC3AB1CCB513300394E57 /* PerformanceTests.swift */,
+				CCB6D6C01CF8F2F500422F4C /* UnmarshalingWithContextTests.swift */,
 			);
 			path = MarshalTests;
 			sourceTree = "<group>";
@@ -256,6 +262,7 @@
 			files = (
 				AECB67181CD317CA00141059 /* MarshalDictionary.swift in Sources */,
 				AFBED27E1C7F699600622331 /* UnmarshalUpdating.swift in Sources */,
+				CCB6D6C31CF90E8300422F4C /* UnmarshalingWithContext.swift in Sources */,
 				AFBED2721C7E1DA800622331 /* Marshaling.swift in Sources */,
 				AFBED2701C7E1CF100622331 /* Error.swift in Sources */,
 				AFBED27C1C7F65BB00622331 /* Unmarshaling.swift in Sources */,
@@ -273,6 +280,7 @@
 			files = (
 				71EFC3A81CCB4EAF00394E57 /* PerformanceTestObjects.swift in Sources */,
 				AFBED25F1C7E1AAB00622331 /* MarshalTests.swift in Sources */,
+				CCB6D6C21CF90E7F00422F4C /* UnmarshalingWithContextTests.swift in Sources */,
 				71EFC3AC1CCB513300394E57 /* PerformanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
