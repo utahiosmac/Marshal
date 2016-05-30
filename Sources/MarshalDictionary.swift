@@ -33,6 +33,7 @@ extension NSDictionary: MarshaledObject {
     public func anyForKey(key: KeyType) throws -> Any {
         let value:Any
         if key.dynamicType.keyTypeSeparator == "." {
+            // `valueForKeyPath` is more efficient. Use it if possible.
             guard let v = self.valueForKeyPath(key.stringValue) else {
                 throw Error.KeyNotFound(key: key)
             }
