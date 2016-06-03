@@ -24,16 +24,16 @@ struct Recording : Unmarshaling {
         case Unknown
     }
     
-    let startTs:NSDate?
+    //let startTs:NSDate?
+    //let endTs:NSDate?
     let startTsStr:String
-    let endTs:NSDate?
     let status:Status
     let recordId:String
     let recGroup:RecGroup
     
     init(object json:MarshaledObject) throws {
-        startTs = try? json.valueForKey("StartTs")
-        endTs = try? json.valueForKey("EndTs")
+        //startTs = try? json.valueForKey("StartTs")
+        //endTs = try? json.valueForKey("EndTs")
         startTsStr = try json.valueForKey("StartTs")
         recordId = try json.valueForKey("RecordId")
         status = (try? json.valueForKey("Status")) ?? .Unknown
@@ -45,8 +45,8 @@ struct Program : Unmarshaling {
     
     let title:String
     let chanId:String
-    let startTime:NSDate
-    let endTime:NSDate
+    //let startTime:NSDate
+    //let endTime:NSDate
     let description:String?
     let subtitle:String?
     let recording:Recording
@@ -67,8 +67,8 @@ struct Program : Unmarshaling {
         else {
             chanId = try json.valueForKey("Channel.ChanId")
         }
-        startTime = try json.valueForKey("StartTime")
-        endTime = try json.valueForKey("EndTime")
+        //startTime = try json.valueForKey("StartTime")
+        //endTime = try json.valueForKey("EndTime")
         description = try json.valueForKey("Description")
         subtitle = try json.valueForKey("SubTitle")
         recording = try json.valueForKey("Recording")
