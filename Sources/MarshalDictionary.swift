@@ -29,6 +29,8 @@ extension Dictionary: MarshaledObject {
     }
 }
 
+extension NSDictionary: ValueType { }
+
 extension NSDictionary: MarshaledObject {
     public func anyForKey(key: KeyType) throws -> Any {
         let value:Any
