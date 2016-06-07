@@ -24,6 +24,7 @@ struct Recording : Unmarshaling {
         case Unknown
     }
     
+    // Date parsing is slow. Remove them so performance can focus on JSON mapping.
     //let startTs:NSDate?
     //let endTs:NSDate?
     let startTsStr:String
