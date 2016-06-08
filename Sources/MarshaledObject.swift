@@ -16,6 +16,7 @@ import Foundation
 
 public protocol MarshaledObject {
     subscript(key: KeyType) -> Any? { get }
+    func anyForKey(key: KeyType) throws -> Any
 }
 
 public extension MarshaledObject {
