@@ -202,6 +202,28 @@ class MarshalTests: XCTestCase {
         XCTAssertEqual(person.firstName, "Jason")
         XCTAssertEqual(person.score, 42)
         XCTAssertEqual(people.last!.address!.city, "Cupertino")
+        
+        let expectation1 = expectationWithDescription("error test")
+        do {
+            let _:AgedPerson = try obj.valueForKey("person")
+        }
+        catch {
+            if case Error.KeyNotFound = error {
+                expectation1.fulfill()
+            }
+        }
+        
+        let expectation2 = expectationWithDescription("array error test")
+        do {
+            let _:[AgedPerson] = try obj.valueForKey("people")
+        }
+        catch {
+            if case Error.KeyNotFound = error {
+                expectation2.fulfill()
+            }
+        }
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
     }
     
     enum MyEnum:String {
@@ -282,7 +304,7 @@ class MarshalTests: XCTestCase {
     }
 }
 
-struct Address: Unmarshaling {
+private struct Address: Unmarshaling {
     let street:String
     let city:String
     init(object json: MarshaledObject) throws {
@@ -291,7 +313,7 @@ struct Address: Unmarshaling {
     }
 }
 
-struct Person: Unmarshaling {
+private struct Person: Unmarshaling {
     let firstName:String
     let lastName:String
     let score:Int
@@ -301,5 +323,12 @@ struct Person: Unmarshaling {
         lastName = try json.valueForKey("last")
         score = try json.valueForKey("score")
         address = try json.valueForKey("address")
+    }
+}
+
+private struct AgedPerson: Unmarshaling {
+    var age:Int = 0
+    init(object: MarshaledObject) throws {
+        age = try object.valueForKey("age")
     }
 }
