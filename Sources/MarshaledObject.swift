@@ -21,7 +21,7 @@ public protocol MarshaledObject {
 
 public extension MarshaledObject {
     public func anyForKey(key: KeyType) throws -> Any {
-        let pathComponents = key.split()
+        let pathComponents = key.stringValue.characters.split(".").map(String.init)
         var accumulator: Any = self
         
         for component in pathComponents {

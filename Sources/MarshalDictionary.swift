@@ -34,27 +34,10 @@ extension NSDictionary: ValueType { }
 extension NSDictionary: MarshaledObject {
     public func anyForKey(key: KeyType) throws -> Any {
         let value:Any
-        if key.dynamicType.keyTypeSeparator == "." {
-            // `valueForKeyPath` is more efficient. Use it if possible.
-            guard let v = self.valueForKeyPath(key.stringValue) else {
-                throw Error.KeyNotFound(key: key)
-            }
-            value = v
+        guard let v = self.valueForKeyPath(key.stringValue) else {
+            throw Error.KeyNotFound(key: key)
         }
-        else {
-            let pathComponents = key.split()
-            var accumulator: Any = self
-
-            for component in pathComponents {
-                if let componentData = accumulator as? MarshaledObject, v = componentData[component] {
-                    accumulator = v
-                    continue
-                }
-                throw Error.KeyNotFound(key: key.stringValue)
-            }
-            value = accumulator
-        }
-
+        value = v
         if let _ = value as? NSNull {
             throw Error.NullValue(key: key)
         }
