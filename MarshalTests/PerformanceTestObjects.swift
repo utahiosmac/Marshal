@@ -78,30 +78,30 @@ struct Program : Unmarshaling {
     }
 }
 
-extension NSDate : ValueType {
-    public static func value(object: Any) throws -> NSDate {
+extension Date : ValueType {
+    public static func value(_ object: Any) throws -> Date {
         guard let dateString = object as? String else {
-            throw Error.TypeMismatch(expected: String.self, actual: object.dynamicType)
+            throw Marshal.Error.typeMismatch(expected: String.self, actual: object.dynamicType)
         }
-        guard let date = NSDate.fromISO8601String(dateString) else {
-            throw Error.TypeMismatch(expected: "ISO8601 date string", actual: dateString)
+        guard let date = Date.fromISO8601String(dateString) else {
+            throw Marshal.Error.typeMismatch(expected: "ISO8601 date string", actual: dateString)
         }
         return date
     }
 }
 
-extension NSDate {
-    static private let ISO8601MillisecondFormatter:NSDateFormatter = {
-        let formatter = NSDateFormatter()
+extension Date {
+    static private let ISO8601MillisecondFormatter:DateFormatter = {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        let tz = NSTimeZone(abbreviation:"GMT")
+        let tz = TimeZone(abbreviation:"GMT")
         formatter.timeZone = tz
         return formatter
     }()
-    static private let ISO8601SecondFormatter:NSDateFormatter = {
-        let formatter = NSDateFormatter()
+    static private let ISO8601SecondFormatter:DateFormatter = {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
-        let tz = NSTimeZone(abbreviation:"GMT")
+        let tz = TimeZone(abbreviation:"GMT")
         formatter.timeZone = tz
         return formatter
     }()
@@ -109,13 +109,13 @@ extension NSDate {
     static private let formatters = [ISO8601MillisecondFormatter,
                                      ISO8601SecondFormatter]
     
-    static func fromISO8601String(dateString:String) -> NSDate? {
+    static func fromISO8601String(_ dateString:String) -> Date? {
         for formatter in formatters {
-            if let date = formatter.dateFromString(dateString) {
+            if let date = formatter.date(from: dateString) {
                 return date
             }
         }
-        return .None
+        return .none
     }
 }
 

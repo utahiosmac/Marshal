@@ -22,12 +22,12 @@ public protocol Unmarshaling: ValueType {
 
 extension Unmarshaling {
     
-    public static func value(object: Any) throws -> ConvertibleType {
+    public static func value(_ object: Any) throws -> ConvertibleType {
         guard let convertedObject = object as? MarshaledObject else {
-            throw Error.TypeMismatch(expected: MarshaledObject.self, actual: object.dynamicType)
+            throw Error.typeMismatch(expected: MarshaledObject.self, actual: object.dynamicType)
         }
         guard let value = try self.init(object: convertedObject) as? ConvertibleType else {
-            throw Error.TypeMismatch(expected: ConvertibleType.self, actual: object.dynamicType)
+            throw Error.typeMismatch(expected: ConvertibleType.self, actual: object.dynamicType)
         }
         return value
     }

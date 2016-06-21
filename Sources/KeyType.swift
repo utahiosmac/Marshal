@@ -21,7 +21,7 @@ public protocol KeyType {
 
 public extension KeyType {
     public func split() -> [String] {
-        return self.stringValue.characters.split(self.dynamicType.keyTypeSeparator).map(String.init)
+        return self.stringValue.characters.split(separator: self.dynamicType.keyTypeSeparator).map(String.init)
     }
 }
 
