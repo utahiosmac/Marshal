@@ -15,8 +15,8 @@ import Foundation
 
 
 public protocol MarshaledObject {
-    subscript(key: KeyType) -> Any? { get }
     func anyForKey(_ key: KeyType) throws -> Any
+    func optionally(key: KeyType) -> Any?
 }
 
 public extension MarshaledObject {
@@ -25,7 +25,7 @@ public extension MarshaledObject {
         var accumulator: Any = self
         
         for component in pathComponents {
-            if let componentData = accumulator as? Self, value = componentData[component] {
+            if let componentData = accumulator as? Self, value = componentData.optionally(key: component) {
                 accumulator = value
                 continue
             }

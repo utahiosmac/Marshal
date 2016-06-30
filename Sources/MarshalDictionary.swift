@@ -22,7 +22,7 @@ public typealias MarshalDictionary = [String: AnyObject]
 // MARK: - Dictionary Extensions
 
 extension Dictionary: MarshaledObject {
-    public subscript(key: KeyType) -> Any? {
+    public func optionally(key: KeyType) -> Any? {
         guard let aKey = key as? Key else { return nil }
         
         return self[aKey]
@@ -46,7 +46,7 @@ extension NSDictionary: MarshaledObject {
             var accumulator: Any = self
 
             for component in pathComponents {
-                if let componentData = accumulator as? MarshaledObject, v = componentData[component] {
+                if let componentData = accumulator as? MarshaledObject, v = componentData.optionally(key: component) {
                     accumulator = v
                     continue
                 }
@@ -62,7 +62,7 @@ extension NSDictionary: MarshaledObject {
         return value
     }
 
-    public subscript(key: KeyType) -> Any? {
+    public func optionally(key: KeyType) -> Any? {
         guard let aKey = key as? Key else { return nil }
         
         return self[aKey]

@@ -257,8 +257,8 @@ class MarshalTests: XCTestCase {
     }
     
     func testSwiftBasicTypes() {
-        let object: MarshalDictionary = ["int8": NSNumber(value: 100), "int16": NSNumber(value: 32_000), "int32": NSNumber(value: 2_100_000_000), "int64": NSNumber(value: 9_000_000_000_000_000_000), "uint8": NSNumber(value: 200), "uint16": NSNumber(value: 65_000), "uint32": NSNumber(value: 4_200_000_000), "uint64": NSNumber(value: 18_000_000_000_000_000_000), "char": "S"]
-        
+        let object: MarshalDictionary = ["int8": NSNumber(value: 100), "int16": NSNumber(value: 32_000), "int32": NSNumber(value: 2_100_000_000), "int64": NSNumber(value: 9_000_000_000_000_000_000)]
+
         let int8: Int8 = try! object.valueForKey("int8")
         XCTAssertEqual(int8, 100)
         let int16: Int16 = try! object.valueForKey("int16")
@@ -268,16 +268,20 @@ class MarshalTests: XCTestCase {
         let int64: Int64 = try! object.valueForKey("int64")
         XCTAssertEqual(int64, 9_000_000_000_000_000_000)
         
-        let uint8: UInt8 = try! object.valueForKey("uint8")
+        
+        let soBig: UInt64 = 18_000_000_000_000_000_000
+        let unsigned: MarshalDictionary = ["uint8": NSNumber(value: 200), "uint16": NSNumber(value: 65_000), "uint32": NSNumber(value: 4_200_000_000), "uint64": NSNumber(value: soBig), "char": "S"]
+        
+        let uint8: UInt8 = try! unsigned.valueForKey("uint8")
         XCTAssertEqual(uint8, 200)
-        let uint16: UInt16 = try! object.valueForKey("uint16")
+        let uint16: UInt16 = try! unsigned.valueForKey("uint16")
         XCTAssertEqual(uint16, 65_000)
-        let uint32: UInt32 = try! object.valueForKey("uint32")
+        let uint32: UInt32 = try! unsigned.valueForKey("uint32")
         XCTAssertEqual(uint32, 4_200_000_000)
-        let uint64: UInt64 = try! object.valueForKey("uint64")
+        let uint64: UInt64 = try! unsigned.valueForKey("uint64")
         XCTAssertEqual(uint64, 18_000_000_000_000_000_000)
         
-        let char: Character = try! object.valueForKey("char")
+        let char: Character = try! unsigned.valueForKey("char")
         XCTAssertEqual(char, "S")
     }
 }
