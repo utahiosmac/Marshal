@@ -52,7 +52,7 @@ class MarshalTests: XCTestCase {
             let url:URL = try! self.object.valueForKey("url")
             XCTAssertEqual(url.host, "apple.com")
             
-            let expectation = self.expectation(withDescription: "error")
+            let expectation = self.expectation(description: "error")
             do {
                 let _:Int? = try self.object.valueForKey("junk")
             }
@@ -68,7 +68,7 @@ class MarshalTests: XCTestCase {
             let urls:[URL] = try! self.object.valueForKey("urls")
             XCTAssertEqual(urls.first!.host, "apple.com")
             
-            self.waitForExpectations(withTimeout: 1, handler: nil)
+            self.waitForExpectations(timeout: 1, handler: nil)
         }
     }
     
@@ -91,7 +91,7 @@ class MarshalTests: XCTestCase {
         ora = try! object <| "no key"
         XCTAssertNil(ora)
         
-        let ex = self.expectation(withDescription: "not found")
+        let ex = self.expectation(description: "not found")
         do {
             str = try object <| "not found"
         }
@@ -100,11 +100,11 @@ class MarshalTests: XCTestCase {
                 ex.fulfill()
             }
         }
-        self.waitForExpectations(withTimeout: 1, handler: nil)
+        self.waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testErrors() {
-        var expectation = self.expectation(withDescription: "not found")
+        var expectation = self.expectation(description: "not found")
         let str: String = try! self.object.valueForKey("str")
         XCTAssertEqual(str, "Hello, World!")
         do {
@@ -116,7 +116,7 @@ class MarshalTests: XCTestCase {
             }
         }
         
-        expectation = self.expectation(withDescription: "key mismatch")
+        expectation = self.expectation(description: "key mismatch")
         do {
             let _:Int = try object.valueForKey("str")
         }
@@ -126,11 +126,11 @@ class MarshalTests: XCTestCase {
             }
         }
         
-        self.waitForExpectations(withTimeout: 1, handler: nil)
+        self.waitForExpectations(timeout: 1, handler: nil)
     }
     
     func testDicionary() {
-        let path = Bundle(for: self.dynamicType).pathForResource("TestDictionary", ofType: "json")!
+        let path = Bundle(for: self.dynamicType).path(forResource: "TestDictionary", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
         var json:JSONObject = try! JSONParser.JSONObjectWithData(data)
         let url:URL = try! json.valueForKey("meta.next")
@@ -150,7 +150,7 @@ class MarshalTests: XCTestCase {
     }
     
     func testSimpleArray() {
-        let path = Bundle(for: self.dynamicType).pathForResource("TestSimpleArray", ofType: "json")!
+        let path = Bundle(for: self.dynamicType).path(forResource: "TestSimpleArray", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
         var ra = try! JSONSerialization.jsonObject(with: data, options: []) as! [AnyObject]
         XCTAssertEqual(ra.first as? Int, 1)
@@ -163,7 +163,7 @@ class MarshalTests: XCTestCase {
     }
     
     func testObjectArray() {
-        let path = Bundle(for: self.dynamicType).pathForResource("TestObjectArray", ofType: "json")!
+        let path = Bundle(for: self.dynamicType).path(forResource: "TestObjectArray", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
         var ra:[JSONObject] = try! JSONParser.JSONArrayWithData(data)
         
@@ -193,7 +193,7 @@ class MarshalTests: XCTestCase {
     }
     
     func testCustomObjects() {
-        let path = Bundle(for: self.dynamicType).pathForResource("People", ofType: "json")!
+        let path = Bundle(for: self.dynamicType).path(forResource: "People", ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         let obj = try! JSONParser.JSONObjectWithData(data)
         let people:[Person] = try! obj.valueForKey("people")
@@ -227,14 +227,14 @@ class MarshalTests: XCTestCase {
         let nope:MyEnum? = try! json.valueForKey("junk")
         XCTAssertEqual(nope, .none)
         
-        let expectation = self.expectation(withDescription: "enum test")
+        let expectation = self.expectation(description: "enum test")
         do {
             let _:MyEnum = try json.valueForKey("four")
         }
         catch {
             expectation.fulfill()
         }
-        waitForExpectations(withTimeout: 5, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
         
         let iOne:MyIntEnum = try! json.valueForKey("iOne")
         XCTAssertEqual(iOne, MyIntEnum.one)
@@ -243,7 +243,7 @@ class MarshalTests: XCTestCase {
     
 
     func testSet() {
-        let path = Bundle(for: self.dynamicType).pathForResource("TestSimpleSet", ofType: "json")!
+        let path = Bundle(for: self.dynamicType).path(forResource: "TestSimpleSet", ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! JSONObject
         

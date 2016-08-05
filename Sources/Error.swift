@@ -14,7 +14,7 @@
 import Foundation
 
 
-public enum Error: ErrorProtocol, CustomStringConvertible {
+public enum MarshalError: Error, CustomStringConvertible {
     
     case keyNotFound(key: KeyType)
     case nullValue(key: KeyType)

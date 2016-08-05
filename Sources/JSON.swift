@@ -33,7 +33,7 @@ public struct JSONParser {
     public static func JSONArrayWithData(_ data: Data) throws -> [JSONObject] {
         let object: AnyObject = try JSONSerialization.jsonObject(with: data, options: [])
         guard let array = object as? [JSONObject] else {
-            throw Error.typeMismatch(expected: [JSONObject].self, actual: object.dynamicType)
+            throw MarshalError.typeMismatch(expected: [JSONObject].self, actual: object.dynamicType)
         }
         return array
     }
@@ -49,7 +49,7 @@ public protocol JSONCollectionType {
 extension JSONCollectionType {
     public func jsonData() throws -> Data {
         guard let jsonCollection = self as? AnyObject else {
-            throw Error.typeMismatchWithKey(key:"", expected: AnyObject.self, actual: self.dynamicType) // shouldn't happen
+            throw MarshalError.typeMismatchWithKey(key:"", expected: AnyObject.self, actual: self.dynamicType) // shouldn't happen
         }
         return try JSONSerialization.data(withJSONObject: jsonCollection, options: [])
     }

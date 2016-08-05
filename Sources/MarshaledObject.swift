@@ -25,15 +25,15 @@ public extension MarshaledObject {
         var accumulator: Any = self
         
         for component in pathComponents {
-            if let componentData = accumulator as? Self, value = componentData[component] {
+            if let componentData = accumulator as? Self, let value = componentData[component] {
                 accumulator = value
                 continue
             }
-            throw Error.keyNotFound(key: key.stringValue)
+            throw MarshalError.keyNotFound(key: key.stringValue)
         }
         
         if let _ = accumulator as? NSNull {
-            throw Error.nullValue(key: key.stringValue)
+            throw MarshalError.nullValue(key: key.stringValue)
         }
         
         return accumulator
@@ -43,12 +43,12 @@ public extension MarshaledObject {
         let any = try self.anyForKey(key)
         do {
             guard let result = try A.value(any) as? A else {
-                throw Error.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: any.dynamicType)
+                throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: any.dynamicType)
             }
             return result
         }
-        catch let Error.typeMismatch(expected: expected, actual: actual) {
-            throw Error.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
+        catch let MarshalError.typeMismatch(expected: expected, actual: actual) {
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
         }
     }
     
@@ -56,10 +56,10 @@ public extension MarshaledObject {
         do {
             return try self.valueForKey(key) as A
         }
-        catch Error.keyNotFound {
+        catch MarshalError.keyNotFound {
             return nil
         }
-        catch Error.nullValue {
+        catch MarshalError.nullValue {
             return nil
         }
     }
@@ -69,8 +69,8 @@ public extension MarshaledObject {
         do {
             return try Array<A>.value(any)
         }
-        catch let Error.typeMismatch(expected: expected, actual: actual) {
-            throw Error.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
+        catch let MarshalError.typeMismatch(expected: expected, actual: actual) {
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
         }
     }
     
@@ -78,10 +78,10 @@ public extension MarshaledObject {
         do {
             return try self.valueForKey(key) as [A]
         }
-        catch Error.keyNotFound {
+        catch MarshalError.keyNotFound {
             return nil
         }
-        catch Error.nullValue {
+        catch MarshalError.nullValue {
             return nil
         }
     }
@@ -91,8 +91,8 @@ public extension MarshaledObject {
         do {
             return try Set<A>.value(any)
         }
-        catch let Error.typeMismatch(expected: expected, actual: actual) {
-            throw Error.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
+        catch let MarshalError.typeMismatch(expected: expected, actual: actual) {
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
         }
     }
     
@@ -100,10 +100,10 @@ public extension MarshaledObject {
         do {
             return try self.valueForKey(key) as Set<A>
         }
-        catch Error.keyNotFound {
+        catch MarshalError.keyNotFound {
             return nil
         }
-        catch Error.nullValue {
+        catch MarshalError.nullValue {
             return nil
         }
     }
@@ -111,7 +111,7 @@ public extension MarshaledObject {
     public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(_ key: KeyType) throws -> A {
         let raw = try self.valueForKey(key) as A.RawValue
         guard let value = A(rawValue: raw) else {
-            throw Error.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
         }
         return value
     }
@@ -120,10 +120,10 @@ public extension MarshaledObject {
         do {
             return try self.valueForKey(key) as A
         }
-        catch Error.keyNotFound {
+        catch MarshalError.keyNotFound {
             return nil
         }
-        catch Error.nullValue {
+        catch MarshalError.nullValue {
             return nil
         }
     }
@@ -132,7 +132,7 @@ public extension MarshaledObject {
         let rawArray = try self.valueForKey(key) as [A.RawValue]
         return try rawArray.map({ raw in
             guard let value = A(rawValue: raw) else {
-                throw Error.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
+                throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
             }
             return value
         })
@@ -142,10 +142,10 @@ public extension MarshaledObject {
         do {
             return try self.valueForKey(key) as [A]
         }
-        catch Error.keyNotFound {
+        catch MarshalError.keyNotFound {
             return nil
         }
-        catch Error.nullValue {
+        catch MarshalError.nullValue {
             return nil
         }
     }
@@ -154,7 +154,7 @@ public extension MarshaledObject {
         let rawArray = try self.valueForKey(key) as [A.RawValue]
         let enumArray: [A] = try rawArray.map({ raw in
             guard let value = A(rawValue: raw) else {
-                throw Error.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
+                throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
             }
             return value
         })
@@ -165,10 +165,10 @@ public extension MarshaledObject {
         do {
             return try self.valueForKey(key) as Set<A>
         }
-        catch Error.keyNotFound {
+        catch MarshalError.keyNotFound {
             return nil
         }
-        catch Error.nullValue {
+        catch MarshalError.nullValue {
             return nil
         }
     }
