@@ -81,10 +81,10 @@ struct Program : Unmarshaling {
 extension Date : ValueType {
     public static func value(_ object: Any) throws -> Date {
         guard let dateString = object as? String else {
-            throw Marshal.Error.typeMismatch(expected: String.self, actual: object.dynamicType)
+            throw Marshal.MarshalError.typeMismatch(expected: String.self, actual: object.dynamicType)
         }
         guard let date = Date.fromISO8601String(dateString) else {
-            throw Marshal.Error.typeMismatch(expected: "ISO8601 date string", actual: dateString)
+            throw Marshal.MarshalError.typeMismatch(expected: "ISO8601 date string", actual: dateString)
         }
         return date
     }
