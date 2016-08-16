@@ -42,8 +42,8 @@ class PerformanceTests: XCTestCase {
         }
     }
     
-    private lazy var data:Data = {
-        let path = Bundle(for: self.dynamicType).path(forResource: "Large", ofType: "json")
+    fileprivate lazy var data:Data = {
+        let path = Bundle(for: type(of: self)).path(forResource: "Large", ofType: "json")
         let data = try! Data(contentsOf: URL(fileURLWithPath: path!))
         return data
     }()
