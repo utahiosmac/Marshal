@@ -16,6 +16,10 @@ import Foundation
 
 // MARK: - <| Operator
 
+precedencegroup Decodative {
+    associativity: left
+}
+
 infix operator <|
 
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> A {
