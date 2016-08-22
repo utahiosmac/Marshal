@@ -15,7 +15,14 @@ import XCTest
 
 class MarshalTests: XCTestCase {
     
-    let object: MarshalDictionary = ["bigNumber": NSNumber(value: 10_000_000_000_000), "foo" : (2 as NSNumber), "str": "Hello, World!", "array" : [1,2,3,4,7], "object": ["foo" : (3 as NSNumber), "str": "Hello, World!"], "url":"http://apple.com",  "junk":"garbage", "urls":["http://apple.com", "http://github.com"]]
+    let object: MarshalDictionary = ["bigNumber": NSNumber(value: 10_000_000_000_000),
+                                     "foo": (2 as NSNumber),
+                                     "str": "Hello, World!" as AnyObject,
+                                     "array": [1,2,3,4,7] as NSArray,
+                                     "object": ["foo": (3 as NSNumber), "str": "Hello, World!"] as NSDictionary,
+                                     "url": "http://apple.com" as AnyObject,
+                                     "junk": "garbage" as AnyObject,
+                                     "urls": ["http://apple.com", "http://github.com"] as NSArray]
     
     override func setUp() {
         super.setUp()
@@ -57,9 +64,9 @@ class MarshalTests: XCTestCase {
                 let _:Int? = try self.object.valueForKey("junk")
             }
             catch {
-                let jsonError = error as! Marshal.Error
+                let jsonError = error as! Marshal.MarshalError
                 expectation.fulfill()
-                guard case Marshal.Error.typeMismatchWithKey = jsonError else {
+                guard case Marshal.MarshalError.typeMismatchWithKey = jsonError else {
                     XCTFail("shouldn't get here")
                     return
                 }
@@ -96,7 +103,7 @@ class MarshalTests: XCTestCase {
             str = try object <| "not found"
         }
         catch {
-            if case Marshal.Error.keyNotFound = error {
+            if case Marshal.MarshalError.keyNotFound = error {
                 ex.fulfill()
             }
         }
@@ -111,7 +118,7 @@ class MarshalTests: XCTestCase {
             let _:Int = try object.valueForKey("no key")
         }
         catch {
-            if case Marshal.Error.keyNotFound = error {
+            if case Marshal.MarshalError.keyNotFound = error {
                 expectation.fulfill()
             }
         }
@@ -121,7 +128,7 @@ class MarshalTests: XCTestCase {
             let _:Int = try object.valueForKey("str")
         }
         catch {
-            if case Marshal.Error.typeMismatchWithKey = error {
+            if case Marshal.MarshalError.typeMismatchWithKey = error {
                 expectation.fulfill()
             }
         }
@@ -130,7 +137,7 @@ class MarshalTests: XCTestCase {
     }
     
     func testDicionary() {
-        let path = Bundle(for: self.dynamicType).path(forResource: "TestDictionary", ofType: "json")!
+        let path = Bundle(for: type(of: self)).path(forResource: "TestDictionary", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
         var json:JSONObject = try! JSONParser.JSONObjectWithData(data)
         let url:URL = try! json.valueForKey("meta.next")
@@ -150,7 +157,7 @@ class MarshalTests: XCTestCase {
     }
     
     func testSimpleArray() {
-        let path = Bundle(for: self.dynamicType).path(forResource: "TestSimpleArray", ofType: "json")!
+        let path = Bundle(for: type(of: self)).path(forResource: "TestSimpleArray", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
         var ra = try! JSONSerialization.jsonObject(with: data, options: []) as! [AnyObject]
         XCTAssertEqual(ra.first as? Int, 1)
@@ -163,9 +170,9 @@ class MarshalTests: XCTestCase {
     }
     
     func testObjectArray() {
-        let path = Bundle(for: self.dynamicType).path(forResource: "TestObjectArray", ofType: "json")!
+        let path = Bundle(for: type(of: self)).path(forResource: "TestObjectArray", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
-        var ra:[JSONObject] = try! JSONParser.JSONArrayWithData(data)
+        var ra: [JSONObject] = try! JSONParser.JSONArrayWithData(data)
         
         var obj:JSONObject = ra[0]
         XCTAssertEqual(try! obj.valueForKey("n") as Int, 1)
@@ -186,14 +193,14 @@ class MarshalTests: XCTestCase {
                             "name": "teamName"
                         ]
             ]
-        ]
+        ] as [String : Any]
         
-        let teamId:String = try! dict.valueForKey("payload.team.id")
+        let teamId: String = try! dict.valueForKey("payload.team.id")
         XCTAssertEqual(teamId, "teamId")
     }
     
     func testCustomObjects() {
-        let path = Bundle(for: self.dynamicType).path(forResource: "People", ofType: "json")!
+        let path = Bundle(for: type(of: self)).path(forResource: "People", ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         let obj = try! JSONParser.JSONObjectWithData(data)
         let people:[Person] = try! obj.valueForKey("people")
@@ -204,46 +211,50 @@ class MarshalTests: XCTestCase {
         XCTAssertEqual(people.last!.address!.city, "Cupertino")
     }
     
-    enum MyEnum:String {
+    enum MyEnum: String {
         case One
         case Two
         case Three
-        
     }
     
-    enum MyIntEnum:Int {
+    enum MyIntEnum: Int {
         case one = 1
         case two = 2
     }
     
     
     func testEnum() {
-        let json = ["one":"One", "two":"Two", "three":"Three", "four":"Junk", "iOne":NSNumber(value: 1), "iTwo":NSNumber(value: 2)]
-        let one:MyEnum = try! json.valueForKey("one")
+        let json = ["one": "One",
+                    "two": "Two",
+                    "three": "Three",
+                    "four": "Junk",
+                    "iOne": NSNumber(value: 1),
+                    "iTwo": NSNumber(value: 2)] as [String : Any]
+
+        let one: MyEnum = try! json.valueForKey("one")
         XCTAssertEqual(one, MyEnum.One)
-        let two:MyEnum = try! json.valueForKey("two")
+        let two: MyEnum = try! json.valueForKey("two")
         XCTAssertEqual(two, MyEnum.Two)
         
-        let nope:MyEnum? = try! json.valueForKey("junk")
+        let nope: MyEnum? = try! json.valueForKey("junk")
         XCTAssertEqual(nope, .none)
         
         let expectation = self.expectation(description: "enum test")
         do {
-            let _:MyEnum = try json.valueForKey("four")
+            let _: MyEnum = try json.valueForKey("four")
         }
         catch {
             expectation.fulfill()
         }
         waitForExpectations(timeout: 5, handler: nil)
         
-        let iOne:MyIntEnum = try! json.valueForKey("iOne")
+        let iOne: MyIntEnum = try! json.valueForKey("iOne")
         XCTAssertEqual(iOne, MyIntEnum.one)
-        
     }
     
 
     func testSet() {
-        let path = Bundle(for: self.dynamicType).path(forResource: "TestSimpleSet", ofType: "json")!
+        let path = Bundle(for: type(of: self)).path(forResource: "TestSimpleSet", ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! JSONObject
         
@@ -257,8 +268,19 @@ class MarshalTests: XCTestCase {
     }
     
     func testSwiftBasicTypes() {
-        let object: MarshalDictionary = ["int8": NSNumber(value: 100), "int16": NSNumber(value: 32_000), "int32": NSNumber(value: 2_100_000_000), "int64": NSNumber(value: 9_000_000_000_000_000_000), "uint8": NSNumber(value: 200), "uint16": NSNumber(value: 65_000), "uint32": NSNumber(value: 4_200_000_000), "uint64": NSNumber(value: 18_000_000_000_000_000_000), "char": "S"]
-        
+        // broken into two parts because it was timing out during compile time.
+        let partOne: Dictionary = ["int8": NSNumber(value: 100),
+                                   "int16": NSNumber(value: 32_000),
+                                   "int32": NSNumber(value: 2_100_000_000),
+                                   "int64": NSNumber(value: 9_000_000_000_000_000_000)]
+        let partTwo: Dictionary = ["uint8": NSNumber(value: 200),
+                                   "uint16": NSNumber(value: 64_000),
+                                   "uint32": NSNumber(value: 4_200_000_000),
+                                   "uint64": NSNumber(value: 9_000_000_000_000_000_000),
+                                   "char": "S" as AnyObject]
+
+        let object: MarshalDictionary = partOne.reduce(partTwo) { r, e in var r = r; r[e.0] = e.1; return r }
+
         let int8: Int8 = try! object.valueForKey("int8")
         XCTAssertEqual(int8, 100)
         let int16: Int16 = try! object.valueForKey("int16")
@@ -271,12 +293,12 @@ class MarshalTests: XCTestCase {
         let uint8: UInt8 = try! object.valueForKey("uint8")
         XCTAssertEqual(uint8, 200)
         let uint16: UInt16 = try! object.valueForKey("uint16")
-        XCTAssertEqual(uint16, 65_000)
+        XCTAssertEqual(uint16, 64_000)
         let uint32: UInt32 = try! object.valueForKey("uint32")
         XCTAssertEqual(uint32, 4_200_000_000)
         let uint64: UInt64 = try! object.valueForKey("uint64")
-        XCTAssertEqual(uint64, 18_000_000_000_000_000_000)
-        
+        XCTAssertEqual(uint64, 9_000_000_000_000_000_000)
+
         let char: Character = try! object.valueForKey("char")
         XCTAssertEqual(char, "S")
     }

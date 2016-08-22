@@ -23,7 +23,7 @@ public typealias JSONObject = MarshalDictionary
 
 public struct JSONParser {
     
-    private init() { }
+    fileprivate init() { }
     
     public static func JSONObjectWithData(_ data: Data) throws -> JSONObject {
         let obj: Any = try JSONSerialization.jsonObject(with: data, options: [])
@@ -31,9 +31,9 @@ public struct JSONParser {
     }
     
     public static func JSONArrayWithData(_ data: Data) throws -> [JSONObject] {
-        let object: AnyObject = try JSONSerialization.jsonObject(with: data, options: [])
+        let object: Any = try JSONSerialization.jsonObject(with: data, options: [])
         guard let array = object as? [JSONObject] else {
-            throw MarshalError.typeMismatch(expected: [JSONObject].self, actual: object.dynamicType)
+            throw MarshalError.typeMismatch(expected: [JSONObject].self, actual: type(of: object))
         }
         return array
     }
@@ -48,9 +48,7 @@ public protocol JSONCollectionType {
 
 extension JSONCollectionType {
     public func jsonData() throws -> Data {
-        guard let jsonCollection = self as? AnyObject else {
-            throw MarshalError.typeMismatchWithKey(key:"", expected: AnyObject.self, actual: self.dynamicType) // shouldn't happen
-        }
+        let jsonCollection = self
         return try JSONSerialization.data(withJSONObject: jsonCollection, options: [])
     }
 }

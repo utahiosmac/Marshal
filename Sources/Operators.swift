@@ -16,7 +16,11 @@ import Foundation
 
 // MARK: - <| Operator
 
-infix operator <| { associativity left precedence 150 }
+precedencegroup Decodative {
+    associativity: left
+}
+
+infix operator <|
 
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> A {
     return try dictionary.valueForKey(key)
@@ -30,15 +34,15 @@ public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> [A]? {
     return try dictionary.valueForKey(key)
 }
-public func <| <A: RawRepresentable where A.RawValue: ValueType>(dictionary: MarshaledObject, key: String) throws -> A {
+public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> A where A.RawValue: ValueType {
     return try dictionary.valueForKey(key)
 }
-public func <| <A: RawRepresentable where A.RawValue: ValueType>(dictionary: MarshaledObject, key: String) throws -> A? {
+public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> A? where A.RawValue: ValueType {
     return try dictionary.valueForKey(key)
 }
-public func <| <A: RawRepresentable where A.RawValue: ValueType>(dictionary: MarshaledObject, key: String) throws -> [A] {
+public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> [A] where A.RawValue: ValueType {
     return try dictionary.valueForKey(key)
 }
-public func <| <A: RawRepresentable where A.RawValue: ValueType>(dictionary: MarshaledObject, key: String) throws -> [A]? {
+public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> [A]? where A.RawValue: ValueType {
     return try dictionary.valueForKey(key)
 }

@@ -15,7 +15,7 @@ import Foundation
 
 
 public protocol MarshaledObject {
-    subscript(key: KeyType) -> Any? { get }
+    subscript(key: KeyType?) -> Any? { get }
     func anyForKey(_ key: KeyType) throws -> Any
 }
 
@@ -43,7 +43,7 @@ public extension MarshaledObject {
         let any = try self.anyForKey(key)
         do {
             guard let result = try A.value(any) as? A else {
-                throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: any.dynamicType)
+                throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: type(of: any))
             }
             return result
         }
@@ -108,7 +108,7 @@ public extension MarshaledObject {
         }
     }
     
-    public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(_ key: KeyType) throws -> A {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> A where A.RawValue: ValueType {
         let raw = try self.valueForKey(key) as A.RawValue
         guard let value = A(rawValue: raw) else {
             throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
@@ -116,7 +116,7 @@ public extension MarshaledObject {
         return value
     }
     
-    public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(_ key: KeyType) throws -> A? {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> A? where A.RawValue: ValueType {
         do {
             return try self.valueForKey(key) as A
         }
@@ -128,7 +128,7 @@ public extension MarshaledObject {
         }
     }
     
-    public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(_ key: KeyType) throws -> [A] {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> [A] where A.RawValue: ValueType {
         let rawArray = try self.valueForKey(key) as [A.RawValue]
         return try rawArray.map({ raw in
             guard let value = A(rawValue: raw) else {
@@ -138,7 +138,7 @@ public extension MarshaledObject {
         })
     }
     
-    public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(_ key: KeyType) throws -> [A]? {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> [A]? where A.RawValue: ValueType {
         do {
             return try self.valueForKey(key) as [A]
         }
@@ -150,7 +150,7 @@ public extension MarshaledObject {
         }
     }
     
-    public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(_ key: KeyType) throws -> Set<A> {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> Set<A> where A.RawValue: ValueType {
         let rawArray = try self.valueForKey(key) as [A.RawValue]
         let enumArray: [A] = try rawArray.map({ raw in
             guard let value = A(rawValue: raw) else {
@@ -161,7 +161,7 @@ public extension MarshaledObject {
         return Set<A>(enumArray)
     }
     
-    public func valueForKey<A: RawRepresentable where A.RawValue: ValueType>(_ key: KeyType) throws -> Set<A>? {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> Set<A>? where A.RawValue: ValueType {
         do {
             return try self.valueForKey(key) as Set<A>
         }
