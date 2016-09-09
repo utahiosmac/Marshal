@@ -212,9 +212,9 @@ class MarshalTests: XCTestCase {
     }
     
     enum MyEnum: String {
-        case one
-        case two
-        case three
+        case one = "One"
+        case two = "Two"
+        case three = "Three"
     }
     
     enum MyIntEnum: Int {
