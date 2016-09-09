@@ -80,19 +80,19 @@ class MarshalTests: XCTestCase {
     }
     
     func testOptionals() {
-        var str:String = try! object <| "str"
+        var str: String = try! object <| "str"
         XCTAssertEqual(str, "Hello, World!")
         
-        var optStr:String? = try! object <| "str"
+        var optStr: String? = try! object <| "str"
         XCTAssertEqual(optStr, "Hello, World!")
         
         optStr = try! object <| "not found"
         XCTAssertEqual(optStr, .none)
         
-        let ra:[Int] = try! object <| "array"
+        let ra: [Int] = try! object <| "array"
         XCTAssertEqual(ra[0], 1)
         
-        var ora:[Int]? = try! object <| "array"
+        var ora: [Int]? = try! object <| "array"
         XCTAssertEqual(ora![0], 1)
         
         ora = try! object <| "no key"
@@ -139,12 +139,12 @@ class MarshalTests: XCTestCase {
     func testDicionary() {
         let path = Bundle(for: type(of: self)).path(forResource: "TestDictionary", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
-        var json:JSONObject = try! JSONParser.JSONObjectWithData(data)
-        let url:URL = try! json.valueForKey("meta.next")
+        var json: JSONObject = try! JSONParser.JSONObjectWithData(data)
+        let url: URL = try! json.valueForKey("meta.next")
         XCTAssertEqual(url.host, "apple.com")
-        var people:[JSONObject] = try! json.valueForKey("list")
+        var people: [JSONObject] = try! json.valueForKey("list")
         var person = people[0]
-        let city:String = try! person.valueForKey("address.city")
+        let city: String = try! person.valueForKey("address.city")
         XCTAssertEqual(city, "Cupertino")
         
         data = try! json.jsonData()
@@ -174,7 +174,7 @@ class MarshalTests: XCTestCase {
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
         var ra: [JSONObject] = try! JSONParser.JSONArrayWithData(data)
         
-        var obj:JSONObject = ra[0]
+        var obj: JSONObject = ra[0]
         XCTAssertEqual(try! obj.valueForKey("n") as Int, 1)
         XCTAssertEqual(try! obj.valueForKey("str") as String, "hello")
         
@@ -193,7 +193,7 @@ class MarshalTests: XCTestCase {
                             "name": "teamName"
                         ]
             ]
-        ] as [String : Any]
+        ] as [String: Any]
         
         let teamId: String = try! dict.valueForKey("payload.team.id")
         XCTAssertEqual(teamId, "teamId")
@@ -203,8 +203,8 @@ class MarshalTests: XCTestCase {
         let path = Bundle(for: type(of: self)).path(forResource: "People", ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         let obj = try! JSONParser.JSONObjectWithData(data)
-        let people:[Person] = try! obj.valueForKey("people")
-        let person:Person = try! obj.valueForKey("person")
+        let people: [Person] = try! obj.valueForKey("people")
+        let person: Person = try! obj.valueForKey("person")
         XCTAssertEqual(people.first!.firstName, "Jason")
         XCTAssertEqual(person.firstName, "Jason")
         XCTAssertEqual(person.score, 42)
@@ -212,9 +212,9 @@ class MarshalTests: XCTestCase {
     }
     
     enum MyEnum: String {
-        case One
-        case Two
-        case Three
+        case one
+        case two
+        case three
     }
     
     enum MyIntEnum: Int {
@@ -232,9 +232,9 @@ class MarshalTests: XCTestCase {
                     "iTwo": NSNumber(value: 2)] as [String : Any]
 
         let one: MyEnum = try! json.valueForKey("one")
-        XCTAssertEqual(one, MyEnum.One)
+        XCTAssertEqual(one, MyEnum.one)
         let two: MyEnum = try! json.valueForKey("two")
-        XCTAssertEqual(two, MyEnum.Two)
+        XCTAssertEqual(two, MyEnum.two)
         
         let nope: MyEnum? = try! json.valueForKey("junk")
         XCTAssertEqual(nope, .none)
@@ -258,12 +258,12 @@ class MarshalTests: XCTestCase {
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         let json = try! JSONSerialization.jsonObject(with: data, options: []) as! JSONObject
         
-        let first:Set<Int> = try! json.valueForKey("first")
+        let first: Set<Int> = try! json.valueForKey("first")
         XCTAssertEqual(first.count, 5)
-        let second:Set<Int> = try! json.valueForKey("second")
+        let second: Set<Int> = try! json.valueForKey("second")
         XCTAssertEqual(second.count, 5)
         
-        let nope:Set<Int>? = try! json.valueForKey("junk")
+        let nope: Set<Int>? = try! json.valueForKey("junk")
         XCTAssertEqual(nope, .none)
     }
     
@@ -305,8 +305,8 @@ class MarshalTests: XCTestCase {
 }
 
 struct Address: Unmarshaling {
-    let street:String
-    let city:String
+    let street: String
+    let city: String
     init(object json: MarshaledObject) throws {
         street = try json.valueForKey("street")
         city = try json.valueForKey("city")
@@ -314,10 +314,10 @@ struct Address: Unmarshaling {
 }
 
 struct Person: Unmarshaling {
-    let firstName:String
-    let lastName:String
-    let score:Int
-    let address:Address?
+    let firstName: String
+    let lastName: String
+    let score: Int
+    let address: Address?
     init(object json: MarshaledObject) throws {
         firstName = try json.valueForKey("first")
         lastName = try json.valueForKey("last")
