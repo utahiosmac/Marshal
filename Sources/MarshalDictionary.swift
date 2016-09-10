@@ -16,7 +16,7 @@ import Foundation
 
 // MARK: - Types
 
-public typealias MarshalDictionary = [String: AnyObject]
+public typealias MarshalDictionary = [String: Any]
 
 
 // MARK: - Dictionary Extensions

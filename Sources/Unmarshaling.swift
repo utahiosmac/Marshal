@@ -27,7 +27,7 @@ extension Unmarshaling {
             throw MarshalError.typeMismatch(expected: MarshaledObject.self, actual: type(of: object))
         }
         guard let value = try self.init(object: convertedObject) as? ConvertibleType else {
-            throw MarshalError.typeMismatch(expected: ConvertibleType.self, actual: type(of: (object as AnyObject)))
+            throw MarshalError.typeMismatch(expected: ConvertibleType.self, actual: type(of: object))
         }
         return value
     }

@@ -15,14 +15,14 @@ import XCTest
 
 class MarshalTests: XCTestCase {
     
-    let object: MarshalDictionary = ["bigNumber": NSNumber(value: 10_000_000_000_000),
-                                     "foo": (2 as NSNumber),
-                                     "str": "Hello, World!" as AnyObject,
-                                     "array": [1,2,3,4,7] as NSArray,
-                                     "object": ["foo": (3 as NSNumber), "str": "Hello, World!"] as NSDictionary,
-                                     "url": "http://apple.com" as AnyObject,
-                                     "junk": "garbage" as AnyObject,
-                                     "urls": ["http://apple.com", "http://github.com"] as NSArray]
+    let object: MarshalDictionary = ["bigNumber": 10_000_000_000_000,
+                                     "foo": 2,
+                                     "str": "Hello, World!",
+                                     "array": [1,2,3,4,7],
+                                     "object": ["foo": 3, "str": "Hello, World!"],
+                                     "url": "http://apple.com",
+                                     "junk": "garbage",
+                                     "urls": ["http://apple.com", "http://github.com"]]
     
     override func setUp() {
         super.setUp()
@@ -273,11 +273,11 @@ class MarshalTests: XCTestCase {
                                    "int16": NSNumber(value: 32_000),
                                    "int32": NSNumber(value: 2_100_000_000),
                                    "int64": NSNumber(value: 9_000_000_000_000_000_000)]
-        let partTwo: Dictionary = ["uint8": NSNumber(value: 200),
-                                   "uint16": NSNumber(value: 64_000),
-                                   "uint32": NSNumber(value: 4_200_000_000),
-                                   "uint64": NSNumber(value: 9_000_000_000_000_000_000),
-                                   "char": "S" as AnyObject]
+        let partTwo: MarshalDictionary = ["uint8": NSNumber(value: 200),
+                                          "uint16": NSNumber(value: 64_000),
+                                          "uint32": NSNumber(value: 4_200_000_000),
+                                          "uint64": NSNumber(value: 9_000_000_000_000_000_000),
+                                          "char": "S"]
 
         let object: MarshalDictionary = partOne.reduce(partTwo) { r, e in var r = r; r[e.0] = e.1; return r }
 
@@ -302,6 +302,21 @@ class MarshalTests: XCTestCase {
         let char: Character = try! object.valueForKey("char")
         XCTAssertEqual(char, "S")
     }
+
+    func testValueErrors() {
+        do {
+            let _ = try Int16.value("not an int")
+            XCTFail("Expected an error to be thrown")
+        } catch {
+            if case let Marshal.MarshalError.typeMismatch(expected: expected, actual: actual) = error {
+                XCTAssertEqual("\(expected)", "Int16")
+                XCTAssertEqual("\(actual)", "String")
+            } else {
+                XCTFail("Unexpected error type: \(error)")
+            }
+        }
+    }
+
 }
 
 struct Address: Unmarshaling {
