@@ -25,7 +25,7 @@ public protocol ValueType {
 extension ValueType {
     public static func value(_ object: Any) throws -> Value {
         guard let objectValue = object as? Value else {
-            throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: (object as AnyObject)))
+            throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
         return objectValue
     }
@@ -43,7 +43,7 @@ extension Bool: ValueType {}
 
 extension Int64: ValueType {
     public static func value(_ object: Any) throws -> Int64 {
-        guard let value = object as? NSNumber else { throw MarshalError.typeMismatch(expected: NSNumber.self, actual: type(of: (object as AnyObject))) }
+        guard let value = object as? NSNumber else { throw MarshalError.typeMismatch(expected: NSNumber.self, actual: type(of: object)) }
         return value.int64Value
     }
 }
@@ -51,7 +51,7 @@ extension Int64: ValueType {
 extension Array where Element: ValueType {
     public static func value(_ object: Any) throws -> [Element] {
         guard let anyArray = object as? [AnyObject] else {
-            throw MarshalError.typeMismatch(expected: self, actual: type(of: (object as AnyObject)))
+            throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
         return try anyArray.map {
             let value = try Element.value($0)
@@ -66,7 +66,7 @@ extension Array where Element: ValueType {
 extension Dictionary: ValueType {
     public static func value(_ object: Any) throws -> [Key: Value] {
         guard let objectValue = object as? [Key: Value] else {
-            throw MarshalError.typeMismatch(expected: self, actual: type(of: (object as AnyObject)))
+            throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
         return objectValue
     }
@@ -82,7 +82,7 @@ extension Set where Element: ValueType {
 extension URL: ValueType {
     public static func value(_ object: Any) throws -> URL {
         guard let urlString = object as? String, let objectValue = URL(string: urlString) else {
-            throw MarshalError.typeMismatch(expected: self, actual: type(of: (object as AnyObject)))
+            throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
         return objectValue
     }
@@ -91,7 +91,7 @@ extension URL: ValueType {
 extension Int8: ValueType {
     public static func value(_ object: Any) throws -> Int8 {
         guard let value = object as? Int else {
-            throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: (object as AnyObject)))
+            throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
         return Int8(value)
     }
@@ -99,7 +99,7 @@ extension Int8: ValueType {
 extension Int16: ValueType {
     public static func value(_ object: Any) throws -> Int16 {
         guard let value = object as? Int else {
-            throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: (object as AnyObject)))
+            throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
         return Int16(value)
     }
