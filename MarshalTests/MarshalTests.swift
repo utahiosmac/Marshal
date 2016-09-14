@@ -15,7 +15,7 @@ import XCTest
 
 class MarshalTests: XCTestCase {
     
-    let object: MarshalDictionary = ["bigNumber": 10_000_000_000_000,
+    let object: MarshalDictionary = ["bigNumber": NSNumber(value: 10_000_000_000_000 as Int64),
                                      "foo": 2,
                                      "str": "Hello, World!",
                                      "array": [1,2,3,4,7],
@@ -271,12 +271,12 @@ class MarshalTests: XCTestCase {
         // broken into two parts because it was timing out during compile time.
         let partOne: Dictionary = ["int8": NSNumber(value: 100),
                                    "int16": NSNumber(value: 32_000),
-                                   "int32": NSNumber(value: 2_100_000_000),
-                                   "int64": NSNumber(value: 9_000_000_000_000_000_000)]
+                                   "int32": NSNumber(value: 2_100_000_000 as Int32),
+                                   "int64": NSNumber(value: 9_000_000_000_000_000_000 as Int64)]
         let partTwo: MarshalDictionary = ["uint8": NSNumber(value: 200),
                                           "uint16": NSNumber(value: 64_000),
-                                          "uint32": NSNumber(value: 4_200_000_000),
-                                          "uint64": NSNumber(value: 9_000_000_000_000_000_000),
+                                          "uint32": NSNumber(value: 4_200_000_000 as UInt32),
+                                          "uint64": NSNumber(value: 9_000_000_000_000_000_000 as UInt64),
                                           "char": "S"]
 
         let object: MarshalDictionary = partOne.reduce(partTwo) { r, e in var r = r; r[e.0] = e.1; return r }
