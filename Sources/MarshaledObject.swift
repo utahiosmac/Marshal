@@ -15,8 +15,8 @@ import Foundation
 
 
 public protocol MarshaledObject {
-    func optionalAny(for key: KeyType) -> Any?
     func any(for key: KeyType) throws -> Any
+    func optionalAny(for key: KeyType) -> Any?
 }
 
 public extension MarshaledObject {
