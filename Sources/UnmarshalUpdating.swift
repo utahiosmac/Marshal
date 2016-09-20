@@ -15,5 +15,5 @@ import Foundation
 
 
 public protocol UnmarshalUpdating {
-    mutating func update(object: MarshaledObject) throws
+    mutating func update(with object: MarshaledObject) throws
 }

@@ -75,7 +75,7 @@ private struct Address {
 }
 
 extension Address: UnmarshalUpdating {
-    mutating func update(object: MarshaledObject) throws {
+    mutating func update(with object: MarshaledObject) throws {
         street = try object.value(for: "street")
         city = try object.value(for: "city")
     }
@@ -84,7 +84,7 @@ extension Address: UnmarshalUpdating {
 extension Address: UnmarshalingWithContext {
     static func value(from object: MarshaledObject, inContext context: DeserializationContext) throws -> Address {
         var address = context.newAddress()
-        try address.update(object: object)
+        try address.update(with: object)
         return address
     }
 }
