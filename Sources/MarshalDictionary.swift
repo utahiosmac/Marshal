@@ -23,7 +23,7 @@ public typealias MarshalDictionary = [String: Any]
 
 extension Dictionary: MarshaledObject {
     
-    public func get(optionalKey key: KeyType) -> Any? {
+    public func optionalAny(for key: KeyType) -> Any? {
         guard let aKey = key as? Key else { return nil }
         
         return self[aKey]
@@ -44,7 +44,7 @@ extension NSDictionary: MarshaledObject {
         return value
     }
     
-    public func get(optionalKey key: KeyType) -> Any? {
+    public func optionalAny(for key: KeyType) -> Any? {
         return self[key]
     }
 }
