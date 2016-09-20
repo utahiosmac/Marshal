@@ -31,7 +31,7 @@ extension Dictionary: MarshaledObject {
 extension NSDictionary: ValueType { }
 
 extension NSDictionary: MarshaledObject {
-    public func any(forKey key: KeyType) throws -> Any {
+    public func any(for key: KeyType) throws -> Any {
         guard let value: Any = self.value(forKeyPath: key.stringValue) else {
             throw MarshalError.keyNotFound(key: key)
         }

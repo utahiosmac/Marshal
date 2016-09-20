@@ -161,7 +161,7 @@ public extension MarshaledObject {
         return Set<A>(enumArray)
     }
     
-    public func value<A: RawRepresentable>(forKey key: KeyType) throws -> Set<A>? where A.RawValue: ValueType {
+    public func value<A: RawRepresentable>(for key: KeyType) throws -> Set<A>? where A.RawValue: ValueType {
         do {
             return try self.value(for: key) as Set<A>
         }
