@@ -327,7 +327,7 @@ class MarshalTests: XCTestCase {
 
     func testValueErrors() {
         do {
-            let _ = try Int16.value("not an int")
+            let _ = try Int16.value(from: "not an int")
             XCTFail("Expected an error to be thrown")
         } catch {
             if case let Marshal.MarshalError.typeMismatch(expected: expected, actual: actual) = error {

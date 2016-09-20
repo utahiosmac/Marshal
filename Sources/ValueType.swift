@@ -19,11 +19,11 @@ import Foundation
 public protocol ValueType {
     associatedtype Value = Self
     
-    static func value(_ object: Any) throws -> Value
+    static func value(from object: Any) throws -> Value
 }
 
 extension ValueType {
-    public static func value(_ object: Any) throws -> Value {
+    public static func value(from object: Any) throws -> Value {
         guard let objectValue = object as? Value else {
             throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
@@ -42,19 +42,19 @@ extension Double: ValueType {}
 extension Bool: ValueType {}
 
 extension Int64: ValueType {
-    public static func value(_ object: Any) throws -> Int64 {
+    public static func value(from object: Any) throws -> Int64 {
         guard let value = object as? NSNumber else { throw MarshalError.typeMismatch(expected: NSNumber.self, actual: type(of: object)) }
         return value.int64Value
     }
 }
 
 extension Array where Element: ValueType {
-    public static func value(_ object: Any) throws -> [Element] {
+    public static func value(from object: Any) throws -> [Element] {
         guard let anyArray = object as? [AnyObject] else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
         return try anyArray.map {
-            let value = try Element.value($0)
+            let value = try Element.value(from: $0)
             guard let element = value as? Element else {
                 throw MarshalError.typeMismatch(expected: Element.self, actual: type(of: value))
             }
@@ -64,7 +64,7 @@ extension Array where Element: ValueType {
 }
 
 extension Dictionary: ValueType {
-    public static func value(_ object: Any) throws -> [Key: Value] {
+    public static func value(from object: Any) throws -> [Key: Value] {
         guard let objectValue = object as? [Key: Value] else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
@@ -73,14 +73,14 @@ extension Dictionary: ValueType {
 }
 
 extension Set where Element: ValueType {
-    public static func value(_ object: Any) throws -> Set<Element> {
-        let elementArray = try [Element].value(object)
+    public static func value(from object: Any) throws -> Set<Element> {
+        let elementArray = try [Element].value(from: object)
         return Set<Element>(elementArray)
     }
 }
 
 extension URL: ValueType {
-    public static func value(_ object: Any) throws -> URL {
+    public static func value(from object: Any) throws -> URL {
         guard let urlString = object as? String, let objectValue = URL(string: urlString) else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
@@ -89,7 +89,7 @@ extension URL: ValueType {
 }
 
 extension Int8: ValueType {
-    public static func value(_ object: Any) throws -> Int8 {
+    public static func value(from object: Any) throws -> Int8 {
         guard let value = object as? Int else {
             throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
@@ -97,7 +97,7 @@ extension Int8: ValueType {
     }
 }
 extension Int16: ValueType {
-    public static func value(_ object: Any) throws -> Int16 {
+    public static func value(from object: Any) throws -> Int16 {
         guard let value = object as? Int else {
             throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
@@ -105,7 +105,7 @@ extension Int16: ValueType {
     }
 }
 extension Int32: ValueType {
-    public static func value(_ object: Any) throws -> Int32 {
+    public static func value(from object: Any) throws -> Int32 {
         guard let value = object as? Int else {
             throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
@@ -114,7 +114,7 @@ extension Int32: ValueType {
 }
 
 extension UInt8: ValueType {
-    public static func value(_ object: Any) throws -> UInt8 {
+    public static func value(from object: Any) throws -> UInt8 {
         guard let value = object as? UInt else {
             throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
@@ -122,7 +122,7 @@ extension UInt8: ValueType {
     }
 }
 extension UInt16: ValueType {
-    public static func value(_ object: Any) throws -> UInt16 {
+    public static func value(from object: Any) throws -> UInt16 {
         guard let value = object as? UInt else {
             throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
@@ -130,7 +130,7 @@ extension UInt16: ValueType {
     }
 }
 extension UInt32: ValueType {
-    public static func value(_ object: Any) throws -> UInt32 {
+    public static func value(from object: Any) throws -> UInt32 {
         guard let value = object as? UInt else {
             throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }
@@ -138,7 +138,7 @@ extension UInt32: ValueType {
     }
 }
 extension UInt64: ValueType {
-    public static func value(_ object: Any) throws -> UInt64 {
+    public static func value(from object: Any) throws -> UInt64 {
         guard let value = object as? NSNumber else {
             throw MarshalError.typeMismatch(expected: NSNumber.self, actual: type(of: object))
         }
@@ -147,7 +147,7 @@ extension UInt64: ValueType {
 }
 
 extension Character: ValueType {
-    public static func value(_ object: Any) throws -> Character {
+    public static func value(from object: Any) throws -> Character {
         guard let value = object as? String else {
             throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: object))
         }

@@ -72,7 +72,7 @@ struct Program: Unmarshaling {
 }
 
 extension Date: ValueType {
-    public static func value(_ object: Any) throws -> Date {
+    public static func value(from object: Any) throws -> Date {
         guard let dateString = object as? String else {
             throw Marshal.MarshalError.typeMismatch(expected: String.self, actual: type(of: object))
         }

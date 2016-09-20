@@ -42,7 +42,7 @@ public extension MarshaledObject {
     public func value<A: ValueType>(forKey key: KeyType) throws -> A {
         let any = try self.any(forKey: key)
         do {
-            guard let result = try A.value(any) as? A else {
+            guard let result = try A.value(from: any) as? A else {
                 throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: type(of: any))
             }
             return result
@@ -67,7 +67,7 @@ public extension MarshaledObject {
     public func value<A: ValueType>(forKey key: KeyType) throws -> [A] {
         let any = try self.any(forKey: key)
         do {
-            return try Array<A>.value(any)
+            return try Array<A>.value(from: any)
         }
         catch let MarshalError.typeMismatch(expected: expected, actual: actual) {
             throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
@@ -89,7 +89,7 @@ public extension MarshaledObject {
     public func value<A: ValueType>(forKey key: KeyType) throws -> Set<A> {
         let any = try self.any(forKey: key)
         do {
-            return try Set<A>.value(any)
+            return try Set<A>.value(from: any)
         }
         catch let MarshalError.typeMismatch(expected: expected, actual: actual) {
             throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)

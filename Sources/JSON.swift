@@ -27,7 +27,7 @@ public struct JSONParser {
     
     public static func JSONObjectWithData(_ data: Data) throws -> JSONObject {
         let obj: Any = try JSONSerialization.jsonObject(with: data, options: [])
-        return try JSONObject.value(obj)
+        return try JSONObject.value(from: obj)
     }
     
     public static func JSONArrayWithData(_ data: Data) throws -> [JSONObject] {
