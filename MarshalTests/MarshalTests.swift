@@ -317,6 +317,44 @@ class MarshalTests: XCTestCase {
         }
     }
 
+    func testMarshalingSwiftValues() {
+        let object: MarshalDictionary = [
+            "string": "A String",
+            "small": 2,
+            "medium": 66_000,
+            "large": 4_200_000_000,
+            "huge": 9_000_000_000_000_000_000,
+            "decimal": 1.2,
+            "array": [ "a", "b", "c" ],
+            "nested": [
+                "key": "value"
+            ]
+        ]
+        do {
+            let data = try JSONSerialization.data(withJSONObject: object, options: [])
+            let result = try JSONParser.JSONObjectWithData(data)
+            let string: String = try result <| "string"
+            let small: Int = try result <| "small"
+            let medium: Int = try result <| "medium"
+            let large: Int = try result <| "large"
+            let huge: Int = try result <| "huge"
+            let decimal: Float = try result <| "decimal"
+            let array: [String] = try result <| "array"
+            let nested: [String:Any] = try result <| "nested"
+
+            XCTAssertEqual(string, "A String")
+            XCTAssertEqual(small, 2)
+            XCTAssertEqual(medium, 66_000)
+            XCTAssertEqual(large, 4_200_000_000)
+            XCTAssertEqual(huge, 9_000_000_000_000_000_000)
+            XCTAssertEqual(decimal, 1.2)
+            XCTAssertEqual(array, [ "a", "b", "c" ])
+            XCTAssertEqual(nested as! [String:String], [ "key": "value" ])
+        } catch {
+            XCTFail("Error converting MarshalDictionary: \(error)")
+        }
+    }
+
 }
 
 struct Address: Unmarshaling {
