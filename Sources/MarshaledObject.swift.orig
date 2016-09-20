@@ -15,17 +15,31 @@ import Foundation
 
 
 public protocol MarshaledObject {
-    func get(optionalKey key: KeyType) -> Any?
-    func any(forKey key: KeyType) throws -> Any
+<<<<<<< HEAD
+    subscript(key: KeyType?) -> Any? { get }
+    func anyForKey(_ key: KeyType) throws -> Any
 }
 
 public extension MarshaledObject {
-    public func any(forKey key: KeyType) throws -> Any {
-        let pathComponents = key.stringValue.characters.split(separator: ".").map(String.init)
+    public func anyForKey(_ key: KeyType) throws -> Any {
+        let pathComponents = key.split()
         var accumulator: Any = self
         
         for component in pathComponents {
-            if let componentData = accumulator as? Self, let value = componentData.get(optionalKey: component) {
+            if let componentData = accumulator as? Self, let value = componentData[component] {
+=======
+    func get(optionalKey key: KeyType) -> Any?
+    func anyForKey(key: KeyType) throws -> Any
+}
+
+public extension MarshaledObject {
+    public func anyForKey(key: KeyType) throws -> Any {
+        let pathComponents = key.stringValue.characters.split(".").map(String.init)
+        var accumulator: Any = self
+        
+        for component in pathComponents {
+            if let componentData = accumulator as? Self, value = componentData.get(optionalKey: component) {
+>>>>>>> master
                 accumulator = value
                 continue
             }
@@ -39,8 +53,8 @@ public extension MarshaledObject {
         return accumulator
     }
     
-    public func value<A: ValueType>(forKey key: KeyType) throws -> A {
-        let any = try self.any(forKey: key)
+    public func valueForKey<A: ValueType>(_ key: KeyType) throws -> A {
+        let any = try self.anyForKey(key)
         do {
             guard let result = try A.value(any) as? A else {
                 throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: type(of: any))
@@ -52,9 +66,9 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: ValueType>(forKey key: KeyType) throws -> A? {
+    public func valueForKey<A: ValueType>(_ key: KeyType) throws -> A? {
         do {
-            return try self.value(forKey: key) as A
+            return try self.valueForKey(key) as A
         }
         catch MarshalError.keyNotFound {
             return nil
@@ -64,8 +78,8 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: ValueType>(forKey key: KeyType) throws -> [A] {
-        let any = try self.any(forKey: key)
+    public func valueForKey<A: ValueType>(_ key: KeyType) throws -> [A] {
+        let any = try self.anyForKey(key)
         do {
             return try Array<A>.value(any)
         }
@@ -74,9 +88,9 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: ValueType>(forKey key: KeyType) throws -> [A]? {
+    public func valueForKey<A: ValueType>(_ key: KeyType) throws -> [A]? {
         do {
-            return try self.value(forKey: key) as [A]
+            return try self.valueForKey(key) as [A]
         }
         catch MarshalError.keyNotFound {
             return nil
@@ -86,8 +100,8 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: ValueType>(forKey key: KeyType) throws -> Set<A> {
-        let any = try self.any(forKey: key)
+    public func valueForKey<A: ValueType>(_ key: KeyType) throws -> Set<A> {
+        let any = try self.anyForKey(key)
         do {
             return try Set<A>.value(any)
         }
@@ -96,9 +110,9 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: ValueType>(forKey key: KeyType) throws -> Set<A>? {
+    public func valueForKey<A: ValueType>(_ key: KeyType) throws -> Set<A>? {
         do {
-            return try self.value(forKey: key) as Set<A>
+            return try self.valueForKey(key) as Set<A>
         }
         catch MarshalError.keyNotFound {
             return nil
@@ -108,17 +122,17 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: RawRepresentable>(forKey key: KeyType) throws -> A where A.RawValue: ValueType {
-        let raw = try self.value(forKey: key) as A.RawValue
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> A where A.RawValue: ValueType {
+        let raw = try self.valueForKey(key) as A.RawValue
         guard let value = A(rawValue: raw) else {
             throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
         }
         return value
     }
     
-    public func value<A: RawRepresentable>(forKey key: KeyType) throws -> A? where A.RawValue: ValueType {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> A? where A.RawValue: ValueType {
         do {
-            return try self.value(forKey: key) as A
+            return try self.valueForKey(key) as A
         }
         catch MarshalError.keyNotFound {
             return nil
@@ -128,8 +142,8 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: RawRepresentable>(forKey key: KeyType) throws -> [A] where A.RawValue: ValueType {
-        let rawArray = try self.value(forKey: key) as [A.RawValue]
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> [A] where A.RawValue: ValueType {
+        let rawArray = try self.valueForKey(key) as [A.RawValue]
         return try rawArray.map({ raw in
             guard let value = A(rawValue: raw) else {
                 throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
@@ -138,9 +152,9 @@ public extension MarshaledObject {
         })
     }
     
-    public func value<A: RawRepresentable>(forKey key: KeyType) throws -> [A]? where A.RawValue: ValueType {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> [A]? where A.RawValue: ValueType {
         do {
-            return try self.value(forKey: key) as [A]
+            return try self.valueForKey(key) as [A]
         }
         catch MarshalError.keyNotFound {
             return nil
@@ -150,8 +164,8 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: RawRepresentable>(forKey key: KeyType) throws -> Set<A> where A.RawValue: ValueType {
-        let rawArray = try self.value(forKey: key) as [A.RawValue]
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> Set<A> where A.RawValue: ValueType {
+        let rawArray = try self.valueForKey(key) as [A.RawValue]
         let enumArray: [A] = try rawArray.map({ raw in
             guard let value = A(rawValue: raw) else {
                 throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: A.self, actual: raw)
@@ -161,9 +175,9 @@ public extension MarshaledObject {
         return Set<A>(enumArray)
     }
     
-    public func value<A: RawRepresentable>(forKey key: KeyType) throws -> Set<A>? where A.RawValue: ValueType {
+    public func valueForKey<A: RawRepresentable>(_ key: KeyType) throws -> Set<A>? where A.RawValue: ValueType {
         do {
-            return try self.value(forKey: key) as Set<A>
+            return try self.valueForKey(key) as Set<A>
         }
         catch MarshalError.keyNotFound {
             return nil

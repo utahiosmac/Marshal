@@ -23,26 +23,26 @@ precedencegroup Decodative {
 infix operator <|
 
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> A {
-    return try dictionary.valueForKey(key)
+    return try dictionary.value(forKey: key)
 }
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> A? {
-    return try dictionary.valueForKey(key)
+    return try dictionary.value(forKey: key)
 }
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> [A] {
-    return try dictionary.valueForKey(key)
+    return try dictionary.value(forKey: key)
 }
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> [A]? {
-    return try dictionary.valueForKey(key)
+    return try dictionary.value(forKey: key)
 }
 public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> A where A.RawValue: ValueType {
-    return try dictionary.valueForKey(key)
+    return try dictionary.value(forKey: key)
 }
 public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> A? where A.RawValue: ValueType {
-    return try dictionary.valueForKey(key)
+    return try dictionary.value(forKey: key)
 }
 public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> [A] where A.RawValue: ValueType {
-    return try dictionary.valueForKey(key)
+    return try dictionary.value(forKey: key)
 }
 public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> [A]? where A.RawValue: ValueType {
-    return try dictionary.valueForKey(key)
+    return try dictionary.value(forKey: key)
 }

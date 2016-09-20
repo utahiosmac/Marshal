@@ -22,7 +22,8 @@ public typealias MarshalDictionary = [String: Any]
 // MARK: - Dictionary Extensions
 
 extension Dictionary: MarshaledObject {
-    public subscript(key: KeyType?) -> Any? {
+    
+    public func get(optionalKey key: KeyType) -> Any? {
         guard let aKey = key as? Key else { return nil }
         
         return self[aKey]
@@ -32,39 +33,18 @@ extension Dictionary: MarshaledObject {
 extension NSDictionary: ValueType { }
 
 extension NSDictionary: MarshaledObject {
-    public func anyForKey(_ key: KeyType) throws -> Any {
-        let value:Any
-        if type(of: key).keyTypeSeparator == "." {
-            // `valueForKeyPath` is more efficient. Use it if possible.
-            guard let v = self.value(forKeyPath: key.stringValue) else {
-                throw MarshalError.keyNotFound(key: key)
-            }
-            value = v
+    public func any(forKey key: KeyType) throws -> Any {
+        guard let value: Any = self.value(forKeyPath: key.stringValue) else {
+            throw MarshalError.keyNotFound(key: key)
         }
-        else {
-            let pathComponents = key.split()
-            var accumulator: Any = self
-
-            for component in pathComponents {
-                if let componentData = accumulator as? MarshaledObject, let v = componentData[component] {
-                    accumulator = v
-                    continue
-                }
-                throw MarshalError.keyNotFound(key: key.stringValue)
-            }
-            value = accumulator
-        }
-
         if let _ = value as? NSNull {
             throw MarshalError.nullValue(key: key)
         }
-
+        
         return value
     }
-
-    public subscript(key: KeyType?) -> Any? {
-        guard let aKey = key else { return nil }
-        
-        return self[aKey]
+    
+    public func get(optionalKey key: KeyType) -> Any? {
+        return self[key]
     }
 }
