@@ -22,8 +22,8 @@ class UnmarshalingWithContextTests: XCTestCase {
     func testObjectMapping() {
         let obj = personsJSON()
         let context = DeserializationContext()
-        let people: [Person] = try! obj.value(forKey: "people", inContext: context)
-        let person: Person = try! obj.value(forKey: "person", inContext: context)
+        let people: [Person] = try! obj.value(for: "people", inContext: context)
+        let person: Person = try! obj.value(for: "person", inContext: context)
         XCTAssertEqual(people.first!.firstName, "Jason")
         XCTAssertEqual(person.firstName, "Jason")
         XCTAssertEqual(person.score, 42)
@@ -34,12 +34,12 @@ class UnmarshalingWithContextTests: XCTestCase {
         let obj = personsJSON()
         let context = DeserializationContext()
         
-        let nPerson: AgedPerson? = try! obj.value(forKey: "person", inContext: context)
+        let nPerson: AgedPerson? = try! obj.value(for: "person", inContext: context)
         XCTAssertNil(nPerson)
         
         let expectation = self.expectation(description: "error test")
         do {
-            let _: AgedPerson = try obj.value(forKey: "person", inContext:context)
+            let _: AgedPerson = try obj.value(for: "person", inContext:context)
         }
         catch {
             if case MarshalError.keyNotFound = error {
@@ -49,7 +49,7 @@ class UnmarshalingWithContextTests: XCTestCase {
         
         let expectation2 = self.expectation(description: "error test for array")
         do {
-            let _: [AgedPerson] = try obj.value(forKey: "persons", inContext: context)
+            let _: [AgedPerson] = try obj.value(for: "persons", inContext: context)
         }
         catch {
             if case MarshalError.keyNotFound = error {
@@ -76,13 +76,13 @@ private struct Address {
 
 extension Address: UnmarshalUpdating {
     mutating func update(object: MarshaledObject) throws {
-        street = try object.value(forKey: "street")
-        city = try object.value(forKey: "city")
+        street = try object.value(for: "street")
+        city = try object.value(for: "city")
     }
 }
 
 extension Address: UnmarshalingWithContext {
-    static func value(fromObject object: MarshaledObject, inContext context: DeserializationContext) throws -> Address {
+    static func value(from object: MarshaledObject, inContext context: DeserializationContext) throws -> Address {
         var address = context.newAddress()
         try address.update(object: object)
         return address
@@ -98,15 +98,15 @@ private struct Person {
 
 extension Person: UnmarshalUpdatingWithContext {
     mutating func update(object: MarshaledObject, inContext context: DeserializationContext) throws {
-        firstName = try object.value(forKey: "first")
-        lastName = try object.value(forKey: "last")
-        score = try object.value(forKey: "score")
-        address = try object.value(forKey: "address", inContext: context)
+        firstName = try object.value(for: "first")
+        lastName = try object.value(for: "last")
+        score = try object.value(for: "score")
+        address = try object.value(for: "address", inContext: context)
     }
 }
 
 extension Person: UnmarshalingWithContext {
-    static func value(fromObject object: MarshaledObject, inContext context: DeserializationContext) throws -> Person {
+    static func value(from object: MarshaledObject, inContext context: DeserializationContext) throws -> Person {
         var person = context.newPerson()
         try person.update(object: object, inContext: context)
         return person
@@ -118,9 +118,9 @@ private struct AgedPerson {
 }
 
 extension AgedPerson: UnmarshalingWithContext {
-    static func value(fromObject object: MarshaledObject, inContext context: DeserializationContext) throws -> AgedPerson {
+    static func value(from object: MarshaledObject, inContext context: DeserializationContext) throws -> AgedPerson {
         var person = context.newAgedPerson()
-        person.age = try object.value(forKey: "age")
+        person.age = try object.value(for: "age")
         return person
     }
 }

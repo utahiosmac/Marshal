@@ -37,7 +37,7 @@ class PerformanceTests: XCTestCase {
         let json = try! JSONParser.JSONObjectWithData(data)
 
         self.measure {
-            let programs:[Program] = try! json.value(forKey: "ProgramList.Programs")
+            let programs:[Program] = try! json.value(for: "ProgramList.Programs")
             XCTAssert(programs.count > 1000)
         }
     }

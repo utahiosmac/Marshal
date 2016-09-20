@@ -30,10 +30,10 @@ struct Recording: Unmarshaling {
     let recGroup: RecGroup
     
     init(object json: MarshaledObject) throws {
-        startTsStr = try json.value(forKey: "StartTs")
-        recordId = try json.value(forKey: "RecordId")
-        status = (try? json.value(forKey: "Status")) ?? .unknown
-        recGroup = (try? json.value(forKey: "RecGroup")) ?? .unknown
+        startTsStr = try json.value(for: "StartTs")
+        recordId = try json.value(for: "RecordId")
+        status = (try? json.value(for: "Status")) ?? .unknown
+        recGroup = (try? json.value(for: "RecGroup")) ?? .unknown
     }
 }
 
@@ -53,21 +53,21 @@ struct Program: Unmarshaling {
     
     init(jsonObj: MarshaledObject, channelId: String? = nil) throws {
         let json = jsonObj
-        title = try json.value(forKey: "Title")
+        title = try json.value(for: "Title")
         
         if let channelId = channelId {
             self.chanId = channelId
         }
         else {
-            chanId = try json.value(forKey: "Channel.ChanId")
+            chanId = try json.value(for: "Channel.ChanId")
         }
-        //startTime = try json.value(forKey: "StartTime")
-        //endTime = try json.value(forKey: "EndTime")
-        description = try json.value(forKey: "Description")
-        subtitle = try json.value(forKey: "SubTitle")
-        recording = try json.value(forKey: "Recording")
-        season = (try json.value(forKey: "Season") as String?).flatMap({Int($0)})
-        episode = (try json.value(forKey: "Episode") as String?).flatMap({Int($0)})
+        //startTime = try json.value(for: "StartTime")
+        //endTime = try json.value(for: "EndTime")
+        description = try json.value(for: "Description")
+        subtitle = try json.value(for: "SubTitle")
+        recording = try json.value(for: "Recording")
+        season = (try json.value(for: "Season") as String?).flatMap({Int($0)})
+        episode = (try json.value(for: "Episode") as String?).flatMap({Int($0)})
     }
 }
 
