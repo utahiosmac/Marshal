@@ -16,15 +16,14 @@ import Foundation
 
 // MARK: - Types
 
-public typealias MarshalDictionary = [String: AnyObject]
+public typealias MarshalDictionary = [String: Any]
 
 
 // MARK: - Dictionary Extensions
 
 extension Dictionary: MarshaledObject {
-    public func get(optionalKey key: KeyType) -> Any? {
+    public func optionalAny(for key: KeyType) -> Any? {
         guard let aKey = key as? Key else { return nil }
-        
         return self[aKey]
     }
 }
@@ -32,22 +31,17 @@ extension Dictionary: MarshaledObject {
 extension NSDictionary: ValueType { }
 
 extension NSDictionary: MarshaledObject {
-    public func anyForKey(key: KeyType) throws -> Any {
-        let value:Any
-        guard let v = self.valueForKeyPath(key.stringValue) else {
-            throw Error.KeyNotFound(key: key)
+    public func any(for key: KeyType) throws -> Any {
+        guard let value: Any = self.value(forKeyPath: key.stringValue) else {
+            throw MarshalError.keyNotFound(key: key)
         }
-        value = v
         if let _ = value as? NSNull {
-            throw Error.NullValue(key: key)
+            throw MarshalError.nullValue(key: key)
         }
-
         return value
     }
     
-    public func get(optionalKey key: KeyType) -> Any? {
-        guard let aKey = key as? Key else { return nil }
-        
-        return self[aKey]
+    public func optionalAny(for key: KeyType) -> Any? {
+        return self[key]
     }
 }

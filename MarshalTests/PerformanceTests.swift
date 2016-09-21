@@ -20,14 +20,14 @@ class PerformanceTests: XCTestCase {
     }
     
     func testDeserialization() {
-        self.measureBlock {
-            let d:NSDictionary = try! NSJSONSerialization.JSONObjectWithData(self.data, options: []) as! NSDictionary
+        self.measure {
+            let d:NSDictionary = try! JSONSerialization.jsonObject(with: self.data, options: []) as! NSDictionary
             XCTAssert(d.count > 0)
         }
     }
 
     func testTypedDeserialization() {
-        self.measureBlock {
+        self.measure {
             let json = try! JSONParser.JSONObjectWithData(self.data)
             XCTAssert(json.count > 0)
         }
@@ -36,15 +36,15 @@ class PerformanceTests: XCTestCase {
     func testPerformance() {
         let json = try! JSONParser.JSONObjectWithData(data)
 
-        self.measureBlock {
-            let programs:[Program] = try! json.valueForKey("ProgramList.Programs")
+        self.measure {
+            let programs:[Program] = try! json.value(for: "ProgramList.Programs")
             XCTAssert(programs.count > 1000)
         }
     }
     
-    private lazy var data:NSData = {
-        let path = NSBundle(forClass: self.dynamicType).pathForResource("Large", ofType: "json")
-        let data = NSData(contentsOfFile: path!)!
+    fileprivate lazy var data:Data = {
+        let path = Bundle(for: type(of: self)).path(forResource: "Large", ofType: "json")
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path!))
         return data
     }()
 }

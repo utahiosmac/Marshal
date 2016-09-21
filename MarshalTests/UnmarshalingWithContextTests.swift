@@ -22,8 +22,8 @@ class UnmarshalingWithContextTests: XCTestCase {
     func testObjectMapping() {
         let obj = personsJSON()
         let context = DeserializationContext()
-        let people:[Person] = try! obj.valueForKey("people", context:context)
-        let person:Person = try! obj.valueForKey("person", context:context)
+        let people: [Person] = try! obj.value(for: "people", inContext: context)
+        let person: Person = try! obj.value(for: "person", inContext: context)
         XCTAssertEqual(people.first!.firstName, "Jason")
         XCTAssertEqual(person.firstName, "Jason")
         XCTAssertEqual(person.score, 42)
@@ -34,92 +34,93 @@ class UnmarshalingWithContextTests: XCTestCase {
         let obj = personsJSON()
         let context = DeserializationContext()
         
-        let nPerson:AgedPerson? = try! obj.valueForKey("person", context:context)
+        let nPerson: AgedPerson? = try! obj.value(for: "person", inContext: context)
         XCTAssertNil(nPerson)
         
-        let expectation = self.expectationWithDescription("error test")
+        let expectation = self.expectation(description: "error test")
         do {
-            let _:AgedPerson = try obj.valueForKey("person", context:context)
+            let _: AgedPerson = try obj.value(for: "person", inContext:context)
         }
         catch {
-            if case Error.KeyNotFound = error {
+            if case MarshalError.keyNotFound = error {
                 expectation.fulfill()
             }
         }
         
-        let expectation2 = self.expectationWithDescription("error test for array")
+        let expectation2 = self.expectation(description: "error test for array")
         do {
-            let _:[AgedPerson] = try obj.valueForKey("persons", context:context)
+            let _: [AgedPerson] = try obj.value(for: "persons", inContext: context)
         }
         catch {
-            if case Error.KeyNotFound = error {
+            if case MarshalError.keyNotFound = error {
                 expectation2.fulfill()
             }
         }
         
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
     }
     
     private func personsJSON() -> JSONObject {
-        let path = NSBundle(forClass: self.dynamicType).pathForResource("People", ofType: "json")!
-        let data = NSData(contentsOfFile: path)!
+        let path = Bundle(for: type(of: self)).path(forResource: "People", ofType: "json")!
+        let url = URL(fileURLWithPath: path)
+        let data = try! Data(contentsOf: url)
         return try! JSONParser.JSONObjectWithData(data)
     }
 
 }
 
 private struct Address {
-    var street:String!
-    var city:String!
+    var street: String!
+    var city: String!
 }
 
 extension Address: UnmarshalUpdating {
-    private mutating func update(object object: MarshaledObject) throws {
-        street = try object.valueForKey("street")
-        city = try object.valueForKey("city")
+    mutating func update(with object: MarshaledObject) throws {
+        street = try object.value(for: "street")
+        city = try object.value(for: "city")
     }
 }
 
 extension Address: UnmarshalingWithContext {
-    private static func valueFromObject(object: MarshaledObject, context:DeserializationContext) throws -> Address {
+    static func value(from object: MarshaledObject, inContext context: DeserializationContext) throws -> Address {
         var address = context.newAddress()
-        try address.update(object: object)
+        try address.update(with: object)
         return address
     }
 }
 
 private struct Person {
-    var firstName:String!
-    var lastName:String!
-    var score:Int!
-    var address:Address?
+    var firstName: String!
+    var lastName: String!
+    var score: Int!
+    var address: Address?
 }
 
 extension Person: UnmarshalUpdatingWithContext {
-    private mutating func update(object object: MarshaledObject, context:DeserializationContext) throws {
-        firstName = try object.valueForKey("first")
-        lastName = try object.valueForKey("last")
-        score = try object.valueForKey("score")
-        address = try object.valueForKey("address", context:context)
+    mutating func update(object: MarshaledObject, inContext context: DeserializationContext) throws {
+        firstName = try object.value(for: "first")
+        lastName = try object.value(for: "last")
+        score = try object.value(for: "score")
+        address = try object.value(for: "address", inContext: context)
     }
 }
 
 extension Person: UnmarshalingWithContext {
-    private static func valueFromObject(object: MarshaledObject, context:DeserializationContext) throws -> Person {
+    static func value(from object: MarshaledObject, inContext context: DeserializationContext) throws -> Person {
         var person = context.newPerson()
-        try person.update(object: object, context: context)
+        try person.update(object: object, inContext: context)
         return person
     }
 }
 
 private struct AgedPerson {
-    var age:Int = 0
+    var age: Int = 0
 }
 
 extension AgedPerson: UnmarshalingWithContext {
-    private static func valueFromObject(object: MarshaledObject, context: DeserializationContext) throws -> AgedPerson {
+    static func value(from object: MarshaledObject, inContext context: DeserializationContext) throws -> AgedPerson {
         var person = context.newAgedPerson()
-        person.age = try object.valueForKey("age")
+        person.age = try object.value(for: "age")
         return person
     }
 }

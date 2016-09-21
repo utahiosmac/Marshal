@@ -9,99 +9,92 @@
 import Foundation
 import Marshal
 
-struct Recording : Unmarshaling {
-    enum Status:String {
-        case None = "0"
-        case Recorded = "-3"
-        case Recording = "-2"
-        case Unknown
+struct Recording: Unmarshaling {
+    enum Status: String {
+        case none = "0"
+        case recorded = "-3"
+        case recording = "-2"
+        case unknown
     }
     
     enum RecGroup: String {
-        case Deleted = "Deleted"
-        case Default = "Default"
-        case LiveTV = "LiveTV"
-        case Unknown
+        case deleted = "Deleted"
+        case defaultGroup = "Default"
+        case liveTV = "LiveTV"
+        case unknown
     }
     
-    // Date parsing is slow. Remove them so performance can focus on JSON mapping.
-    //let startTs:NSDate?
-    //let endTs:NSDate?
-    let startTsStr:String
-    let status:Status
-    let recordId:String
-    let recGroup:RecGroup
+    let startTsStr: String
+    let status: Status
+    let recordId: String
+    let recGroup: RecGroup
     
-    init(object json:MarshaledObject) throws {
-        //startTs = try? json.valueForKey("StartTs")
-        //endTs = try? json.valueForKey("EndTs")
-        startTsStr = try json.valueForKey("StartTs")
-        recordId = try json.valueForKey("RecordId")
-        status = (try? json.valueForKey("Status")) ?? .Unknown
-        recGroup = (try? json.valueForKey("RecGroup")) ?? .Unknown
+    init(object json: MarshaledObject) throws {
+        startTsStr = try json.value(for: "StartTs")
+        recordId = try json.value(for: "RecordId")
+        status = (try? json.value(for: "Status")) ?? .unknown
+        recGroup = (try? json.value(for: "RecGroup")) ?? .unknown
     }
 }
 
-struct Program : Unmarshaling {
+struct Program: Unmarshaling {
     
-    let title:String
-    let chanId:String
-    //let startTime:NSDate
-    //let endTime:NSDate
-    let description:String?
-    let subtitle:String?
-    let recording:Recording
-    let season:Int?
-    let episode:Int?
+    let title: String
+    let chanId: String
+    let description: String?
+    let subtitle: String?
+    let recording: Recording
+    let season: Int?
+    let episode: Int?
     
     init(object json: MarshaledObject) throws {
         try self.init(jsonObj:json)
     }
     
-    init(jsonObj:MarshaledObject, channelId:String? = nil) throws {
+    init(jsonObj: MarshaledObject, channelId: String? = nil) throws {
         let json = jsonObj
-        title = try json.valueForKey("Title")
+        title = try json.value(for: "Title")
         
         if let channelId = channelId {
             self.chanId = channelId
         }
         else {
-            chanId = try json.valueForKey("Channel.ChanId")
+            chanId = try json.value(for: "Channel.ChanId")
         }
-        //startTime = try json.valueForKey("StartTime")
-        //endTime = try json.valueForKey("EndTime")
-        description = try json.valueForKey("Description")
-        subtitle = try json.valueForKey("SubTitle")
-        recording = try json.valueForKey("Recording")
-        season = (try json.valueForKey("Season") as String?).flatMap({Int($0)})
-        episode = (try json.valueForKey("Episode") as String?).flatMap({Int($0)})
+        //startTime = try json.value(for: "StartTime")
+        //endTime = try json.value(for: "EndTime")
+        description = try json.value(for: "Description")
+        subtitle = try json.value(for: "SubTitle")
+        recording = try json.value(for: "Recording")
+        season = (try json.value(for: "Season") as String?).flatMap({Int($0)})
+        episode = (try json.value(for: "Episode") as String?).flatMap({Int($0)})
     }
 }
 
-extension NSDate : ValueType {
-    public static func value(object: Any) throws -> NSDate {
+extension Date: ValueType {
+    public static func value(from object: Any) throws -> Date {
         guard let dateString = object as? String else {
-            throw Error.TypeMismatch(expected: String.self, actual: object.dynamicType)
+            throw Marshal.MarshalError.typeMismatch(expected: String.self, actual: type(of: object))
         }
-        guard let date = NSDate.fromISO8601String(dateString) else {
-            throw Error.TypeMismatch(expected: "ISO8601 date string", actual: dateString)
+        guard let date = Date.fromISO8601String(dateString) else {
+            throw Marshal.MarshalError.typeMismatch(expected: "ISO8601 date string", actual: dateString)
         }
         return date
     }
 }
 
-extension NSDate {
-    static private let ISO8601MillisecondFormatter:NSDateFormatter = {
-        let formatter = NSDateFormatter()
+extension Date {
+    static private let ISO8601MillisecondFormatter: DateFormatter = {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        let tz = NSTimeZone(abbreviation:"GMT")
+        let tz = TimeZone(abbreviation:"GMT")
         formatter.timeZone = tz
         return formatter
     }()
-    static private let ISO8601SecondFormatter:NSDateFormatter = {
-        let formatter = NSDateFormatter()
+    static private let ISO8601SecondFormatter:DateFormatter = {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
-        let tz = NSTimeZone(abbreviation:"GMT")
+        let tz = TimeZone(abbreviation:"GMT")
         formatter.timeZone = tz
         return formatter
     }()
@@ -109,13 +102,13 @@ extension NSDate {
     static private let formatters = [ISO8601MillisecondFormatter,
                                      ISO8601SecondFormatter]
     
-    static func fromISO8601String(dateString:String) -> NSDate? {
+    static func fromISO8601String(_ dateString: String) -> Date? {
         for formatter in formatters {
-            if let date = formatter.dateFromString(dateString) {
+            if let date = formatter.date(from: dateString) {
                 return date
             }
         }
-        return .None
+        return .none
     }
 }
 

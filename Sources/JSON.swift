@@ -23,17 +23,17 @@ public typealias JSONObject = MarshalDictionary
 
 public struct JSONParser {
     
-    private init() { }
+    fileprivate init() { }
     
-    public static func JSONObjectWithData(data: NSData) throws -> JSONObject {
-        let obj: Any = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-        return try JSONObject.value(obj)
+    public static func JSONObjectWithData(_ data: Data) throws -> JSONObject {
+        let obj: Any = try JSONSerialization.jsonObject(with: data, options: [])
+        return try JSONObject.value(from: obj)
     }
     
-    public static func JSONArrayWithData(data: NSData) throws -> [JSONObject] {
-        let object: AnyObject = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+    public static func JSONArrayWithData(_ data: Data) throws -> [JSONObject] {
+        let object: Any = try JSONSerialization.jsonObject(with: data, options: [])
         guard let array = object as? [JSONObject] else {
-            throw Error.TypeMismatch(expected: [JSONObject].self, actual: object.dynamicType)
+            throw MarshalError.typeMismatch(expected: [JSONObject].self, actual: type(of: object))
         }
         return array
     }
@@ -43,15 +43,13 @@ public struct JSONParser {
 // MARK: - Collections
 
 public protocol JSONCollectionType {
-    func jsonData() throws -> NSData
+    func jsonData() throws -> Data
 }
 
 extension JSONCollectionType {
-    public func jsonData() throws -> NSData {
-        guard let jsonCollection = self as? AnyObject else {
-            throw Error.TypeMismatchWithKey(key:"", expected: AnyObject.self, actual: self.dynamicType) // shouldn't happen
-        }
-        return try NSJSONSerialization.dataWithJSONObject(jsonCollection, options: [])
+    public func jsonData() throws -> Data {
+        let jsonCollection = self
+        return try JSONSerialization.data(withJSONObject: jsonCollection, options: [])
     }
 }
 
