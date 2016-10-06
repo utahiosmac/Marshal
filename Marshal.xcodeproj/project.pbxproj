@@ -28,6 +28,7 @@
 		AFBED2761C7E1E5100622331 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED2751C7E1E5100622331 /* JSON.swift */; };
 		AFBED27C1C7F65BB00622331 /* Unmarshaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED27B1C7F65BB00622331 /* Unmarshaling.swift */; };
 		AFBED27E1C7F699600622331 /* UnmarshalUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED27D1C7F699600622331 /* UnmarshalUpdating.swift */; };
+		CC7504601DA6B27500643B7A /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC75045F1DA6B27500643B7A /* Migration.swift */; };
 		CCAE549F1CFDF9D30069AC65 /* UnmarshalingWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAE549E1CFDF9D30069AC65 /* UnmarshalingWithContext.swift */; };
 		CCB6D6C21CF90E7F00422F4C /* UnmarshalingWithContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6D6C01CF8F2F500422F4C /* UnmarshalingWithContextTests.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +68,7 @@
 		AFBED2751C7E1E5100622331 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = ../Sources/JSON.swift; sourceTree = "<group>"; };
 		AFBED27B1C7F65BB00622331 /* Unmarshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Unmarshaling.swift; path = ../Sources/Unmarshaling.swift; sourceTree = "<group>"; };
 		AFBED27D1C7F699600622331 /* UnmarshalUpdating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnmarshalUpdating.swift; path = ../Sources/UnmarshalUpdating.swift; sourceTree = "<group>"; };
+		CC75045F1DA6B27500643B7A /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Migration.swift; path = Sources/Migration.swift; sourceTree = SOURCE_ROOT; };
 		CCAE549E1CFDF9D30069AC65 /* UnmarshalingWithContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnmarshalingWithContext.swift; path = Sources/UnmarshalingWithContext.swift; sourceTree = SOURCE_ROOT; };
 		CCB6D6C01CF8F2F500422F4C /* UnmarshalingWithContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnmarshalingWithContextTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +126,7 @@
 				AFBED2731C7E1E0800622331 /* Operators.swift */,
 				AFBED2751C7E1E5100622331 /* JSON.swift */,
 				AFBED26F1C7E1CF100622331 /* Error.swift */,
+				CC75045F1DA6B27500643B7A /* Migration.swift */,
 			);
 			path = Marshal;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				AFBED2761C7E1E5100622331 /* JSON.swift in Sources */,
 				AFBED26E1C7E1CA900622331 /* ValueType.swift in Sources */,
 				AFBED26A1C7E1B0500622331 /* MarshaledObject.swift in Sources */,
+				CC7504601DA6B27500643B7A /* Migration.swift in Sources */,
 				AFBED26C1C7E1B3500622331 /* KeyType.swift in Sources */,
 				CCAE549F1CFDF9D30069AC65 /* UnmarshalingWithContext.swift in Sources */,
 				AFBED2741C7E1E0800622331 /* Operators.swift in Sources */,
