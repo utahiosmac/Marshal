@@ -413,6 +413,19 @@ class MarshalTests: XCTestCase {
             XCTFail("error marshaling arrayOfOptionalCars: \(error)")
         }
     }
+    
+    func testDiscardingInvalidObjects() {
+        guard let path = Bundle(for: type(of: self)).path(forResource: "TestMissingData", ofType: "json"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+            let json = try? JSONParser.JSONObjectWithData(data) else {
+                XCTFail("Error parsing TestMissingData.json")
+                return
+        }
+
+        let arrayOfCarsWithoutInvalidObjects: [Car]? = try? json.value(for: "cars", discardInvalidObjects: true)
+        XCTAssert(arrayOfCarsWithoutInvalidObjects?.count == 5, "arrayOfCarsWithoutInvalidObjects should have 5 objects. Actual count = \(arrayOfCarsWithoutInvalidObjects?.count)")
+        XCTAssert(arrayOfCarsWithoutInvalidObjects?.contains(where: { $0.make == "Lexus" }) == false, "arrayOfCarsWithoutInvalidObjects should not contain a Lexus becasue the Lexus was malformed")
+    }
 }
 
 private struct Address: Unmarshaling {

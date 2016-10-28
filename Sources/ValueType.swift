@@ -49,16 +49,28 @@ extension Int64: ValueType {
 }
 
 extension Array where Element: ValueType {
-    public static func value(from object: Any) throws -> [Element] {
+    public static func value(from object: Any, discardInvalidObjects: Bool = false) throws -> [Element] {
         guard let anyArray = object as? [AnyObject] else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
-        return try anyArray.map {
-            let value = try Element.value(from: $0)
-            guard let element = value as? Element else {
-                throw MarshalError.typeMismatch(expected: Element.self, actual: type(of: value))
+        
+        if discardInvalidObjects {
+            return anyArray.flatMap {
+                let value = try? Element.value(from: $0)
+                guard let element = value as? Element else {
+                    return nil
+                }
+                return element
             }
-            return element
+        }
+        else {
+            return try anyArray.map {
+                let value = try Element.value(from: $0)
+                guard let element = value as? Element else {
+                    throw MarshalError.typeMismatch(expected: Element.self, actual: type(of: value))
+                }
+                return element
+            }
         }
     }
 
@@ -66,7 +78,7 @@ extension Array where Element: ValueType {
         guard let anyArray = object as? [AnyObject] else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
-        return try anyArray.map {
+        return anyArray.map {
             let value = try? Element.value(from: $0)
             guard let element = value as? Element else {
                 return nil
