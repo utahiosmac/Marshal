@@ -383,6 +383,21 @@ class MarshalTests: XCTestCase {
         }
     }
 
+    func testArraysWithOptionalObjects() {
+        guard let path = Bundle(for: type(of: self)).path(forResource: "TestMissingData", ofType: "json"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+            let json = try? JSONParser.JSONObjectWithData(data) else {
+                XCTFail("Error parsing TestMissingData.json")
+                return
+        }
+        
+        // Using normal parsing, if any of the objects fail initialization they all fail
+        let failedArrayOfCars: [Car]? = try? json.value(for: "cars")
+        XCTAssertNil(failedArrayOfCars, "Failed array of cars should be nil")
+
+        let arrayOfOptionalCars: [Car?]? = try? json.value(for: "cars")
+        XCTAssertNotNil(arrayOfOptionalCars, "Array of optional cars should not be nil")
+    }
 }
 
 private struct Address: Unmarshaling {
@@ -399,6 +414,7 @@ private struct Person: Unmarshaling {
     let lastName:String
     let score:Int
     let address:Address?
+    
     init(object json: MarshaledObject) throws {
         firstName = try json.value(for: "first")
         lastName = try json.value(for: "last")
@@ -411,5 +427,15 @@ private struct AgedPerson: Unmarshaling {
     var age:Int = 0
     init(object: MarshaledObject) throws {
         age = try object.value(for: "age")
+    }
+}
+
+private struct Car: Unmarshaling {
+    let make: String
+    let model: String
+
+    init(object: MarshaledObject) throws {
+        make = try object.value(for: "make")
+        model = try object.value(for: "model")
     }
 }

@@ -61,6 +61,19 @@ extension Array where Element: ValueType {
             return element
         }
     }
+
+    public static func value(from object: Any) throws -> [Element?] {
+        guard let anyArray = object as? [AnyObject] else {
+            throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
+        }
+        return try anyArray.map {
+            let value = try? Element.value(from: $0)
+            guard let element = value as? Element else {
+                return nil
+            }
+            return element
+        }
+    }
 }
 
 extension Dictionary: ValueType {
@@ -74,7 +87,7 @@ extension Dictionary: ValueType {
 
 extension Set where Element: ValueType {
     public static func value(from object: Any) throws -> Set<Element> {
-        let elementArray = try [Element].value(from: object)
+        let elementArray: [Element] = try [Element].value(from: object)
         return Set<Element>(elementArray)
     }
 }
