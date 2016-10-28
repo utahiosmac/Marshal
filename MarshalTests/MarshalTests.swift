@@ -393,10 +393,25 @@ class MarshalTests: XCTestCase {
         
         // Using normal parsing, if any of the objects fail initialization they all fail
         let failedArrayOfCars: [Car]? = try? json.value(for: "cars")
-        XCTAssertNil(failedArrayOfCars, "Failed array of cars should be nil")
+        XCTAssertNil(failedArrayOfCars, "failedArrayOfCars should be nil")
 
-        let arrayOfOptionalCars: [Car?]? = try? json.value(for: "cars")
-        XCTAssertNotNil(arrayOfOptionalCars, "Array of optional cars should not be nil")
+        let optionalArrayOfOptionalCars: [Car?]? = try? json.value(for: "cars")
+        XCTAssertNotNil(optionalArrayOfOptionalCars, "optionalArrayOfOptionalCars should not be nil")
+        XCTAssert(optionalArrayOfOptionalCars?.count == 8, "optionalArrayOfOptionalCars should have 8 objects. Actual count = \(optionalArrayOfOptionalCars?.count)")
+        XCTAssert(optionalArrayOfOptionalCars?.contains(where: { $0?.make == "Lexus" }) == false, "optionalArrayOfOptionalCars should not contain a Lexus becasue the Lexus was malformed")
+        XCTAssert(optionalArrayOfOptionalCars?[1] == nil, "optionalArrayOfOptionalCars[1] should be nil")
+        
+        do {
+            let arrayOfOptionalCars: [Car?] = try json.value(for: "cars")
+            
+            XCTAssertNotNil(arrayOfOptionalCars, "arrayOfOptionalCars should not be nil")
+            XCTAssert(arrayOfOptionalCars.count == 8, "arrayOfOptionalCars should have 8 objects. Actual count = \(optionalArrayOfOptionalCars?.count)")
+            XCTAssert(arrayOfOptionalCars.contains(where: { $0?.make == "Lexus" }) == false, "arrayOfOptionalCars should not contain a Lexus becasue the Lexus was malformed")
+            XCTAssert(arrayOfOptionalCars[1] == nil, "arrayOfOptionalCars[1] should be nil")
+        }
+        catch {
+            XCTFail("error marshaling arrayOfOptionalCars: \(error)")
+        }
     }
 }
 
