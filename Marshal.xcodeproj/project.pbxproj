@@ -20,7 +20,6 @@
 		AFBED25A1C7E1AAB00622331 /* Marshal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFBED24F1C7E1AAB00622331 /* Marshal.framework */; };
 		AFBED25F1C7E1AAB00622331 /* MarshalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED25E1C7E1AAB00622331 /* MarshalTests.swift */; };
 		AFBED26A1C7E1B0500622331 /* MarshaledObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED2691C7E1B0500622331 /* MarshaledObject.swift */; };
-		AFBED26C1C7E1B3500622331 /* KeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED26B1C7E1B3500622331 /* KeyType.swift */; };
 		AFBED26E1C7E1CA900622331 /* ValueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED26D1C7E1CA900622331 /* ValueType.swift */; };
 		AFBED2701C7E1CF100622331 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED26F1C7E1CF100622331 /* Error.swift */; };
 		AFBED2721C7E1DA800622331 /* Marshaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBED2711C7E1DA800622331 /* Marshaling.swift */; };
@@ -60,7 +59,6 @@
 		AFBED25E1C7E1AAB00622331 /* MarshalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshalTests.swift; sourceTree = "<group>"; };
 		AFBED2601C7E1AAB00622331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFBED2691C7E1B0500622331 /* MarshaledObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarshaledObject.swift; path = ../Sources/MarshaledObject.swift; sourceTree = "<group>"; };
-		AFBED26B1C7E1B3500622331 /* KeyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyType.swift; path = ../Sources/KeyType.swift; sourceTree = "<group>"; };
 		AFBED26D1C7E1CA900622331 /* ValueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValueType.swift; path = ../Sources/ValueType.swift; sourceTree = "<group>"; };
 		AFBED26F1C7E1CF100622331 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Error.swift; path = ../Sources/Error.swift; sourceTree = "<group>"; };
 		AFBED2711C7E1DA800622331 /* Marshaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Marshaling.swift; path = ../Sources/Marshaling.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				AFBED2711C7E1DA800622331 /* Marshaling.swift */,
 				AFBED27B1C7F65BB00622331 /* Unmarshaling.swift */,
 				AFBED27D1C7F699600622331 /* UnmarshalUpdating.swift */,
-				AFBED26B1C7E1B3500622331 /* KeyType.swift */,
 				AFBED26D1C7E1CA900622331 /* ValueType.swift */,
 				AFBED2731C7E1E0800622331 /* Operators.swift */,
 				AFBED2751C7E1E5100622331 /* JSON.swift */,
@@ -274,7 +271,6 @@
 				AFBED26E1C7E1CA900622331 /* ValueType.swift in Sources */,
 				AFBED26A1C7E1B0500622331 /* MarshaledObject.swift in Sources */,
 				CC7504601DA6B27500643B7A /* Migration.swift in Sources */,
-				AFBED26C1C7E1B3500622331 /* KeyType.swift in Sources */,
 				CCAE549F1CFDF9D30069AC65 /* UnmarshalingWithContext.swift in Sources */,
 				AFBED2741C7E1E0800622331 /* Operators.swift in Sources */,
 			);
