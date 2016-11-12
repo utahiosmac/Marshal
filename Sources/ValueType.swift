@@ -81,8 +81,11 @@ extension Set where Element: ValueType {
 
 extension URL: ValueType {
     public static func value(from object: Any) throws -> URL {
-        guard let urlString = object as? String, let objectValue = URL(string: urlString) else {
-            throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
+        guard let urlString = object as? String else {
+            throw MarshalError.typeMismatch(expected: String.self, actual: type(of: object))
+        }
+        guard let objectValue = URL(string: urlString) else {
+            throw MarshalError.typeMismatch(expected: "valid URL", actual: urlString)
         }
         return objectValue
     }
