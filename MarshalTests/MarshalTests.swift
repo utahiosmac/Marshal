@@ -398,7 +398,7 @@ class MarshalTests: XCTestCase {
         let optionalArrayOfOptionalCars: [Car?]? = try? json.value(for: "cars")
         XCTAssertNotNil(optionalArrayOfOptionalCars, "optionalArrayOfOptionalCars should not be nil")
         XCTAssert(optionalArrayOfOptionalCars?.count == 8, "optionalArrayOfOptionalCars should have 8 objects. Actual count = \(optionalArrayOfOptionalCars?.count)")
-        XCTAssert(optionalArrayOfOptionalCars?.contains(where: { $0?.make == "Lexus" }) == false, "optionalArrayOfOptionalCars should not contain a Lexus becasue the Lexus was malformed")
+        XCTAssert(optionalArrayOfOptionalCars?.contains(where: { $0?.make == "Lexus" }) == false, "optionalArrayOfOptionalCars should not contain a Lexus because the Lexus was malformed")
         XCTAssert(optionalArrayOfOptionalCars?[1] == nil, "optionalArrayOfOptionalCars[1] should be nil")
         
         do {
@@ -406,7 +406,7 @@ class MarshalTests: XCTestCase {
             
             XCTAssertNotNil(arrayOfOptionalCars, "arrayOfOptionalCars should not be nil")
             XCTAssert(arrayOfOptionalCars.count == 8, "arrayOfOptionalCars should have 8 objects. Actual count = \(optionalArrayOfOptionalCars?.count)")
-            XCTAssert(arrayOfOptionalCars.contains(where: { $0?.make == "Lexus" }) == false, "arrayOfOptionalCars should not contain a Lexus becasue the Lexus was malformed")
+            XCTAssert(arrayOfOptionalCars.contains(where: { $0?.make == "Lexus" }) == false, "arrayOfOptionalCars should not contain a Lexus because the Lexus was malformed")
             XCTAssert(arrayOfOptionalCars[1] == nil, "arrayOfOptionalCars[1] should be nil")
         }
         catch {
@@ -414,7 +414,7 @@ class MarshalTests: XCTestCase {
         }
     }
     
-    func testDiscardingInvalidObjects() {
+    func testDiscardingErrors() {
         guard let path = Bundle(for: type(of: self)).path(forResource: "TestMissingData", ofType: "json"),
             let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
             let json = try? JSONParser.JSONObjectWithData(data) else {
@@ -422,9 +422,9 @@ class MarshalTests: XCTestCase {
                 return
         }
 
-        let arrayOfCarsWithoutInvalidObjects: [Car]? = try? json.value(for: "cars", discardInvalidObjects: true)
+        let arrayOfCarsWithoutInvalidObjects: [Car]? = try? json.value(for: "cars", discardingErrors: true)
         XCTAssert(arrayOfCarsWithoutInvalidObjects?.count == 5, "arrayOfCarsWithoutInvalidObjects should have 5 objects. Actual count = \(arrayOfCarsWithoutInvalidObjects?.count)")
-        XCTAssert(arrayOfCarsWithoutInvalidObjects?.contains(where: { $0.make == "Lexus" }) == false, "arrayOfCarsWithoutInvalidObjects should not contain a Lexus becasue the Lexus was malformed")
+        XCTAssert(arrayOfCarsWithoutInvalidObjects?.contains(where: { $0.make == "Lexus" }) == false, "arrayOfCarsWithoutInvalidObjects should not contain a Lexus because the Lexus was malformed")
     }
 }
 

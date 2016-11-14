@@ -64,10 +64,10 @@ public extension MarshaledObject {
         }
     }
     
-    public func value<A: ValueType>(for key: KeyType, discardInvalidObjects: Bool = false) throws -> [A] {
+    public func value<A: ValueType>(for key: KeyType, discardingErrors: Bool = false) throws -> [A] {
         let any = try self.any(for: key)
         do {
-            return try Array<A>.value(from: any, discardInvalidObjects: discardInvalidObjects)
+            return try Array<A>.value(from: any, discardingErrors: discardingErrors)
         }
         catch let MarshalError.typeMismatch(expected: expected, actual: actual) {
             throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
@@ -84,9 +84,9 @@ public extension MarshaledObject {
         }
     }
 
-    public func value<A: ValueType>(for key: KeyType, discardInvalidObjects: Bool = false) throws -> [A]? {
+    public func value<A: ValueType>(for key: KeyType, discardingErrors: Bool = false) throws -> [A]? {
         do {
-            return try self.value(for: key, discardInvalidObjects: discardInvalidObjects) as [A]
+            return try self.value(for: key, discardingErrors: discardingErrors) as [A]
         }
         catch MarshalError.keyNotFound {
             return nil

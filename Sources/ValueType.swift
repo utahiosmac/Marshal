@@ -49,12 +49,12 @@ extension Int64: ValueType {
 }
 
 extension Array where Element: ValueType {
-    public static func value(from object: Any, discardInvalidObjects: Bool = false) throws -> [Element] {
+    public static func value(from object: Any, discardingErrors: Bool = false) throws -> [Element] {
         guard let anyArray = object as? [AnyObject] else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
         
-        if discardInvalidObjects {
+        if discardingErrors {
             return anyArray.flatMap {
                 let value = try? Element.value(from: $0)
                 guard let element = value as? Element else {
