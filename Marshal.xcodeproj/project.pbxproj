@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		459FC6BD1DC28F0000BD9DAC /* TestMissingData.json in Resources */ = {isa = PBXBuildFile; fileRef = 459FC6BC1DC28F0000BD9DAC /* TestMissingData.json */; };
 		7112BA9B1C7ECD5600B657F9 /* People.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA971C7ECD5600B657F9 /* People.json */; };
 		7112BA9C1C7ECD5600B657F9 /* TestDictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA981C7ECD5600B657F9 /* TestDictionary.json */; };
 		7112BA9D1C7ECD5600B657F9 /* TestObjectArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA991C7ECD5600B657F9 /* TestObjectArray.json */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		459FC6BC1DC28F0000BD9DAC /* TestMissingData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestMissingData.json; sourceTree = "<group>"; };
 		7112BA971C7ECD5600B657F9 /* People.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = People.json; sourceTree = "<group>"; };
 		7112BA981C7ECD5600B657F9 /* TestDictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestDictionary.json; sourceTree = "<group>"; };
 		7112BA991C7ECD5600B657F9 /* TestObjectArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestObjectArray.json; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				7112BA991C7ECD5600B657F9 /* TestObjectArray.json */,
 				7112BA9A1C7ECD5600B657F9 /* TestSimpleArray.json */,
 				AE5720E61C7FE97E00D45DE3 /* TestSimpleSet.json */,
+				459FC6BC1DC28F0000BD9DAC /* TestMissingData.json */,
 				AFBED25E1C7E1AAB00622331 /* MarshalTests.swift */,
 				AFBED2601C7E1AAB00622331 /* Info.plist */,
 				71EFC3A71CCB4EAF00394E57 /* PerformanceTestObjects.swift */,
@@ -253,6 +256,7 @@
 				AE5720E71C7FE97E00D45DE3 /* TestSimpleSet.json in Resources */,
 				71EFC3AA1CCB505C00394E57 /* Large.json in Resources */,
 				7112BA9E1C7ECD5600B657F9 /* TestSimpleArray.json in Resources */,
+				459FC6BD1DC28F0000BD9DAC /* TestMissingData.json in Resources */,
 				7112BA9C1C7ECD5600B657F9 /* TestDictionary.json in Resources */,
 				7112BA9D1C7ECD5600B657F9 /* TestObjectArray.json in Resources */,
 			);
