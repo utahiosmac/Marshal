@@ -56,10 +56,10 @@ public extension MarshaledObject {
         do {
             return try self.value(for: key) as A
         }
-        catch MarshalError.keyNotFound {
+        catch MarshalError.keyNotFound(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
-        catch MarshalError.nullValue {
+        catch MarshalError.nullValue(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
     }
@@ -100,10 +100,10 @@ public extension MarshaledObject {
         do {
             return try self.value(for: key) as [A]
         }
-        catch MarshalError.keyNotFound {
+        catch MarshalError.keyNotFound(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
-        catch MarshalError.nullValue {
+        catch MarshalError.nullValue(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
     }
@@ -122,10 +122,10 @@ public extension MarshaledObject {
         do {
             return try self.value(for: key) as Set<A>
         }
-        catch MarshalError.keyNotFound {
+        catch MarshalError.keyNotFound(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
-        catch MarshalError.nullValue {
+        catch MarshalError.nullValue(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
     }
@@ -142,10 +142,10 @@ public extension MarshaledObject {
         do {
             return try self.value(for: key) as A
         }
-        catch MarshalError.keyNotFound {
+        catch MarshalError.keyNotFound(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
-        catch MarshalError.nullValue {
+        catch MarshalError.nullValue(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
     }
@@ -164,10 +164,10 @@ public extension MarshaledObject {
         do {
             return try self.value(for: key) as [A]
         }
-        catch MarshalError.keyNotFound {
+        catch MarshalError.keyNotFound(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
-        catch MarshalError.nullValue {
+        catch MarshalError.nullValue(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
     }
@@ -187,10 +187,10 @@ public extension MarshaledObject {
         do {
             return try self.value(for: key) as Set<A>
         }
-        catch MarshalError.keyNotFound {
+        catch MarshalError.keyNotFound(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
-        catch MarshalError.nullValue {
+        catch MarshalError.nullValue(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
     }

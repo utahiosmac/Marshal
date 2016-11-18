@@ -42,10 +42,10 @@ extension MarshaledObject {
             let a: A = try self.value(for: key, inContext: context)
             return a
         }
-        catch MarshalError.keyNotFound {
+        catch MarshalError.keyNotFound(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
-        catch MarshalError.nullValue {
+        catch MarshalError.nullValue(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
     }
@@ -70,10 +70,10 @@ extension MarshaledObject {
         do {
             return try self.value(for: key, inContext: context) as [A]
         }
-        catch MarshalError.keyNotFound {
+        catch MarshalError.keyNotFound(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
-        catch MarshalError.nullValue {
+        catch MarshalError.nullValue(let aKey) where aKey.stringValue == key.stringValue {
             return nil
         }
     }
