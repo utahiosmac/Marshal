@@ -50,7 +50,7 @@ extension Int64: ValueType {
 
 extension Array where Element: ValueType {
     public static func value(from object: Any, discardingErrors: Bool = false) throws -> [Element] {
-        guard let anyArray = object as? [AnyObject] else {
+        guard let anyArray = object as? [Any] else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
         
@@ -75,7 +75,7 @@ extension Array where Element: ValueType {
     }
 
     public static func value(from object: Any) throws -> [Element?] {
-        guard let anyArray = object as? [AnyObject] else {
+        guard let anyArray = object as? [Any] else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
         return anyArray.map {
