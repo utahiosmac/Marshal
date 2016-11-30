@@ -13,7 +13,6 @@
 		7112BA9D1C7ECD5600B657F9 /* TestObjectArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA991C7ECD5600B657F9 /* TestObjectArray.json */; };
 		7112BA9E1C7ECD5600B657F9 /* TestSimpleArray.json in Resources */ = {isa = PBXBuildFile; fileRef = 7112BA9A1C7ECD5600B657F9 /* TestSimpleArray.json */; };
 		71EFC3A81CCB4EAF00394E57 /* PerformanceTestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EFC3A71CCB4EAF00394E57 /* PerformanceTestObjects.swift */; };
-		71EFC3AA1CCB505C00394E57 /* Large.json in Resources */ = {isa = PBXBuildFile; fileRef = 71EFC3A91CCB505C00394E57 /* Large.json */; };
 		71EFC3AC1CCB513300394E57 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EFC3AB1CCB513300394E57 /* PerformanceTests.swift */; };
 		AE5720E71C7FE97E00D45DE3 /* TestSimpleSet.json in Resources */ = {isa = PBXBuildFile; fileRef = AE5720E61C7FE97E00D45DE3 /* TestSimpleSet.json */; };
 		AECB67181CD317CA00141059 /* MarshalDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB67171CD317CA00141059 /* MarshalDictionary.swift */; };
@@ -51,7 +50,6 @@
 		7112BA991C7ECD5600B657F9 /* TestObjectArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestObjectArray.json; sourceTree = "<group>"; };
 		7112BA9A1C7ECD5600B657F9 /* TestSimpleArray.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestSimpleArray.json; sourceTree = "<group>"; };
 		71EFC3A71CCB4EAF00394E57 /* PerformanceTestObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTestObjects.swift; sourceTree = "<group>"; };
-		71EFC3A91CCB505C00394E57 /* Large.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Large.json; sourceTree = "<group>"; };
 		71EFC3AB1CCB513300394E57 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		AE5720E61C7FE97E00D45DE3 /* TestSimpleSet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestSimpleSet.json; sourceTree = "<group>"; };
 		AECB67171CD317CA00141059 /* MarshalDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarshalDictionary.swift; path = Sources/MarshalDictionary.swift; sourceTree = SOURCE_ROOT; };
@@ -136,7 +134,6 @@
 		AFBED25D1C7E1AAB00622331 /* MarshalTests */ = {
 			isa = PBXGroup;
 			children = (
-				71EFC3A91CCB505C00394E57 /* Large.json */,
 				7112BA971C7ECD5600B657F9 /* People.json */,
 				7112BA981C7ECD5600B657F9 /* TestDictionary.json */,
 				7112BA991C7ECD5600B657F9 /* TestObjectArray.json */,
@@ -191,6 +188,7 @@
 				AFBED2551C7E1AAB00622331 /* Sources */,
 				AFBED2561C7E1AAB00622331 /* Frameworks */,
 				AFBED2571C7E1AAB00622331 /* Resources */,
+				CC9E2E531DEF838800A4A353 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -254,7 +252,6 @@
 			files = (
 				7112BA9B1C7ECD5600B657F9 /* People.json in Resources */,
 				AE5720E71C7FE97E00D45DE3 /* TestSimpleSet.json in Resources */,
-				71EFC3AA1CCB505C00394E57 /* Large.json in Resources */,
 				7112BA9E1C7ECD5600B657F9 /* TestSimpleArray.json in Resources */,
 				459FC6BD1DC28F0000BD9DAC /* TestMissingData.json in Resources */,
 				7112BA9C1C7ECD5600B657F9 /* TestDictionary.json in Resources */,
@@ -263,6 +260,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CC9E2E531DEF838800A4A353 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "CONTENTS_PATH=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\ncp $PROJECT_DIR/MarshalTests/Large.json $CONTENTS_PATH/";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AFBED24A1C7E1AAB00622331 /* Sources */ = {
