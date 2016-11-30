@@ -273,7 +273,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "CONTENTS_PATH=\"${TARGET_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\ncp $PROJECT_DIR/MarshalTests/Large.json $CONTENTS_PATH/";
+			shellScript = "CONTENTS_PATH=\"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"\ncp $PROJECT_DIR/MarshalTests/Large.json $CONTENTS_PATH/";
 		};
 /* End PBXShellScriptBuildPhase section */
 
