@@ -349,8 +349,8 @@ class MarshalTests: XCTestCase {
             "missing": NSNull(),
             "small": 2,
             "medium": 66_000,
-            "large": largeNum,
-            "huge": hugeNum,
+            "large": NSNumber(value: largeNum), // github tests fail otherwise
+            "huge": NSNumber(value: hugeNum), // github tests fail otherwise
             "decimal": 1.2,
             "array": [ "a", "b", "c" ],
             "nested": [
