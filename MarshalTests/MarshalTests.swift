@@ -232,6 +232,17 @@ class MarshalTests: XCTestCase {
         
         waitForExpectations(timeout: 1, handler: nil)
     }
+
+    func testContainedCustomObjects() {
+        let path = Bundle(for: type(of: self)).path(forResource: "PeopleByKey", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path))
+        let obj = try! JSONParser.JSONObjectWithData(data)
+
+        let people: [String: Person] = try! obj.value(for: "people")
+        XCTAssertNotNil(people["person_id1"])
+        XCTAssertEqual(people.count, 2)
+        XCTAssertEqual(people["person_id1"]!.firstName, "Jason")
+    }
     
     enum MyEnum: String {
         case one = "One"
