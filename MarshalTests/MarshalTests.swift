@@ -154,6 +154,10 @@ class MarshalTests: XCTestCase {
         person = people[1]
         let dead = try! !person.value(for: "living")
         XCTAssertTrue(dead)
+
+        let result: [String: Bool] = try! json.value(for: "result")
+        XCTAssertEqual(result.count, 1)
+        XCTAssertEqual(result["ok"], true)
     }
     
     func testSimpleArray() {
