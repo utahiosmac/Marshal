@@ -88,12 +88,19 @@ extension Array where Element: ValueType {
     }
 }
 
-extension Dictionary: ValueType {
-    public static func value(from object: Any) throws -> [Key: Value] {
-        guard let objectValue = object as? [Key: Value] else {
+extension Dictionary where Value: ValueType {
+    public static func value(from object: Any) throws -> Dictionary<Key, Value> {
+        guard let objectValue = object as? [Key: Any] else {
             throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
         }
-        return objectValue
+        var result: [Key: Value] = [:]
+        for (k, v) in objectValue {
+            guard let value = try Value.value(from: v) as? Value else {
+                throw MarshalError.typeMismatch(expected: Value.self, actual: type(of: any))
+            }
+            result[k] = value
+        }
+        return result
     }
 }
 
