@@ -130,6 +130,22 @@ public extension MarshaledObject {
         }
     }
 
+    public func value(for key: KeyType) throws -> [JSONObject] {
+        let any = try self.any(for: key)
+        guard let object = any as? [JSONObject] else {
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: [JSONObject].self, actual: type(of: any))
+        }
+        return object
+    }
+
+    public func value(for key: KeyType) throws -> JSONObject {
+        let any = try self.any(for: key)
+        guard let object = any as? JSONObject else {
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: JSONObject.self, actual: type(of: any))
+        }
+        return object
+    }
+
     public func value<A: ValueType>(for key: KeyType) throws -> Set<A> {
         let any = try self.any(for: key)
         do {
