@@ -340,14 +340,17 @@ class MarshalTests: XCTestCase {
     }
 
     func testMarshalingSwiftValues() {
+
+        let largeNum: Int64 = 4_200_000_000
+        let hugeNum: UInt64 = 9_000_000_000_000_000_000
         let object: MarshalDictionary = [
             "string": "A String",
             "truth": true,
             "missing": NSNull(),
             "small": 2,
             "medium": 66_000,
-            "large": 4_200_000_000,
-            "huge": 9_000_000_000_000_000_000,
+            "large": NSNumber(value: largeNum), // github tests fail otherwise
+            "huge": NSNumber(value: hugeNum), // github tests fail otherwise
             "decimal": 1.2,
             "array": [ "a", "b", "c" ],
             "nested": [
@@ -362,8 +365,8 @@ class MarshalTests: XCTestCase {
             let missing: String? = try result <| "missing"
             let small: Int = try result <| "small"
             let medium: Int = try result <| "medium"
-            let large: Int = try result <| "large"
-            let huge: Int = try result <| "huge"
+            let large: Int64 = try result <| "large"
+            let huge: UInt64 = try result <| "huge"
             let decimal: Float = try result <| "decimal"
             let array: [String] = try result <| "array"
             let nested: [String:Any] = try result <| "nested"
@@ -373,8 +376,8 @@ class MarshalTests: XCTestCase {
             XCTAssertNil(missing)
             XCTAssertEqual(small, 2)
             XCTAssertEqual(medium, 66_000)
-            XCTAssertEqual(large, 4_200_000_000)
-            XCTAssertEqual(huge, 9_000_000_000_000_000_000)
+            XCTAssertEqual(large, largeNum)
+            XCTAssertEqual(huge, hugeNum)
             XCTAssertEqual(decimal, 1.2)
             XCTAssertEqual(array, [ "a", "b", "c" ])
             XCTAssertEqual(nested as! [String:String], [ "key": "value" ])
