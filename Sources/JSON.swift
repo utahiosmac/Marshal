@@ -26,8 +26,11 @@ public struct JSONParser {
     fileprivate init() { }
     
     public static func JSONObjectWithData(_ data: Data) throws -> JSONObject {
-        let obj: Any = try JSONSerialization.jsonObject(with: data, options: [])
-        return try JSONObject.value(from: obj)
+        let object: Any = try JSONSerialization.jsonObject(with: data, options: [])
+        guard let objectValue = object as? [String: Any] else {
+            throw MarshalError.typeMismatch(expected: self, actual: type(of: object))
+        }
+        return objectValue
     }
     
     public static func JSONArrayWithData(_ data: Data) throws -> [JSONObject] {
