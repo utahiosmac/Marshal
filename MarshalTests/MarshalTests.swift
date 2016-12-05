@@ -346,8 +346,8 @@ class MarshalTests: XCTestCase {
             "missing": NSNull(),
             "small": 2,
             "medium": 66_000,
-            "large": 4_200_000_000,
-            "huge": 9_000_000_000_000_000_000,
+            "large": Int.max / 2,
+            "huge": Int.max,
             "decimal": 1.2,
             "array": [ "a", "b", "c" ],
             "nested": [
@@ -373,8 +373,8 @@ class MarshalTests: XCTestCase {
             XCTAssertNil(missing)
             XCTAssertEqual(small, 2)
             XCTAssertEqual(medium, 66_000)
-            XCTAssertEqual(large, 4_200_000_000)
-            XCTAssertEqual(huge, 9_000_000_000_000_000_000)
+            XCTAssertEqual(large, Int.max / 2)
+            XCTAssertEqual(huge, Int.max)
             XCTAssertEqual(decimal, 1.2)
             XCTAssertEqual(array, [ "a", "b", "c" ])
             XCTAssertEqual(nested as! [String:String], [ "key": "value" ])
