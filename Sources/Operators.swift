@@ -46,3 +46,9 @@ public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) t
 public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) throws -> [A]? where A.RawValue: ValueType {
     return try dictionary.value(for: key)
 }
+public func <| (dictionary: MarshaledObject, key: String) throws -> JSONObject {
+    return try dictionary.value(for: key)
+}
+public func <| (dictionary: MarshaledObject, key: String) throws -> [JSONObject] {
+    return try dictionary.value(for: key)
+}

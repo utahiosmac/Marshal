@@ -154,6 +154,10 @@ class MarshalTests: XCTestCase {
         person = people[1]
         let dead = try! !person.value(for: "living")
         XCTAssertTrue(dead)
+
+        let result: [String: Bool] = try! json.value(for: "result")
+        XCTAssertEqual(result.count, 1)
+        XCTAssertEqual(result["ok"], true)
     }
     
     func testSimpleArray() {
@@ -231,6 +235,17 @@ class MarshalTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testContainedCustomObjects() {
+        let path = Bundle(for: type(of: self)).path(forResource: "PeopleByKey", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path))
+        let obj = try! JSONParser.JSONObjectWithData(data)
+
+        let people: [String: Person] = try! obj.value(for: "people")
+        XCTAssertNotNil(people["person_id1"])
+        XCTAssertEqual(people.count, 2)
+        XCTAssertEqual(people["person_id1"]!.firstName, "Jason")
     }
     
     enum MyEnum: String {

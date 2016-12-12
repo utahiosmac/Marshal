@@ -15,6 +15,7 @@
 		71EFC3A81CCB4EAF00394E57 /* PerformanceTestObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EFC3A71CCB4EAF00394E57 /* PerformanceTestObjects.swift */; };
 		71EFC3AA1CCB505C00394E57 /* Large.json in Resources */ = {isa = PBXBuildFile; fileRef = 71EFC3A91CCB505C00394E57 /* Large.json */; };
 		71EFC3AC1CCB513300394E57 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EFC3AB1CCB513300394E57 /* PerformanceTests.swift */; };
+		ABEFEBDB1DF4BFEA00D6D6CD /* PeopleByKey.json in Resources */ = {isa = PBXBuildFile; fileRef = ABEFEBDA1DF4BFEA00D6D6CD /* PeopleByKey.json */; };
 		AE5720E71C7FE97E00D45DE3 /* TestSimpleSet.json in Resources */ = {isa = PBXBuildFile; fileRef = AE5720E61C7FE97E00D45DE3 /* TestSimpleSet.json */; };
 		AECB67181CD317CA00141059 /* MarshalDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB67171CD317CA00141059 /* MarshalDictionary.swift */; };
 		AFBED2531C7E1AAB00622331 /* Marshal.h in Headers */ = {isa = PBXBuildFile; fileRef = AFBED2521C7E1AAB00622331 /* Marshal.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -53,6 +54,7 @@
 		71EFC3A71CCB4EAF00394E57 /* PerformanceTestObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTestObjects.swift; sourceTree = "<group>"; };
 		71EFC3A91CCB505C00394E57 /* Large.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Large.json; sourceTree = "<group>"; };
 		71EFC3AB1CCB513300394E57 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
+		ABEFEBDA1DF4BFEA00D6D6CD /* PeopleByKey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PeopleByKey.json; sourceTree = "<group>"; };
 		AE5720E61C7FE97E00D45DE3 /* TestSimpleSet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestSimpleSet.json; sourceTree = "<group>"; };
 		AECB67171CD317CA00141059 /* MarshalDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MarshalDictionary.swift; path = Sources/MarshalDictionary.swift; sourceTree = SOURCE_ROOT; };
 		AFBED24F1C7E1AAB00622331 /* Marshal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Marshal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 			children = (
 				71EFC3A91CCB505C00394E57 /* Large.json */,
 				7112BA971C7ECD5600B657F9 /* People.json */,
+				ABEFEBDA1DF4BFEA00D6D6CD /* PeopleByKey.json */,
 				7112BA981C7ECD5600B657F9 /* TestDictionary.json */,
 				7112BA991C7ECD5600B657F9 /* TestObjectArray.json */,
 				7112BA9A1C7ECD5600B657F9 /* TestSimpleArray.json */,
@@ -253,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7112BA9B1C7ECD5600B657F9 /* People.json in Resources */,
+				ABEFEBDB1DF4BFEA00D6D6CD /* PeopleByKey.json in Resources */,
 				AE5720E71C7FE97E00D45DE3 /* TestSimpleSet.json in Resources */,
 				71EFC3AA1CCB505C00394E57 /* Large.json in Resources */,
 				7112BA9E1C7ECD5600B657F9 /* TestSimpleArray.json in Resources */,

@@ -107,7 +107,45 @@ public extension MarshaledObject {
             return nil
         }
     }
-    
+
+    public func value<A: ValueType>(for key: KeyType) throws -> [String: A] {
+        let any = try self.any(for: key)
+        do {
+            return try [String: A].value(from: any)
+        }
+        catch let MarshalError.typeMismatch(expected: expected, actual: actual) {
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: expected, actual: actual)
+        }
+    }
+
+    public func value<A: ValueType>(for key: KeyType) throws -> [String: A]? {
+        do {
+            return try [String: A].value(from: any)
+        }
+        catch MarshalError.keyNotFound {
+            return nil
+        }
+        catch MarshalError.nullValue {
+            return nil
+        }
+    }
+
+    public func value(for key: KeyType) throws -> [MarshalDictionary] {
+        let any = try self.any(for: key)
+        guard let object = any as? [MarshalDictionary] else {
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: [MarshalDictionary].self, actual: type(of: any))
+        }
+        return object
+    }
+
+    public func value(for key: KeyType) throws -> MarshalDictionary {
+        let any = try self.any(for: key)
+        guard let object = any as? MarshalDictionary else {
+            throw MarshalError.typeMismatchWithKey(key: key.stringValue, expected: MarshalDictionary.self, actual: type(of: any))
+        }
+        return object
+    }
+
     public func value<A: ValueType>(for key: KeyType) throws -> Set<A> {
         let any = try self.any(for: key)
         do {

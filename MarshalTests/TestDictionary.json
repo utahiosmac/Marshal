@@ -6,5 +6,8 @@
     "meta":{
         "next":"http://apple.com",
         "prev":null
+    },
+    "result": {
+        "ok": true
     }
 }
