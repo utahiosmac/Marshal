@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name						= "Marshal"
-  s.version						= "1.0.1"
+  s.version						= "1.2.1"
   s.summary						= "Marshal is a simple, lightweight framework for safely extracting values from [String: AnyObject]"
   s.description					= <<-DESC
                    					In Swift, we all deal with JSON, plists, and various forms of [String: Any]. Marshal believes you don't need a Ph.D. in monads or magic mirrors to deal with these in an expressive and type safe way. Marshal will help you write declarative, performant, error handled code using the power of Protocol Oriented Programming™.
