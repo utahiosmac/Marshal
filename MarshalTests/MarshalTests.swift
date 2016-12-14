@@ -185,6 +185,28 @@ class MarshalTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    func testOptionalArrayOfDictionaries() {
+        let jsonObject: JSONObject = ["not an array": 12]
+        
+        do {
+            let optArrayOfObjects: [JSONObject]? = try jsonObject.value(for: "who cares")
+            XCTAssertNil(optArrayOfObjects)
+        } catch {
+            XCTFail()
+        }
+        
+        let expectation = self.expectation(description: "type mismatch")
+        do {
+            let notAnArray: [JSONObject]? = try jsonObject.value(for: "not an array")
+            XCTFail("should have thrown instead of returning this: \(notAnArray)")
+        } catch {
+            if case MarshalError.typeMismatchWithKey = error {
+                expectation.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     func testSimpleArray() {
         let path = Bundle(for: type(of: self)).path(forResource: "TestSimpleArray", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
