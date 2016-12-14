@@ -148,8 +148,7 @@ public extension MarshaledObject {
     
     public func value(for key: KeyType) throws -> MarshalDictionary? {
         do {
-            let forReals: MarshalDictionary = try value(for: key)
-            return forReals
+            return try value(for: key) as MarshalDictionary
         }
         catch MarshalError.keyNotFound {
             return nil
