@@ -160,6 +160,31 @@ class MarshalTests: XCTestCase {
         XCTAssertEqual(result["ok"], true)
     }
     
+    func testOptionalDictionary() {
+        let jsonObject: JSONObject = ["not a dictionary": ["strings", "strings and", "more strings"], "also not a dictionary": 12]
+        
+        do {
+            let optSubObject: JSONObject? = try jsonObject.value(for: "whatevs")
+            XCTAssertNil(optSubObject)
+        } catch {
+            XCTFail()
+        }
+        
+        let expectation = self.expectation(description: "type mismatch")
+        do {
+            let totesNotADict: JSONObject? = try jsonObject.value(for: "not a dictionary")
+            XCTFail("what are you? \(totesNotADict)")
+            
+            let alsoNotADictionary: JSONObject? = try jsonObject.value(for: "also not a dictionary")
+            XCTFail("what are you? \(alsoNotADictionary)")
+        } catch {
+            if case MarshalError.typeMismatchWithKey = error {
+                expectation.fulfill()
+            }
+        }
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     func testSimpleArray() {
         let path = Bundle(for: type(of: self)).path(forResource: "TestSimpleArray", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
