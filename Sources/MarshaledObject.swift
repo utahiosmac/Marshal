@@ -137,6 +137,18 @@ public extension MarshaledObject {
         }
         return object
     }
+    
+    public func value(for key: KeyType) throws -> [MarshalDictionary]? {
+        do {
+            return try value(for: key) as [MarshalDictionary]
+        }
+        catch MarshalError.keyNotFound {
+            return nil
+        }
+        catch MarshalError.nullValue {
+            return nil
+        }
+    }
 
     public func value(for key: KeyType) throws -> MarshalDictionary {
         let any = try self.any(for: key)
