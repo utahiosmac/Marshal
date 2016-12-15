@@ -49,7 +49,13 @@ public func <| <A: RawRepresentable>(dictionary: MarshaledObject, key: String) t
 public func <| (dictionary: MarshaledObject, key: String) throws -> JSONObject {
     return try dictionary.value(for: key)
 }
+public func <| (dictionary: MarshaledObject, key: String) throws -> JSONObject? {
+    return try dictionary.value(for: key)
+}
 public func <| (dictionary: MarshaledObject, key: String) throws -> [JSONObject] {
+    return try dictionary.value(for: key)
+}
+public func <| (dictionary: MarshaledObject, key: String) throws -> [JSONObject]? {
     return try dictionary.value(for: key)
 }
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> [String: A] {
