@@ -55,3 +55,6 @@ public func <| (dictionary: MarshaledObject, key: String) throws -> [JSONObject]
 public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> [String: A] {
     return try dictionary.value(for: key)
 }
+public func <| <A: ValueType>(dictionary: MarshaledObject, key: String) throws -> [String: A]? {
+    return try dictionary.value(for: key)
+}
