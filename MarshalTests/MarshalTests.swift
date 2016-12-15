@@ -398,6 +398,7 @@ class MarshalTests: XCTestCase {
             "huge": Int.max,
             "decimal": 1.2,
             "array": [ "a", "b", "c" ],
+            "boolDictionary": [ "a": true, "b": false, "c": true ],
             "nested": [
                 "key": "value"
             ]
@@ -414,6 +415,8 @@ class MarshalTests: XCTestCase {
             let huge: Int = try result <| "huge"
             let decimal: Float = try result <| "decimal"
             let array: [String] = try result <| "array"
+            let boolDictionary: [String: Bool] = try result <| "boolDictionary"
+            let optBoolDictionary: [String: Bool]? = try result <| "boolDictionary"
             let nested: [String:Any] = try result <| "nested"
 
             XCTAssertEqual(string, "A String")
@@ -426,6 +429,8 @@ class MarshalTests: XCTestCase {
             XCTAssertEqual(decimal, 1.2)
             XCTAssertEqual(array, [ "a", "b", "c" ])
             XCTAssertEqual(nested as! [String:String], [ "key": "value" ])
+            XCTAssertEqual(boolDictionary, [ "a": true, "b": false, "c": true ])
+            XCTAssertEqual(boolDictionary, optBoolDictionary ?? [:])
         } catch {
             XCTFail("Error converting MarshalDictionary: \(error)")
         }
