@@ -119,6 +119,7 @@ public extension MarshaledObject {
     }
 
     public func value<A: ValueType>(for key: KeyType) throws -> [String: A]? {
+        let any = try self.any(for: key)
         do {
             return try [String: A].value(from: any)
         }
