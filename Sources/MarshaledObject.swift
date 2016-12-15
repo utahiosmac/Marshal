@@ -120,6 +120,7 @@ public extension MarshaledObject {
 
     public func value<A: ValueType>(for key: KeyType) throws -> [String: A]? {
         do {
+            let any = try self.any(for: key)
             return try [String: A].value(from: any)
         }
         catch MarshalError.keyNotFound {
