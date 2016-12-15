@@ -161,7 +161,7 @@ class MarshalTests: XCTestCase {
         do {
             // Check the optional getter
             result = try json.value(for: "result") ?? [:]
-            XCTAssertNotNil(result)
+            result = try json.value(for: "emptyKey") ?? [:]
         }
         catch {
             XCTFail()
