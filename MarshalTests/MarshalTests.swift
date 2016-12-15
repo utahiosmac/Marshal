@@ -155,9 +155,17 @@ class MarshalTests: XCTestCase {
         let dead = try! !person.value(for: "living")
         XCTAssertTrue(dead)
 
-        let result: [String: Bool] = try! json.value(for: "result")
+        var result: [String: Bool] = try! json.value(for: "result")
         XCTAssertEqual(result.count, 1)
         XCTAssertEqual(result["ok"], true)
+        do {
+            // Check the optional getter
+            result = try json.value(for: "result") ?? [:]
+            XCTAssertNotNil(result)
+        }
+        catch {
+            XCTFail()
+        }
     }
     
     func testOptionalDictionary() {
