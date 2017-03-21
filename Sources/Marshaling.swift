@@ -18,3 +18,9 @@ public protocol Marshaling {
     
     func marshaled() -> Self.MarshalType
 }
+
+extension Array where Element: Marshaling {
+    public func marshaled() -> [Any] {
+        return self.map { $0.marshaled() }
+    }
+}
