@@ -37,13 +37,30 @@ extension ValueType {
 extension String: ValueType {}
 extension Int: ValueType {}
 extension UInt: ValueType {}
-extension Float: ValueType {}
-extension Double: ValueType {}
 extension Bool: ValueType {}
+
+extension Float: ValueType {
+    public static func value(from object: Any) throws -> Float {
+        guard let value = object as? NSNumber else {
+            throw MarshalError.typeMismatch(expected: NSNumber.self, actual: type(of: object))
+        }
+        return value.floatValue
+    }
+}
+
+extension Double: ValueType {
+    public static func value(from object: Any) throws -> Double {
+        guard let value = object as? NSNumber else {
+            throw MarshalError.typeMismatch(expected: NSNumber.self, actual: type(of: object))
+        }
+        return value.doubleValue
+    }
+}
 
 extension Int64: ValueType {
     public static func value(from object: Any) throws -> Int64 {
-        guard let value = object as? NSNumber else { throw MarshalError.typeMismatch(expected: NSNumber.self, actual: type(of: object)) }
+        guard let value = object as? NSNumber else {
+            throw MarshalError.typeMismatch(expected: NSNumber.self, actual: type(of: object)) }
         return value.int64Value
     }
 }

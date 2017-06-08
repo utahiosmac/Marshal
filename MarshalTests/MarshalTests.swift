@@ -501,6 +501,38 @@ class MarshalTests: XCTestCase {
         XCTAssert(arrayOfCarsWithoutInvalidObjects?.count == 5, "arrayOfCarsWithoutInvalidObjects should have 5 objects. Actual count = \(arrayOfCarsWithoutInvalidObjects?.count)")
         XCTAssert(arrayOfCarsWithoutInvalidObjects?.contains(where: { $0.make == "Lexus" }) == false, "arrayOfCarsWithoutInvalidObjects should not contain a Lexus because the Lexus was malformed")
     }
+    
+    func testParseFloatArray() {
+        guard let path = Bundle(for: type(of: self)).path(forResource: "FloatArray", ofType: "json"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+            let json = try? JSONParser.JSONObjectWithData(data) else {
+                XCTFail("Error parsing FloatArray.json")
+                return
+        }
+        
+        do {
+            let array: [Float] = try json.value(for: "floatArray")
+            XCTAssertEqual(array,[9.123, 0.000001, 0.1, -2])
+        } catch {
+            XCTFail(String(describing: error))
+        }
+    }
+    
+    func testParseDoubleArray() {
+        guard let path = Bundle(for: type(of: self)).path(forResource: "FloatArray", ofType: "json"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+            let json = try? JSONParser.JSONObjectWithData(data) else {
+                XCTFail("Error parsing FloatArray.json")
+                return
+        }
+        
+        do {
+            let array: [Double] = try json.value(for: "floatArray")
+            XCTAssertEqual(array,[9.123, 0.000001, 0.1, -2])
+        } catch {
+            XCTFail(String(describing: error))
+        }
+    }
 }
 
 private struct Address: Unmarshaling {
