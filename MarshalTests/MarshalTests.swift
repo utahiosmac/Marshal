@@ -181,10 +181,10 @@ class MarshalTests: XCTestCase {
         let expectation = self.expectation(description: "type mismatch")
         do {
             let totesNotADict: JSONObject? = try jsonObject.value(for: "not a dictionary")
-            XCTFail("what are you? \(totesNotADict)")
+            XCTFail("what are you? \(String(describing: totesNotADict))")
             
             let alsoNotADictionary: JSONObject? = try jsonObject.value(for: "also not a dictionary")
-            XCTFail("what are you? \(alsoNotADictionary)")
+            XCTFail("what are you? \(String(describing: alsoNotADictionary))")
         } catch {
             if case MarshalError.typeMismatchWithKey = error {
                 expectation.fulfill()
@@ -206,7 +206,7 @@ class MarshalTests: XCTestCase {
         let expectation = self.expectation(description: "type mismatch")
         do {
             let notAnArray: [JSONObject]? = try jsonObject.value(for: "not an array")
-            XCTFail("should have thrown instead of returning this: \(notAnArray)")
+            XCTFail("should have thrown instead of returning this: \(String(describing: notAnArray))")
         } catch {
             if case MarshalError.typeMismatchWithKey = error {
                 expectation.fulfill()
@@ -472,7 +472,7 @@ class MarshalTests: XCTestCase {
 
         let optionalArrayOfOptionalCars: [Car?]? = try? json.value(for: "cars")
         XCTAssertNotNil(optionalArrayOfOptionalCars, "optionalArrayOfOptionalCars should not be nil")
-        XCTAssert(optionalArrayOfOptionalCars?.count == 8, "optionalArrayOfOptionalCars should have 8 objects. Actual count = \(optionalArrayOfOptionalCars?.count)")
+        XCTAssert(optionalArrayOfOptionalCars?.count == 8, "optionalArrayOfOptionalCars should have 8 objects. Actual count = \(String(describing: optionalArrayOfOptionalCars?.count))")
         XCTAssert(optionalArrayOfOptionalCars?.contains(where: { $0?.make == "Lexus" }) == false, "optionalArrayOfOptionalCars should not contain a Lexus because the Lexus was malformed")
         XCTAssert(optionalArrayOfOptionalCars?[1] == nil, "optionalArrayOfOptionalCars[1] should be nil")
         
@@ -480,7 +480,7 @@ class MarshalTests: XCTestCase {
             let arrayOfOptionalCars: [Car?] = try json.value(for: "cars")
             
             XCTAssertNotNil(arrayOfOptionalCars, "arrayOfOptionalCars should not be nil")
-            XCTAssert(arrayOfOptionalCars.count == 8, "arrayOfOptionalCars should have 8 objects. Actual count = \(optionalArrayOfOptionalCars?.count)")
+            XCTAssert(arrayOfOptionalCars.count == 8, "arrayOfOptionalCars should have 8 objects. Actual count = \(String(describing: optionalArrayOfOptionalCars?.count))")
             XCTAssert(arrayOfOptionalCars.contains(where: { $0?.make == "Lexus" }) == false, "arrayOfOptionalCars should not contain a Lexus because the Lexus was malformed")
             XCTAssert(arrayOfOptionalCars[1] == nil, "arrayOfOptionalCars[1] should be nil")
         }
@@ -498,7 +498,7 @@ class MarshalTests: XCTestCase {
         }
 
         let arrayOfCarsWithoutInvalidObjects: [Car]? = try? json.value(for: "cars", discardingErrors: true)
-        XCTAssert(arrayOfCarsWithoutInvalidObjects?.count == 5, "arrayOfCarsWithoutInvalidObjects should have 5 objects. Actual count = \(arrayOfCarsWithoutInvalidObjects?.count)")
+        XCTAssert(arrayOfCarsWithoutInvalidObjects?.count == 5, "arrayOfCarsWithoutInvalidObjects should have 5 objects. Actual count = \(String(describing: arrayOfCarsWithoutInvalidObjects?.count))")
         XCTAssert(arrayOfCarsWithoutInvalidObjects?.contains(where: { $0.make == "Lexus" }) == false, "arrayOfCarsWithoutInvalidObjects should not contain a Lexus because the Lexus was malformed")
     }
 }
