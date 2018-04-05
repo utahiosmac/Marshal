@@ -33,6 +33,7 @@
 		CC7504601DA6B27500643B7A /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC75045F1DA6B27500643B7A /* Migration.swift */; };
 		CCAE549F1CFDF9D30069AC65 /* UnmarshalingWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAE549E1CFDF9D30069AC65 /* UnmarshalingWithContext.swift */; };
 		CCB6D6C21CF90E7F00422F4C /* UnmarshalingWithContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB6D6C01CF8F2F500422F4C /* UnmarshalingWithContextTests.swift */; };
+		E4605F141EE94EF4000147B7 /* FloatArray.json in Resources */ = {isa = PBXBuildFile; fileRef = E4605F131EE94EF4000147B7 /* FloatArray.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		CC75045F1DA6B27500643B7A /* Migration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Migration.swift; path = Sources/Migration.swift; sourceTree = SOURCE_ROOT; };
 		CCAE549E1CFDF9D30069AC65 /* UnmarshalingWithContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnmarshalingWithContext.swift; path = Sources/UnmarshalingWithContext.swift; sourceTree = SOURCE_ROOT; };
 		CCB6D6C01CF8F2F500422F4C /* UnmarshalingWithContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnmarshalingWithContextTests.swift; sourceTree = "<group>"; };
+		E4605F131EE94EF4000147B7 /* FloatArray.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FloatArray.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				71EFC3A71CCB4EAF00394E57 /* PerformanceTestObjects.swift */,
 				71EFC3AB1CCB513300394E57 /* PerformanceTests.swift */,
 				CCB6D6C01CF8F2F500422F4C /* UnmarshalingWithContextTests.swift */,
+				E4605F131EE94EF4000147B7 /* FloatArray.json */,
 			);
 			path = MarshalTests;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4605F141EE94EF4000147B7 /* FloatArray.json in Resources */,
 				7112BA9B1C7ECD5600B657F9 /* People.json in Resources */,
 				ABEFEBDB1DF4BFEA00D6D6CD /* PeopleByKey.json in Resources */,
 				AE5720E71C7FE97E00D45DE3 /* TestSimpleSet.json in Resources */,
