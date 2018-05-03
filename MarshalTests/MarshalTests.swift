@@ -136,7 +136,7 @@ class MarshalTests: XCTestCase {
         self.waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testDicionary() {
+    func testDictionary() {
         let path = Bundle(for: type(of: self)).path(forResource: "TestDictionary", ofType: "json")!
         var data = try! Data(contentsOf: URL(fileURLWithPath: path))
         var json: JSONObject = try! JSONParser.JSONObjectWithData(data)
@@ -291,6 +291,40 @@ class MarshalTests: XCTestCase {
         
         waitForExpectations(timeout: 1, handler: nil)
     }
+    
+    func testCustomObjectsCodable() {
+        let path = Bundle(for: type(of: self)).path(forResource: "People", ofType: "json")!
+        let data = try! Data(contentsOf: URL(fileURLWithPath: path))
+        let obj = try! JSONParser.JSONObjectWithData(data)
+        let people: [PersonCodable] = try! obj.value(for: "people")
+        let person: PersonCodable = try! obj.value(for: "person")
+        XCTAssertEqual(people.first!.firstName, "Jason")
+        XCTAssertEqual(person.firstName, "Jason")
+        XCTAssertEqual(person.score, 42)
+        XCTAssertEqual(people.last!.address!.city, "Cupertino")
+        
+        let expectation1 = expectation(description: "error test")
+        do {
+            let _:AgedPersonCodable = try obj.value(for: "person")
+        }
+        catch {
+            if case MarshalError.keyNotFound = error {
+                expectation1.fulfill()
+            }
+        }
+        
+        let expectation2 = expectation(description: "array error test")
+        do {
+            let _:[AgedPersonCodable] = try obj.value(for: "people")
+        }
+        catch {
+            if case MarshalError.keyNotFound = error {
+                expectation2.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
 
     func testContainedCustomObjects() {
         let path = Bundle(for: type(of: self)).path(forResource: "PeopleByKey", ofType: "json")!
@@ -343,7 +377,6 @@ class MarshalTests: XCTestCase {
         let iOne: MyIntEnum = try! json.value(for: "iOne")
         XCTAssertEqual(iOne, MyIntEnum.one)
     }
-    
 
     func testSet() {
         let path = Bundle(for: type(of: self)).path(forResource: "TestSimpleSet", ofType: "json")!
@@ -544,6 +577,15 @@ private struct Address: Unmarshaling {
     }
 }
 
+private struct AddressCodable: Unmarshaling, Codable {
+    let street:String
+    let city:String
+    init(object json: MarshaledObject) throws {
+        street = try json.value(for: CodingKeys.street)
+        city = try json.value(for: CodingKeys.city)
+    }
+}
+
 private struct Person: Unmarshaling {
     let firstName:String
     let lastName:String
@@ -558,10 +600,38 @@ private struct Person: Unmarshaling {
     }
 }
 
+private struct PersonCodable: Unmarshaling, Codable {
+    enum CodingKeys: String, CodingKey {
+        case firstName = "first"
+        case lastName = "last"
+        case score
+        case address
+    }
+    
+    let firstName:String
+    let lastName:String
+    let score:Int
+    let address:AddressCodable?
+    
+    init(object json: MarshaledObject) throws {
+        firstName = try json.value(for: CodingKeys.firstName)
+        lastName = try json.value(for: CodingKeys.lastName)
+        score = try json.value(for: CodingKeys.score)
+        address = try json.value(for: CodingKeys.address)
+    }
+}
+
 private struct AgedPerson: Unmarshaling {
     var age:Int = 0
     init(object: MarshaledObject) throws {
         age = try object.value(for: "age")
+    }
+}
+
+private struct AgedPersonCodable: Unmarshaling, Codable {
+    var age:Int = 0
+    init(object: MarshaledObject) throws {
+        age = try object.value(for: CodingKeys.age)
     }
 }
 

@@ -14,12 +14,17 @@
 import Foundation
 
 
-public protocol KeyType {
-    var stringValue: String { get }
-}
+public typealias KeyType = CodingKey
 
-extension String: KeyType {
-    public var stringValue: String {
-        return self
+extension String: CodingKey {
+    public var stringValue: String { return self }
+    public var intValue: Int? { return nil }
+    
+    public init?(stringValue: String) {
+        self = String(stringValue)
+    }
+    
+    public init?(intValue: Int) {
+        return nil
     }
 }
