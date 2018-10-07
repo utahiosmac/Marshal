@@ -220,11 +220,11 @@
 				TargetAttributes = {
 					AFBED24E1C7E1AAB00622331 = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = "";
 					};
 					AFBED2581C7E1AAB00622331 = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = "";
 					};
 				};
 			};
@@ -447,7 +447,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.utahiosmac.Marshal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -468,7 +468,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -480,7 +480,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.utahiosmac.MarshalTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -493,7 +493,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.utahiosmac.MarshalTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
