@@ -48,7 +48,10 @@ public extension MarshaledObject {
         var accumulator: Any = self
     
         for component in finalComponents {
-            if let componentData = accumulator as? Self, let value = componentData.optionalAny(for: component) {
+            if let componentData = accumulator as? [Any], let value = componentData.optionalAny(for: component) {
+                accumulator = value
+                continue
+            } else if let componentData = accumulator as? Self, let value = componentData.optionalAny(for: component) {
                 accumulator = value
                 continue
             }
