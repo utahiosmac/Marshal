@@ -458,7 +458,7 @@ class MarshalTests: XCTestCase {
         }
     }
 
-    func testArraysWithOptionalObjects() {
+    func testArraysWithOptionalObjects() throws {
         guard let path = Bundle(for: type(of: self)).path(forResource: "TestMissingData", ofType: "json"),
             let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
             let json = try? JSONParser.JSONObjectWithData(data) else {
@@ -467,10 +467,10 @@ class MarshalTests: XCTestCase {
         }
         
         // Using normal parsing, if any of the objects fail initialization they all fail
-        let failedArrayOfCars: [Car]? = try? json.value(for: "cars")
+        let failedArrayOfCars: [Car]? = try json.value(for: "cars")
         XCTAssertNil(failedArrayOfCars, "failedArrayOfCars should be nil")
 
-        let optionalArrayOfOptionalCars: [Car?]? = try? json.value(for: "cars")
+        let optionalArrayOfOptionalCars: [Car?]? = try json.value(for: "cars")
         XCTAssertNotNil(optionalArrayOfOptionalCars, "optionalArrayOfOptionalCars should not be nil")
         XCTAssert(optionalArrayOfOptionalCars?.count == 8, "optionalArrayOfOptionalCars should have 8 objects. Actual count = \(String(describing: optionalArrayOfOptionalCars?.count))")
         XCTAssert(optionalArrayOfOptionalCars?.contains(where: { $0?.make == "Lexus" }) == false, "optionalArrayOfOptionalCars should not contain a Lexus because the Lexus was malformed")
