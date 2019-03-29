@@ -98,7 +98,7 @@ public extension MarshaledObject {
     
     func value<A: ValueType>(for key: KeyType) throws -> [A?]? {
         do {
-            return try self.value(for: key) as [A]
+            return try self.value(for: key) as [A?]
         }
         catch MarshalError.keyNotFound {
             return nil
