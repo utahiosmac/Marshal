@@ -41,9 +41,9 @@ class MarshalTests: XCTestCase {
         self.measure {
             let one: Int = try! self.object.value(for: "dict.one")
             XCTAssertEqual(one, 1)
-        	let valTwo: Int = try! self.object.value(for: "val\\.two")
+            let valTwo: Int = try! self.object.value(for: "val\\.two")
             XCTAssertEqual(valTwo, 2)
-        	let two: Int = try! self.object.value(for: "dict.sub\\.dict.two")
+            let two: Int = try! self.object.value(for: "dict.sub\\.dict.two")
             XCTAssertEqual(two, 2)
             let str: String = try! self.object.value(for: "str")
             XCTAssertEqual(str, "Hello, World!")
