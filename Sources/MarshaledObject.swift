@@ -22,31 +22,31 @@ public protocol MarshaledObject {
 public extension MarshaledObject {
     public func any(for key: KeyType) throws -> Any {
         let pathComponents = key.stringValue.split(separator: ".").map(String.init)
-	
-        //	Re-combine components ending in backslash…
-	
-		var finalComponents = [String]()
-		var comp = ""
-		for component in pathComponents {
-			if component.hasSuffix("\\") {
-				let c = String(component.dropLast())
-				if comp.count > 0 {
-					comp += "."
-				}
-				comp += c
-			} else {
-				if comp.count > 0 {
-					comp += "." + component
-					finalComponents.append(comp)
-					comp = ""
-				} else {
-					finalComponents.append(component)
-				}
-			}
-		}
-	
+    
+        //  Re-combine components ending in backslash…
+    
+        var finalComponents = [String]()
+        var comp = ""
+        for component in pathComponents {
+            if component.hasSuffix("\\") {
+                let c = String(component.dropLast())
+                if comp.count > 0 {
+                    comp += "."
+                }
+                comp += c
+            } else {
+                if comp.count > 0 {
+                    comp += "." + component
+                    finalComponents.append(comp)
+                    comp = ""
+                } else {
+                    finalComponents.append(component)
+                }
+            }
+        }
+    
         var accumulator: Any = self
-	
+    
         for component in finalComponents {
             if let componentData = accumulator as? Self, let value = componentData.optionalAny(for: component) {
                 accumulator = value

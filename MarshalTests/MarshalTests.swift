@@ -39,7 +39,7 @@ class MarshalTests: XCTestCase {
     
     func testBasics() {
         self.measure {
-        	let one: Int = try! self.object.value(for: "dict.one")
+            let one: Int = try! self.object.value(for: "dict.one")
             XCTAssertEqual(one, 1)
         	let valTwo: Int = try! self.object.value(for: "val\\.two")
             XCTAssertEqual(valTwo, 2)
