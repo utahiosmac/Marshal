@@ -22,6 +22,8 @@ class MarshalTests: XCTestCase {
                                      "object": ["foo": 3, "str": "Hello, World!"],
                                      "url": "http://apple.com",
                                      "junk": "garbage",
+                                     "dict": [ "one" : 1, "sub.dict" : [ "two" : 2 ] ],
+                                     "val.two" : 2,
                                      "urls": ["http://apple.com", "http://github.com"]]
     
     override func setUp() {
@@ -37,6 +39,12 @@ class MarshalTests: XCTestCase {
     
     func testBasics() {
         self.measure {
+            let one: Int = try! self.object.value(for: "dict.one")
+            XCTAssertEqual(one, 1)
+            let valTwo: Int = try! self.object.value(for: "val\\.two")
+            XCTAssertEqual(valTwo, 2)
+            let two: Int = try! self.object.value(for: "dict.sub\\.dict.two")
+            XCTAssertEqual(two, 2)
             let str: String = try! self.object.value(for: "str")
             XCTAssertEqual(str, "Hello, World!")
             //    var foo1: String = try object.value(for: "foo")
