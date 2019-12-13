@@ -22,6 +22,8 @@ class MarshalTests: XCTestCase {
                                      "object": ["foo": 3, "str": "Hello, World!"],
                                      "url": "http://apple.com",
                                      "junk": "garbage",
+                                     "dict": [ "one" : 1, "sub.dict" : [ "two" : 2 ] ],
+                                     "val.two" : 2,
                                      "urls": ["http://apple.com", "http://github.com"]]
     
     override func setUp() {
@@ -37,6 +39,12 @@ class MarshalTests: XCTestCase {
     
     func testBasics() {
         self.measure {
+            let one: Int = try! self.object.value(for: "dict.one")
+            XCTAssertEqual(one, 1)
+            let valTwo: Int = try! self.object.value(for: "val\\.two")
+            XCTAssertEqual(valTwo, 2)
+            let two: Int = try! self.object.value(for: "dict.sub\\.dict.two")
+            XCTAssertEqual(two, 2)
             let str: String = try! self.object.value(for: "str")
             XCTAssertEqual(str, "Hello, World!")
             //    var foo1: String = try object.value(for: "foo")
@@ -458,7 +466,7 @@ class MarshalTests: XCTestCase {
         }
     }
 
-    func testArraysWithOptionalObjects() {
+    func testArraysWithOptionalObjects() throws {
         guard let path = Bundle(for: type(of: self)).path(forResource: "TestMissingData", ofType: "json"),
             let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
             let json = try? JSONParser.JSONObjectWithData(data) else {
@@ -467,10 +475,10 @@ class MarshalTests: XCTestCase {
         }
         
         // Using normal parsing, if any of the objects fail initialization they all fail
-        let failedArrayOfCars: [Car]? = try? json.value(for: "cars")
+        let failedArrayOfCars: [Car]? = try json.value(for: "cars")
         XCTAssertNil(failedArrayOfCars, "failedArrayOfCars should be nil")
 
-        let optionalArrayOfOptionalCars: [Car?]? = try? json.value(for: "cars")
+        let optionalArrayOfOptionalCars: [Car?]? = try json.value(for: "cars")
         XCTAssertNotNil(optionalArrayOfOptionalCars, "optionalArrayOfOptionalCars should not be nil")
         XCTAssert(optionalArrayOfOptionalCars?.count == 8, "optionalArrayOfOptionalCars should have 8 objects. Actual count = \(String(describing: optionalArrayOfOptionalCars?.count))")
         XCTAssert(optionalArrayOfOptionalCars?.contains(where: { $0?.make == "Lexus" }) == false, "optionalArrayOfOptionalCars should not contain a Lexus because the Lexus was malformed")

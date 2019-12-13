@@ -64,3 +64,4 @@ fastlane/report.xml
 fastlane/screenshots
 
 WorkspaceSettings.xcsettings
+.swiftpm
