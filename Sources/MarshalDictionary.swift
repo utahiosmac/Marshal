@@ -28,6 +28,15 @@ extension Dictionary: MarshaledObject {
     }
 }
 
+/*
+	On Swift platforms without the Objective-C runtime (like Linux),
+	there’s no `NSObject.value(forKeyPath:)`. Given that it’s unlikely
+	a client will be trying to use Objective-C in these	environments,
+	conditionally compiling these extensions is probably okay.
+*/
+
+#if canImport(ObjectiveC)
+
 extension NSDictionary: ValueType { }
 
 extension NSDictionary: MarshaledObject {
@@ -45,3 +54,5 @@ extension NSDictionary: MarshaledObject {
         return self[key]
     }
 }
+
+#endif
