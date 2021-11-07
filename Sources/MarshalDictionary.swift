@@ -41,6 +41,9 @@ extension NSDictionary: ValueType { }
 
 extension NSDictionary: MarshaledObject {
     public func any(for key: KeyType) throws -> Any {
+        if let value = self.object(forKey: key.stringValue) {
+            return value
+        }
         guard let value: Any = self.value(forKeyPath: key.stringValue) else {
             throw MarshalError.keyNotFound(key: key)
         }
