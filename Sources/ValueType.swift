@@ -140,6 +140,18 @@ extension URL: ValueType {
     }
 }
 
+extension UUID: ValueType {
+    public static func value(from object: Any) throws -> UUID {
+        guard let s = object as? String else {
+            throw MarshalError.typeMismatch(expected: String.self, actual: type(of: object))
+        }
+        guard let objectValue = UUID(uuidString: s) else {
+            throw MarshalError.typeMismatch(expected: "valid UUID string", actual: s)
+        }
+        return objectValue
+    }
+}
+
 extension Int8: ValueType {
     public static func value(from object: Any) throws -> Int8 {
         guard let value = object as? Int else {
