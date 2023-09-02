@@ -217,3 +217,242 @@ extension Character: ValueType {
         }
     }
 #endif
+
+
+
+extension
+Date : ValueType
+{
+	/**
+		Parses seconds since 1970.
+	*/
+	
+	public
+	static
+	func
+	value(from inObj: Any)
+		throws
+		-> Date
+	{
+		if let secondsSince1970 = inObj as? Double
+		{
+			let date = Date(timeIntervalSince1970: secondsSince1970)
+			return date
+		}
+		else if let str = inObj as? String,
+			let secondsSince1970 = Double(str)
+		{
+			let date = Date(timeIntervalSince1970: secondsSince1970)
+			return date
+		}
+		
+		throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: inObj))
+	}
+}
+
+extension
+Decimal : ValueType
+{
+	public
+	static
+	func
+	value(from inObj: Any)
+		throws
+		-> Decimal
+	{
+		if let jsonV = inObj as? Int
+		{
+			let v = Decimal(jsonV)
+			return v
+		}
+		else if let jsonV = inObj as? Double
+		{
+			let v = Decimal(jsonV)
+			return v
+		}
+		else if let str = inObj as? String,
+			let v = Decimal(string: str)
+		{
+			return v
+		}
+		else if let v = inObj as? Decimal
+		{
+			return v
+		}
+		
+		throw MarshalError.typeMismatch(expected: Decimal.self, actual: type(of: inObj))
+	}
+}
+
+extension
+UUID : ValueType
+{
+	public
+	static
+	func
+	value(from inObj: Any)
+		throws
+		-> UUID
+	{
+		if let v = inObj as? UUID
+		{
+			return v
+		}
+		else if let jsonV = inObj as? String,
+			let v = UUID(uuidString: jsonV)
+		{
+			return v
+		}
+		
+		throw MarshalError.typeMismatch(expected: UUID.self, actual: type(of: inObj))
+	}
+}
+
+extension
+MarshaledObject
+{
+	public
+	func
+	value(for inKey: KeyType, dateEncoding inEncoding: Date.JSONEncoding)
+		throws
+		-> Date
+	{
+		let any = try self.any(for: inKey)
+		
+		switch (inEncoding)
+		{
+			case .secondsSince1970, .millisecondsSince1970, .secondsSinceReferenceDate:
+				//	Get the time interval as a Double from either a proper number or a string…
+				
+				let timeInterval: Double
+				if let v = any as? Double
+				{
+					timeInterval = v
+				}
+				else if let v = any as? Int
+				{
+					timeInterval = Double(v)
+				}
+				else if let s = any as? String,
+					let v = Double(s)
+				{
+					timeInterval = v
+				}
+				else
+				{
+					throw MarshalError.typeMismatch(expected: Double.self, actual: type(of: any))
+				}
+				switch (inEncoding)
+				{
+					case .secondsSince1970:				return Date(timeIntervalSince1970: timeInterval)
+					case .millisecondsSince1970:		return Date(timeIntervalSince1970: timeInterval / 1000.0)
+					case .secondsSinceReferenceDate:	return Date(timeIntervalSinceReferenceDate: timeInterval)
+					
+					default:
+						fatalError("Impossible encoding")
+				}
+				
+			//	The date is coming in the specified (text) format…
+			
+			case .formatted(let format):
+				let df = DateFormatter()
+				df.dateFormat = format
+				return try date(fromString: any, formatter: df)
+			
+			case .formatter(let df):
+				return try date(fromString: any, formatter: df)
+		}
+	}
+	
+	func
+	value(for inKey: KeyType, dateEncoding inEncoding: Date.JSONEncoding)
+		throws
+		-> Date?
+	{
+		do
+		{
+			let d: Date = try self.value(for: inKey, dateEncoding: inEncoding)
+			return d
+		}
+		
+		catch
+		{
+			return nil
+		}
+	}
+	
+	fileprivate
+	func
+	date(fromString inS: Any, formatter inDF: DateFormatter)
+		throws
+		-> Date
+	{
+		if let s = inS as? String,
+			let date = inDF.date(from: s)
+		{
+			return date
+		}
+		else
+		{
+			throw MarshalError.typeMismatch(expected: String.self, actual: type(of: any))
+		}
+	}
+}
+
+	
+extension
+Date
+{
+	public
+	enum
+	JSONEncoding
+	{
+		case secondsSince1970
+		case millisecondsSince1970
+		case secondsSinceReferenceDate
+		case formatted(String)
+		case formatter(DateFormatter)
+	}
+}
+
+/*
+	I can't make the following work, in that Marshal never calls it.
+	I think it's a bug in Marshal, because it takes a slightly inconsistent
+	path when using Context.
+*/
+
+#if false
+protocol
+MarshalDateDeserializationContext
+{
+	var		dateFormat: MarshalDateFormat { get set }
+}
+
+enum
+MarshalDateFormat
+{
+	case secondsSince1970
+	case millisecondsSince1970
+}
+
+public
+struct
+AuctionDeserializationContext : MarshalDateDeserializationContext
+{
+	var		dateFormat				=	MarshalDateFormat.millisecondsSince1970
+}
+
+extension
+Date : UnmarshalingWithContext
+{
+	public
+	static
+	func
+	value(from inObj: MarshaledObject, inContext: AuctionDeserializationContext)
+		throws
+		-> Date
+	{
+		return Date()
+	}
+}
+#endif
